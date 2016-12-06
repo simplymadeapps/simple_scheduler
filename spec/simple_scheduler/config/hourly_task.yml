@@ -1,0 +1,4 @@
+hourly_task:
+  class: "SimpleSchedulerTestJob"
+  every: "1.hour"
+  at: "*:00"

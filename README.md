@@ -1,0 +1,212 @@
+# Simple Scheduler
+
+Simple Scheduler is a scheduling add-on that is designed to be used with
+[Sidekiq](http://sidekiq.org) and
+[Heroku Scheduler](https://elements.heroku.com/addons/scheduler). It
+gives you the ability to **schedule tasks at any interval** without adding
+a clock process. Heroku Scheduler only allows you to schedule tasks every 10 minutes,
+every hour, or every day.
+
+## Requirements
+
+You must be using:
+
+- [ActiveJob](https://github.com/rails/rails/tree/master/activejob)
+- [Sidekiq](http://sidekiq.org)
+- [Heroku Scheduler](https://elements.heroku.com/addons/scheduler)
+
+Both Active Job and Sidekiq::Worker classes can be queued by the scheduler.
+
+## Getting Started
+
+Create a configuration file `config/simple_scheduler.yml`:
+
+```yml
+# Global configuration options and their defaults. These can also be set on each task.
+queue_ahead: 360 # Number of minutes to queue jobs into the future
+tz: nil # The application time zone will be used by default
+
+# Runs once every 2 minutes
+simple_task:
+  class: "SomeActiveJob"
+  every: "2.minutes"
+
+# Runs once every day at 4:00 AM
+overnight_task:
+  class: "SomeSidekiqWorker"
+  every: "1.day"
+  at: "4:00"
+
+# Runs once every hour at the half hour
+half_hour_task:
+  class: "HalfHourTask"
+  every: "30.minutes"
+  at: "*:30"
+
+# Runs once every week on Saturdays at 12:00 AM
+weekly_task:
+  class: "WeeklyJob"
+  every: "1.week"
+  at: "Sat 0:00"
+  tz: "America/Chicago"
+```
+
+### Task options
+
+#### :class
+
+The class name of the ActiveJob or Sidekiq::Worker. Your job or
+worker class should accept the expected run time as a parameter
+on the `perform` method.
+
+#### :every
+
+How frequently the task should be performed as an ActiveSupport duration definition.
+
+```ruby
+1.day
+5.days
+12.hours
+20.minutes
+1.week
+```
+
+#### :at (optional)
+
+This is the starting point for the `every` duration. If not given, the job will
+run immediately when the configuration file is loaded for the first time and will
+follow the `every` duration to determine future execution times.
+
+Valid string formats/examples:
+
+```
+18:00
+ 3:30
+**:00
+ *:30
+Sun 2:00
+[Sun|Mon|Tue|Wed|Thu|Fri|Sat] 00:00
+```
+
+Add the rake task to Heroku Scheduler and set it to run every 10 minutes:
+
+```
+rake simple_scheduler -C config/simple_scheduler.yml
+```
+
+The file `config/simple_scheduler.yml` will be used by default, but it may be
+useful to point to another configuration file in non-production environments.
+
+## Writing Your Jobs
+
+Your Active Job or Sidekiq Worker must accept the task name and time stamp
+as arguments. This is so they can be queued properly and so your job can
+use the scheduled time to know when it was supposed to run vs the current time.
+
+```ruby
+class ExampleJob < ActiveJob::Base
+  # @param task_name [String] This is the key used in the YAML file to define the task
+  # @param time [Integer] The epoch time for when the job was scheduled to be run
+  def perform(task_name, time)
+    puts task_name
+    puts Time.at(time)
+  end
+end
+```
+
+When writing your jobs, you need to account for any possible server downtime.
+The most common downtime would be caused by Heroku's required daily restart.
+
+To ensure that your tasks always run, the jobs are queued in advance and it's
+possible the jobs may not be executed at the exact time that you configured
+them to run. If there is extended downtime, your jobs may back up and there
+is no guarantee of the order they will be executed when your worker process
+comes back online.
+
+Because there is no guarantee that the job is run at the exact time given in
+the configuration, the time the job was expected to run will be passed to
+the job so you can handle situations where the time it was run doesn't match
+the time it was expected to run.
+
+### How It Works
+
+Once the rake task is added to Heroku Scheduler, the Simple Scheduler library
+will load the configuration file every 10 minutes, and ensure that each task
+has jobs scheduled in the future be checking the `Sidekiq::ScheduledSet`.
+
+A minimum of two jobs is always added to the scheduled set. By default all
+jobs for the next six hours are queued in advance. This ensures that there is
+always one job in the queue that can be used to determine the next run time,
+even if one of the two was executed during the 10 minute scheduler wait time.
+
+### Server Downtime Example
+
+If you're using a gem like `clockwork`, there is no way for the clock process to
+know that the task was never run. If your task is scheduled for `12:00:00`, your
+clock process could possibly be restarted at `11:59:59` and your dyno might not
+be available until `12:00:20`.
+
+Simple Scheduler would have already enqueued the task hours before the task should actually
+run, so you still have to worry about the worker dyno restarting, but when the worker
+dyno becomes available, the enqueued task will be there and will be executed immediately.
+
+### Daily Digest Email Example
+
+Here's an example of a daily digest email that needs to go out at 8:00 AM for
+users in their local time zone. We need to run this every 15 minutes to handle
+all time zone offsets.
+
+config/simple_scheduler.yml:
+
+```yml
+# Runs every hour starting at the top of the hour + every 15 minutes
+daily_digest_task:
+  class: "DailyDigestEmailJob"
+  every: "15.minutes"
+  at: "*:00"
+```
+
+app/jobs/daily_digest_email_job.rb:
+
+```ruby
+class DailyDigestEmailJob < ApplicationJob
+  queue_as :default
+
+  # Called by Simple Scheduler and is given the scheduled time so decisions can be made
+  # based on when the job was scheduled to be run rather than when it was actually run.
+  # @param task_name [String] This is the key used in the YAML file to define the task
+  # @param time [Integer] The epoch time for when the job was scheduled to be run
+  def perform(task_name, time)
+    # Don't do this! This will be way too slow!
+    User.find_each do |user|
+      if user.digest_time == Time.at(time)
+        DigestMailer.daily(user).deliver_later
+      end
+    end
+  end
+end
+```
+
+app/models/user.rb:
+
+```ruby
+class User < ApplicationRecord
+  # Returns the time the user's daily digest should be
+  # delivered today based on the user's time zone.
+  # @return [DateTime]
+  def digest_time
+    "8:00 AM".in_time_zone(self.time_zone)
+  end
+end
+```
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+## License
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
