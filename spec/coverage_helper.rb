@@ -8,9 +8,8 @@ SimpleCov.at_exit do
 end
 
 SimpleCov.start do
+  add_filter "lib/simple_scheduler/railtie"
   add_filter "/spec/"
-  add_filter "config"
-  add_filter "vendor"
 end
 
 # Format the reports in a way I like
