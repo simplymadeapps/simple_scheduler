@@ -21,6 +21,20 @@ You must be using:
 
 Both Active Job and Sidekiq::Worker classes can be queued by the scheduler.
 
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem "simple_scheduler"
+```
+
+And then execute:
+
+```bash
+$ bundle
+```
+
 ## Getting Started
 
 Create a configuration file `config/simple_scheduler.yml`:
