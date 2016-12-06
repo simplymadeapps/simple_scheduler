@@ -1,5 +1,8 @@
 # Simple Scheduler
 
+[![Build Status](https://travis-ci.org/simplymadeapps/simple_scheduler.svg?branch=master)](https://travis-ci.org/simplymadeapps/simple_scheduler)
+[![Code Climate](https://codeclimate.com/github/simplymadeapps/simple_scheduler/badges/gpa.svg)](https://codeclimate.com/github/simplymadeapps/simple_scheduler)
+
 Simple Scheduler is a scheduling add-on that is designed to be used with
 [Sidekiq](http://sidekiq.org) and
 [Heroku Scheduler](https://elements.heroku.com/addons/scheduler). It
