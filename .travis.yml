@@ -2,3 +2,6 @@ language: ruby
 rvm:
   - 2.2.6
   - 2.3.3
+
+services:
+  - redis-server
