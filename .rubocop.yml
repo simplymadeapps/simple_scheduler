@@ -1,5 +1,16 @@
+Metrics/BlockLength:
+  Exclude:
+    - "spec/simple_scheduler/scheduler_job_spec.rb"
+    - "spec/simple_scheduler/task_spec.rb"
+
 Metrics/LineLength:
   Max: 120
+  Exclude:
+    - "spec/simple_scheduler/task_spec.rb"
+
+Style/IndentArray:
+  Exclude:
+    - "spec/simple_scheduler/task_spec.rb"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

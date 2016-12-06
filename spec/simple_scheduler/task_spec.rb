@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe SimpleScheduler::Task, type: :model do
+  # Active Job for testing
   class SimpleSchedulerTestJob < ActiveJob::Base
     def perform(task_name, time)
     end
@@ -262,7 +263,7 @@ describe SimpleScheduler::Task, type: :model do
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
         Timecop.freeze(Time.parse("2016-12-01 20:00:00 CST")) do
-          task.queue_ahead = 50400 # 5 weeks
+          task.queue_ahead = 50_400 # 5 weeks
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-02 0:00:00 CST"),
             Time.parse("2016-12-09 0:00:00 CST"),
@@ -297,7 +298,7 @@ describe SimpleScheduler::Task, type: :model do
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
         Timecop.freeze(Time.parse("2016-12-01 20:00:00 CST")) do
-          task.queue_ahead = 10080 # 1 week
+          task.queue_ahead = 10_080 # 1 week
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-02 0:30:00 CST"),
             Time.parse("2016-12-03 0:30:00 CST"),

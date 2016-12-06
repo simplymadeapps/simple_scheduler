@@ -735,3 +735,422 @@
   [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
   [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: cb1ae621-1f96-44b4-99c9-dc7b7a29eca9) to Test(default)
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1b975b66-30c9-486e-b678-41ceaac82e83] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1b975b66-30c9-486e-b678-41ceaac82e83] Enqueued SimpleSchedulerTestJob (Job ID: 95349000-5226-4a5a-9697-17abe23925fd) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1b975b66-30c9-486e-b678-41ceaac82e83] Enqueued SimpleSchedulerTestJob (Job ID: cd1b87d3-2417-4705-bf39-e94004adf55f) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1b975b66-30c9-486e-b678-41ceaac82e83] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.4ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [da19011d-a4b1-4897-b78f-4663b8b716ba] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [da19011d-a4b1-4897-b78f-4663b8b716ba] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.32ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Enqueued SimpleSchedulerTestJob (Job ID: bfd1d52e-c294-4a87-bd2c-fee082821c16) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Enqueued SimpleSchedulerTestJob (Job ID: d424291a-4126-436a-b541-ca1817d61a61) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Enqueued SimpleSchedulerTestJob (Job ID: a0e56b40-e8af-4b69-9acc-70102869d724) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Enqueued SimpleSchedulerTestJob (Job ID: 67ec12da-b2eb-4750-a140-64dddb84dc91) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Enqueued SimpleSchedulerTestJob (Job ID: c690707e-d45a-4ae9-b3d8-d008f5f72309) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Enqueued SimpleSchedulerTestJob (Job ID: 5db873d1-9c74-4286-8cbd-bdc8cc4579ab) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Enqueued SimpleSchedulerTestJob (Job ID: c7bb1371-2eac-44de-9e5a-2c68a2bb8a3e) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [6d567498-f08a-4e70-8a4d-1c227b83edba] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.97ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [625d3854-94ac-4dbc-9ecb-0ac61aa17d99] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [625d3854-94ac-4dbc-9ecb-0ac61aa17d99] Enqueued SimpleSchedulerTestJob (Job ID: 3f21b4ff-a981-40ec-a007-c161b29a84c4) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [625d3854-94ac-4dbc-9ecb-0ac61aa17d99] Enqueued SimpleSchedulerTestJob (Job ID: bb05b736-14f4-42b9-aa62-e2af8e77e35d) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [625d3854-94ac-4dbc-9ecb-0ac61aa17d99] Enqueued SimpleSchedulerTestJob (Job ID: 36ca1376-5a45-4ce6-82af-bd2296066a0f) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [625d3854-94ac-4dbc-9ecb-0ac61aa17d99] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.44ms
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9c53f8dd-a2b2-43ca-b355-ce8314ec8ef3] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9c53f8dd-a2b2-43ca-b355-ce8314ec8ef3] Enqueued SimpleSchedulerTestJob (Job ID: c2aa0b7a-6990-4d8e-8d58-ae10f5b0b439) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9c53f8dd-a2b2-43ca-b355-ce8314ec8ef3] Enqueued SimpleSchedulerTestJob (Job ID: 7fca6ee1-2d73-4c4a-a50d-af56b0a35cd0) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9c53f8dd-a2b2-43ca-b355-ce8314ec8ef3] Enqueued SimpleSchedulerTestJob (Job ID: e3f29be1-715c-4c97-b387-800b4b6b0381) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9c53f8dd-a2b2-43ca-b355-ce8314ec8ef3] Enqueued SimpleSchedulerTestJob (Job ID: 8774f4d8-91e0-46ff-9daa-b3c2c9498979) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9c53f8dd-a2b2-43ca-b355-ce8314ec8ef3] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.53ms
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: 46d9f3c3-096d-4371-8610-f5e3af165570) to Test(default)
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1c55a1db-d90a-4c44-a769-4199478ed836] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1c55a1db-d90a-4c44-a769-4199478ed836] Enqueued SimpleSchedulerTestJob (Job ID: 18766f83-c5a4-47c3-bf5c-abe4f8672310) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1c55a1db-d90a-4c44-a769-4199478ed836] Enqueued SimpleSchedulerTestJob (Job ID: 2688ccdf-7daa-458e-8330-116420fbde08) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1c55a1db-d90a-4c44-a769-4199478ed836] Performed SimpleScheduler::SchedulerJob from Test(default) in 4.01ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [199593b2-f949-40cf-a7ca-f0757719a585] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [199593b2-f949-40cf-a7ca-f0757719a585] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.33ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Enqueued SimpleSchedulerTestJob (Job ID: 1a10e89e-8c38-412e-92e7-d730d2d5c012) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Enqueued SimpleSchedulerTestJob (Job ID: ae3a2ea4-8a0f-4078-9719-daa86e218c8f) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Enqueued SimpleSchedulerTestJob (Job ID: 6a64579c-b3d5-4a9a-8015-5230daa2f9e4) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Enqueued SimpleSchedulerTestJob (Job ID: 2da0e51f-6ed3-495e-9c7a-ad57afba84d5) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Enqueued SimpleSchedulerTestJob (Job ID: de68026e-d740-4b8b-9450-caa51e204bd4) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Enqueued SimpleSchedulerTestJob (Job ID: 8ef94843-fa9b-43e5-bb3c-3a49ba673ea4) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Enqueued SimpleSchedulerTestJob (Job ID: 88dbb519-aec4-4969-8bcd-6e4a7aa9c7f3) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [36c7a6ec-fff1-43c9-8260-db923028c8db] Performed SimpleScheduler::SchedulerJob from Test(default) in 2.14ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4992b3d6-d733-4d3a-af8e-334d6dd6cc53] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4992b3d6-d733-4d3a-af8e-334d6dd6cc53] Enqueued SimpleSchedulerTestJob (Job ID: 11d0f3be-b3f8-4f78-b0d5-cc3a4683d2f0) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4992b3d6-d733-4d3a-af8e-334d6dd6cc53] Enqueued SimpleSchedulerTestJob (Job ID: 6c7b3cc5-eb90-4625-a39a-5c9e284c26d6) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4992b3d6-d733-4d3a-af8e-334d6dd6cc53] Enqueued SimpleSchedulerTestJob (Job ID: fe231540-2419-495b-8bfc-37d17c6a2788) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4992b3d6-d733-4d3a-af8e-334d6dd6cc53] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.72ms
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [SimpleScheduler::SchedulerJob] [41fc4901-b866-47b0-8eff-98853bfdcf25] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [41fc4901-b866-47b0-8eff-98853bfdcf25] Enqueued SimpleSchedulerTestJob (Job ID: 78769cd3-f7a8-49e7-8ba0-79b2dfbb1a92) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [41fc4901-b866-47b0-8eff-98853bfdcf25] Enqueued SimpleSchedulerTestJob (Job ID: a6056cfd-2dcd-4e1b-9898-6a19b7ba2156) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [41fc4901-b866-47b0-8eff-98853bfdcf25] Enqueued SimpleSchedulerTestJob (Job ID: ce7905c2-0be5-4223-8c1c-7d151b0651a3) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [41fc4901-b866-47b0-8eff-98853bfdcf25] Enqueued SimpleSchedulerTestJob (Job ID: 1235f886-2ee7-45c1-afbf-de5fc98aeb1f) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [41fc4901-b866-47b0-8eff-98853bfdcf25] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.63ms
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: 307ba36f-84a5-42b3-996f-04411c18c102) to Test(default)
+[ActiveJob] [SimpleScheduler::SchedulerJob] [b10b0cb6-fafc-4eaa-8546-82ed01a8ed78] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [b10b0cb6-fafc-4eaa-8546-82ed01a8ed78] Enqueued SimpleSchedulerTestJob (Job ID: ad6450d2-f9eb-457d-8c86-3f4b40007eb0) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [b10b0cb6-fafc-4eaa-8546-82ed01a8ed78] Enqueued SimpleSchedulerTestJob (Job ID: 343d81f2-c1fa-4baa-8d9a-d26f22bf2f4d) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [b10b0cb6-fafc-4eaa-8546-82ed01a8ed78] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.71ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [66a48277-ea30-4e04-b134-16e15857c238] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [66a48277-ea30-4e04-b134-16e15857c238] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.33ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Enqueued SimpleSchedulerTestJob (Job ID: 553b6103-f92d-4c92-94a6-16e1087f6636) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Enqueued SimpleSchedulerTestJob (Job ID: 08258b2d-11f2-4d1f-b259-2e1dee6971eb) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Enqueued SimpleSchedulerTestJob (Job ID: ad7b213c-91e2-43f3-912d-bc7648c295ab) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Enqueued SimpleSchedulerTestJob (Job ID: 467bbc66-ea8c-4db9-88bd-d3e9b2357f41) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Enqueued SimpleSchedulerTestJob (Job ID: 1046c185-712d-448d-bee3-c59eda33c325) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Enqueued SimpleSchedulerTestJob (Job ID: 6d5a15bf-69f4-4458-8570-27136353636d) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Enqueued SimpleSchedulerTestJob (Job ID: 36875e27-cab4-4c74-9ace-b22a82a36a6a) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [a969ca41-2c55-46dd-a5a3-ab971f935302] Performed SimpleScheduler::SchedulerJob from Test(default) in 2.32ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [eb59d074-1ed8-4287-b7b7-d2880a7d3823] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [eb59d074-1ed8-4287-b7b7-d2880a7d3823] Enqueued SimpleSchedulerTestJob (Job ID: 514238f4-101b-4bf6-9eaa-dc018fb869a3) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [eb59d074-1ed8-4287-b7b7-d2880a7d3823] Enqueued SimpleSchedulerTestJob (Job ID: 2397b65e-91eb-4f4c-875a-3fb60c51f7e2) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [eb59d074-1ed8-4287-b7b7-d2880a7d3823] Enqueued SimpleSchedulerTestJob (Job ID: 315eb33d-1a08-40a5-a1c9-f9ff5c4167e8) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [eb59d074-1ed8-4287-b7b7-d2880a7d3823] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.56ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [805eb725-e32b-42b5-a492-369f50fc0b50] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [805eb725-e32b-42b5-a492-369f50fc0b50] Enqueued SimpleSchedulerTestJob (Job ID: c9471732-f634-45da-8f7c-ebeb1723bff8) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [805eb725-e32b-42b5-a492-369f50fc0b50] Enqueued SimpleSchedulerTestJob (Job ID: 6b59b36f-6878-40af-a570-0b86a2327bc5) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [805eb725-e32b-42b5-a492-369f50fc0b50] Enqueued SimpleSchedulerTestJob (Job ID: 623025b2-e4d0-4bd8-803c-37cda93c3fa0) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [805eb725-e32b-42b5-a492-369f50fc0b50] Enqueued SimpleSchedulerTestJob (Job ID: 28d7c201-bd76-41a0-a4b7-ff89ed80fbd2) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [805eb725-e32b-42b5-a492-369f50fc0b50] Performed SimpleScheduler::SchedulerJob from Test(default) in 11.11ms
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: 2ea0106d-580f-4a99-a219-ccb9c2a8d180) to Test(default)
+[ActiveJob] [SimpleScheduler::SchedulerJob] [8f566db8-94ce-4eba-be9a-72a69f4d39b6] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [8f566db8-94ce-4eba-be9a-72a69f4d39b6] Enqueued SimpleSchedulerTestJob (Job ID: 3178dbcd-039b-4f89-95da-104da460960d) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [8f566db8-94ce-4eba-be9a-72a69f4d39b6] Enqueued SimpleSchedulerTestJob (Job ID: 59b1c69e-0112-4942-a81a-70e89c5c36f0) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [8f566db8-94ce-4eba-be9a-72a69f4d39b6] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.9ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [67035445-6472-4a4b-a80a-eeca339631d6] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [67035445-6472-4a4b-a80a-eeca339631d6] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.37ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Enqueued SimpleSchedulerTestJob (Job ID: 9ab4118f-fb76-4862-9239-45d4797d30e4) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Enqueued SimpleSchedulerTestJob (Job ID: 8a6d9fec-7054-4707-83a2-27edf832efd7) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Enqueued SimpleSchedulerTestJob (Job ID: e373bd9d-7c97-45a5-b3d8-b18e5ff16c5f) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Enqueued SimpleSchedulerTestJob (Job ID: 2a9525d5-b804-4e2f-b5fa-70d4f1f84b93) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Enqueued SimpleSchedulerTestJob (Job ID: c844c2e9-19e4-45cb-baf4-697739be6d6d) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Enqueued SimpleSchedulerTestJob (Job ID: e4b57568-6b9b-4b47-8220-c026b4e3f720) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Enqueued SimpleSchedulerTestJob (Job ID: 64424010-dd4c-47bc-865a-d9ace7c43b17) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c9c28831-490b-4262-9850-7fbf98f7e2e5] Performed SimpleScheduler::SchedulerJob from Test(default) in 2.37ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [7aca5251-e6a0-49a4-8bc4-3c1757132352] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [7aca5251-e6a0-49a4-8bc4-3c1757132352] Enqueued SimpleSchedulerTestJob (Job ID: 269b5563-6c1e-4550-88d9-8d99883a8265) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [7aca5251-e6a0-49a4-8bc4-3c1757132352] Enqueued SimpleSchedulerTestJob (Job ID: 5df74feb-1a34-4191-a0d9-2c41718ec178) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [7aca5251-e6a0-49a4-8bc4-3c1757132352] Enqueued SimpleSchedulerTestJob (Job ID: 16576fb7-a5b6-46b0-8012-9f4775e2c796) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [7aca5251-e6a0-49a4-8bc4-3c1757132352] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.73ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [483d0d25-9ce9-4366-b2f8-8016b5e00925] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [483d0d25-9ce9-4366-b2f8-8016b5e00925] Enqueued SimpleSchedulerTestJob (Job ID: dc1f362a-ba36-409a-bf62-9bcd187dcaf0) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [483d0d25-9ce9-4366-b2f8-8016b5e00925] Enqueued SimpleSchedulerTestJob (Job ID: f358ae35-0b6b-48cd-aa7c-a6651f516418) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [483d0d25-9ce9-4366-b2f8-8016b5e00925] Enqueued SimpleSchedulerTestJob (Job ID: 1c893e8c-97eb-4833-89b5-13b66e78ead1) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [483d0d25-9ce9-4366-b2f8-8016b5e00925] Enqueued SimpleSchedulerTestJob (Job ID: 20d431ab-3d1f-462b-8ab9-22e3b784c94f) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [483d0d25-9ce9-4366-b2f8-8016b5e00925] Performed SimpleScheduler::SchedulerJob from Test(default) in 10.34ms
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: 759cbaaf-ac88-47a5-955c-860119f4c613) to Test(default)
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3488d8fe-31bb-48a7-a376-6fcdbeb26f1e] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3488d8fe-31bb-48a7-a376-6fcdbeb26f1e] Enqueued SimpleSchedulerTestJob (Job ID: 7d30f5ce-a093-4579-b89e-fb7b95d465eb) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3488d8fe-31bb-48a7-a376-6fcdbeb26f1e] Enqueued SimpleSchedulerTestJob (Job ID: 90c9cada-5489-44da-9bc9-d2dc738e6ccc) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3488d8fe-31bb-48a7-a376-6fcdbeb26f1e] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.32ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [ddfa0584-1f1c-4e90-8b0b-4216bd7dc093] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [ddfa0584-1f1c-4e90-8b0b-4216bd7dc093] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.25ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Enqueued SimpleSchedulerTestJob (Job ID: 8390a456-6523-4482-8024-4e36a2f9ff58) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Enqueued SimpleSchedulerTestJob (Job ID: 5b620875-d1e0-4a45-abb8-d7968ef34b84) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Enqueued SimpleSchedulerTestJob (Job ID: c1af262c-ff79-487b-83fe-5d14ef0f15f8) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Enqueued SimpleSchedulerTestJob (Job ID: 054a94a1-3404-4a49-82a6-8375d47ff570) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Enqueued SimpleSchedulerTestJob (Job ID: d780152d-ebcf-44d2-86c0-ca713cc21242) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Enqueued SimpleSchedulerTestJob (Job ID: 05f0877f-50b1-4001-9e8f-06bcab70e3f5) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Enqueued SimpleSchedulerTestJob (Job ID: a3f04e5a-f925-4ce9-86b5-7803490929a7) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [4ed826cb-0f1f-4e03-a5f9-1db7c7650779] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.89ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2a14f930-6f19-4ec7-abe8-9a50db78b0c1] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2a14f930-6f19-4ec7-abe8-9a50db78b0c1] Enqueued SimpleSchedulerTestJob (Job ID: aa67e6e3-1121-4c67-a338-4699877c9bd7) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2a14f930-6f19-4ec7-abe8-9a50db78b0c1] Enqueued SimpleSchedulerTestJob (Job ID: 3e7ff1b1-a34c-4ca4-89a0-3e5a62ecff2c) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2a14f930-6f19-4ec7-abe8-9a50db78b0c1] Enqueued SimpleSchedulerTestJob (Job ID: ac3e9e0a-d4a2-4f84-ad9e-fbb061df13b8) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2a14f930-6f19-4ec7-abe8-9a50db78b0c1] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.28ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [158b8862-00e5-4936-a2a3-c1b1de967d1d] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [158b8862-00e5-4936-a2a3-c1b1de967d1d] Enqueued SimpleSchedulerTestJob (Job ID: 3be932d0-3a12-48e7-b561-aa6b879d59d1) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [158b8862-00e5-4936-a2a3-c1b1de967d1d] Enqueued SimpleSchedulerTestJob (Job ID: 60870e37-cd53-4bd9-84bc-02a8b506d783) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [158b8862-00e5-4936-a2a3-c1b1de967d1d] Enqueued SimpleSchedulerTestJob (Job ID: f24a968f-5159-4f2e-b99b-4e851c03f4f7) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [158b8862-00e5-4936-a2a3-c1b1de967d1d] Enqueued SimpleSchedulerTestJob (Job ID: ee3daa81-693e-41b7-9b1c-5cf5daf9dd77) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [158b8862-00e5-4936-a2a3-c1b1de967d1d] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.35ms
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: 434646ac-039a-4280-bc45-6325cdf2e088) to Test(default)
+[ActiveJob] [SimpleScheduler::SchedulerJob] [5b101716-f6fe-4bd3-b461-996df3e351d9] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [5b101716-f6fe-4bd3-b461-996df3e351d9] Enqueued SimpleSchedulerTestJob (Job ID: 33ad9b4d-892d-4038-a6c9-8aab0f5c4e60) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [5b101716-f6fe-4bd3-b461-996df3e351d9] Enqueued SimpleSchedulerTestJob (Job ID: a5ea41e5-96f3-4c4a-9871-d70f94408461) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [5b101716-f6fe-4bd3-b461-996df3e351d9] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.03ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [60f2f852-eed7-44d6-975c-f3e01d6fb340] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [60f2f852-eed7-44d6-975c-f3e01d6fb340] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.05ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Enqueued SimpleSchedulerTestJob (Job ID: cab8ab35-661f-4956-9da6-9811ee8c8ed3) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Enqueued SimpleSchedulerTestJob (Job ID: 2e23e978-7e2d-450b-bb47-665382e34983) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Enqueued SimpleSchedulerTestJob (Job ID: 7a73ca4e-9d47-44f2-994e-8fa0efa7d25c) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Enqueued SimpleSchedulerTestJob (Job ID: 2baf9520-6d17-4e64-840f-1c435b62ab34) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Enqueued SimpleSchedulerTestJob (Job ID: 1981b05a-bf0f-4db0-83a9-ab220e2e34b6) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Enqueued SimpleSchedulerTestJob (Job ID: c84a7928-0d24-4368-bd48-11b143e0c82d) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Enqueued SimpleSchedulerTestJob (Job ID: ee71cfe4-32b9-4d41-bc69-7a1bf244c6a7) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [81e52094-fac1-4ea0-9ae3-24a6c80a03c4] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.15ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [dd145615-d7cb-4081-913b-3f182ae837a3] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [dd145615-d7cb-4081-913b-3f182ae837a3] Enqueued SimpleSchedulerTestJob (Job ID: 53a7fd36-43e5-4bf9-88fc-840e9ca162c6) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [dd145615-d7cb-4081-913b-3f182ae837a3] Enqueued SimpleSchedulerTestJob (Job ID: db9bdd45-3852-40c2-bef4-bbf05ced7102) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [dd145615-d7cb-4081-913b-3f182ae837a3] Enqueued SimpleSchedulerTestJob (Job ID: 6f20ffc8-711c-4d44-9dc3-26cfae386745) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [dd145615-d7cb-4081-913b-3f182ae837a3] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.28ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1f969d7c-7f76-4085-9d6a-ea1c3a806a77] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1f969d7c-7f76-4085-9d6a-ea1c3a806a77] Enqueued SimpleSchedulerTestJob (Job ID: 0bcfa941-bd89-4a6e-8aac-6e727edace3f) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1f969d7c-7f76-4085-9d6a-ea1c3a806a77] Enqueued SimpleSchedulerTestJob (Job ID: e7225f14-59b6-4c4a-9636-9ce8162b2ab4) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1f969d7c-7f76-4085-9d6a-ea1c3a806a77] Enqueued SimpleSchedulerTestJob (Job ID: d7b78cd4-7a78-4e5f-a70b-faf333a7b5fc) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1f969d7c-7f76-4085-9d6a-ea1c3a806a77] Enqueued SimpleSchedulerTestJob (Job ID: a46c2ca1-8615-4f5d-8a80-1af3ec0de648) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1f969d7c-7f76-4085-9d6a-ea1c3a806a77] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.4ms
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: 52a2b3b0-8d65-467a-b777-88d0a0f30d94) to Test(default)
+[ActiveJob] [SimpleScheduler::SchedulerJob] [639b1f2c-6997-4faf-bede-88e03a2bf0cf] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [639b1f2c-6997-4faf-bede-88e03a2bf0cf] Enqueued SimpleSchedulerTestJob (Job ID: 7d4f6947-db1b-4ad5-8ba8-e46bef77f6a6) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [639b1f2c-6997-4faf-bede-88e03a2bf0cf] Enqueued SimpleSchedulerTestJob (Job ID: 2dc43092-400e-4aba-a7b8-48287875b994) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [639b1f2c-6997-4faf-bede-88e03a2bf0cf] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.29ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c171b4ac-3fdd-4d32-865f-1a4949aca5ea] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c171b4ac-3fdd-4d32-865f-1a4949aca5ea] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.67ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Enqueued SimpleSchedulerTestJob (Job ID: 5a1571f5-c1a8-40fd-b541-c83b4c3e06c7) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Enqueued SimpleSchedulerTestJob (Job ID: e382e357-45eb-449c-946d-59b414c5e7d7) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Enqueued SimpleSchedulerTestJob (Job ID: 1efbf5da-ae70-4908-bcc3-cf1768ef30a8) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Enqueued SimpleSchedulerTestJob (Job ID: fe7d2238-3784-47b5-984d-e92ae4a1617d) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Enqueued SimpleSchedulerTestJob (Job ID: 874a6b0d-0376-47bb-9977-e5e4eaa36a28) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Enqueued SimpleSchedulerTestJob (Job ID: 9a74fb23-ca9c-4d5d-9b96-150720f2e105) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Enqueued SimpleSchedulerTestJob (Job ID: 747abefb-20cc-4db6-9ec5-e1eb664a364d) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [46480957-a8ea-496e-8e46-7c705e914dbf] Performed SimpleScheduler::SchedulerJob from Test(default) in 2.46ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c355f0ab-bc12-4bdb-aa11-8c1c5df9442c] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c355f0ab-bc12-4bdb-aa11-8c1c5df9442c] Enqueued SimpleSchedulerTestJob (Job ID: 3438e759-91f4-448b-9962-d3d2ad21acef) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c355f0ab-bc12-4bdb-aa11-8c1c5df9442c] Enqueued SimpleSchedulerTestJob (Job ID: b9faf0c8-a034-4e43-b19a-ee3da1a3cb38) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c355f0ab-bc12-4bdb-aa11-8c1c5df9442c] Enqueued SimpleSchedulerTestJob (Job ID: f8f40228-9cd4-43b6-95ba-91723a0e3b43) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [c355f0ab-bc12-4bdb-aa11-8c1c5df9442c] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.3ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f5e95cb8-c1c0-49fb-8c23-dfe41141f1a1] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f5e95cb8-c1c0-49fb-8c23-dfe41141f1a1] Enqueued SimpleSchedulerTestJob (Job ID: becf7a50-64ce-40d1-92f2-e7affb4061db) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f5e95cb8-c1c0-49fb-8c23-dfe41141f1a1] Enqueued SimpleSchedulerTestJob (Job ID: 02be2b29-4207-49d8-9a6b-4ae69e313b85) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f5e95cb8-c1c0-49fb-8c23-dfe41141f1a1] Enqueued SimpleSchedulerTestJob (Job ID: 7cf823e5-26d1-4e88-bf35-457dcf9f2ae5) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f5e95cb8-c1c0-49fb-8c23-dfe41141f1a1] Enqueued SimpleSchedulerTestJob (Job ID: cb0a0ae2-826b-4da0-bc46-91e7a9e20ea0) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f5e95cb8-c1c0-49fb-8c23-dfe41141f1a1] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.37ms
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: 302063de-4b46-4250-b232-fbaf205529c1) to Test(default)
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d6cc72e6-5613-4f97-a7d6-738113c904fd] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d6cc72e6-5613-4f97-a7d6-738113c904fd] Enqueued SimpleSchedulerTestJob (Job ID: ed790907-3f04-43d1-a11b-08079ec03024) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d6cc72e6-5613-4f97-a7d6-738113c904fd] Enqueued SimpleSchedulerTestJob (Job ID: e40ff150-24c1-44fe-85ff-13a2078dd7b3) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d6cc72e6-5613-4f97-a7d6-738113c904fd] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.34ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f1ae28f7-b9a4-4d3e-9ba8-15a80fb91845] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f1ae28f7-b9a4-4d3e-9ba8-15a80fb91845] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.13ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Enqueued SimpleSchedulerTestJob (Job ID: 37ae0df9-c44f-4b55-84d8-8d0706a62937) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Enqueued SimpleSchedulerTestJob (Job ID: 64a91c23-a1b7-428f-a023-1873bb52c89f) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Enqueued SimpleSchedulerTestJob (Job ID: fe75f5ad-cfb4-4eee-b8a7-cf0339b2b5cc) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Enqueued SimpleSchedulerTestJob (Job ID: 82488c57-563a-431d-a230-597d43f107e7) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Enqueued SimpleSchedulerTestJob (Job ID: 4ecb6977-ffd9-4c7a-b0de-85db61b35d4b) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Enqueued SimpleSchedulerTestJob (Job ID: 24913325-4cec-4c82-aa9d-8511a52cc8f6) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Enqueued SimpleSchedulerTestJob (Job ID: a7f1b71f-42b9-4265-b504-d326f063dd05) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [d475d11c-ee4c-4e00-b457-fb8716f5d33b] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.8ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2e022d53-adbc-4a00-a406-131246d2eb99] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2e022d53-adbc-4a00-a406-131246d2eb99] Enqueued SimpleSchedulerTestJob (Job ID: 9d5ca527-ef43-4d37-8b0a-d8fbee8c514e) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2e022d53-adbc-4a00-a406-131246d2eb99] Enqueued SimpleSchedulerTestJob (Job ID: 6367b04f-44b1-435d-8d52-bc59817193d7) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2e022d53-adbc-4a00-a406-131246d2eb99] Enqueued SimpleSchedulerTestJob (Job ID: d5b3d645-7aed-41e8-9011-7d227e3dfef0) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [2e022d53-adbc-4a00-a406-131246d2eb99] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.23ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3ac4cf20-a018-4276-b560-38ac52ea58e1] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3ac4cf20-a018-4276-b560-38ac52ea58e1] Enqueued SimpleSchedulerTestJob (Job ID: e0ae16be-ef09-4bc9-9f96-802602eb5163) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3ac4cf20-a018-4276-b560-38ac52ea58e1] Enqueued SimpleSchedulerTestJob (Job ID: 7097633d-919a-4596-9473-fcc6bb67d57c) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3ac4cf20-a018-4276-b560-38ac52ea58e1] Enqueued SimpleSchedulerTestJob (Job ID: 17c457d1-0175-4b10-ba38-b8aaa40d91b1) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3ac4cf20-a018-4276-b560-38ac52ea58e1] Enqueued SimpleSchedulerTestJob (Job ID: 2d0e0f14-663b-4a52-8079-4cd695e3af58) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [3ac4cf20-a018-4276-b560-38ac52ea58e1] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.37ms
+[ActiveJob] Enqueued SimpleScheduler::SchedulerJob (Job ID: 40300cbe-7f4c-4343-8c78-996841dc2279) to Test(default)
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f0aee391-e079-4a72-a2d1-1143bbb5f5b5] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/active_job.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f0aee391-e079-4a72-a2d1-1143bbb5f5b5] Enqueued SimpleSchedulerTestJob (Job ID: 51c0d2c2-aaed-4ffe-bba4-c005911f52a2) to Test(default) at 2016-12-11 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1481418000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f0aee391-e079-4a72-a2d1-1143bbb5f5b5] Enqueued SimpleSchedulerTestJob (Job ID: 356ec625-2c9f-4679-ad0e-b28aa7fb23d9) to Test(default) at 2016-12-18 01:00:00 UTC with arguments: {:task_name=>"weekly_task", :time=>1482022800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [f0aee391-e079-4a72-a2d1-1143bbb5f5b5] Performed SimpleScheduler::SchedulerJob from Test(default) in 3.49ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [e6545e05-91fd-4296-969a-1d8fe53ca59e] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/sidekiq_worker.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [e6545e05-91fd-4296-969a-1d8fe53ca59e] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.29ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/hourly_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Enqueued SimpleSchedulerTestJob (Job ID: e29fbd4d-24df-439a-8f35-3cfc4d528294) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Enqueued SimpleSchedulerTestJob (Job ID: 36c8a5a8-61d7-47b2-a9b8-7c80f3699f8a) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Enqueued SimpleSchedulerTestJob (Job ID: 8a359574-01e8-46da-89b0-d0c7742a68ad) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Enqueued SimpleSchedulerTestJob (Job ID: f5035df2-6150-451d-a0f0-ed213c499f8e) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Enqueued SimpleSchedulerTestJob (Job ID: 2911d98b-334e-42fb-8767-c2201597090d) to Test(default) at 2016-12-06 21:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481058000}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Enqueued SimpleSchedulerTestJob (Job ID: 05a54904-3d7d-416b-ae0f-70dbae76e945) to Test(default) at 2016-12-06 22:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481061600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Enqueued SimpleSchedulerTestJob (Job ID: 6689a260-d761-41b3-802f-06248d7eb127) to Test(default) at 2016-12-06 23:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481065200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [1e50d2e4-067b-40c3-b22b-104ba3ccd30c] Performed SimpleScheduler::SchedulerJob from Test(default) in 2.08ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9f90496a-ee46-4763-8ca5-2759b346fd65] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_global.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9f90496a-ee46-4763-8ca5-2759b346fd65] Enqueued SimpleSchedulerTestJob (Job ID: b48773b8-05e8-4213-9e10-dec30b8d7ce7) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9f90496a-ee46-4763-8ca5-2759b346fd65] Enqueued SimpleSchedulerTestJob (Job ID: 0944adc6-51f9-42d3-8bf4-65fd542a5cc9) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9f90496a-ee46-4763-8ca5-2759b346fd65] Enqueued SimpleSchedulerTestJob (Job ID: 73ff28dd-1dad-4071-9eb1-f6198c79791d) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9f90496a-ee46-4763-8ca5-2759b346fd65] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.78ms
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9bfca343-626c-414d-9235-f9000b57adeb] Performing SimpleScheduler::SchedulerJob from Test(default) with arguments: "spec/simple_scheduler/config/queue_ahead_per_task.yml"
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9bfca343-626c-414d-9235-f9000b57adeb] Enqueued SimpleSchedulerTestJob (Job ID: dfe9aa64-5bc7-45d2-a988-16c2c7461614) to Test(default) at 2016-12-06 17:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481043600}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9bfca343-626c-414d-9235-f9000b57adeb] Enqueued SimpleSchedulerTestJob (Job ID: 0bac89ac-583e-4e99-9668-3a4698796fc0) to Test(default) at 2016-12-06 18:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481047200}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9bfca343-626c-414d-9235-f9000b57adeb] Enqueued SimpleSchedulerTestJob (Job ID: a370fe01-942f-484a-87a0-6b60e5b3f95a) to Test(default) at 2016-12-06 19:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481050800}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9bfca343-626c-414d-9235-f9000b57adeb] Enqueued SimpleSchedulerTestJob (Job ID: 1c7c21a8-b84e-4605-9c84-900793007c35) to Test(default) at 2016-12-06 20:00:00 UTC with arguments: {:task_name=>"hourly_task", :time=>1481054400}
+[ActiveJob] [SimpleScheduler::SchedulerJob] [9bfca343-626c-414d-9235-f9000b57adeb] Performed SimpleScheduler::SchedulerJob from Test(default) in 1.81ms

@@ -3,13 +3,17 @@ require "sidekiq/testing"
 Sidekiq::Testing.fake!
 
 describe SimpleScheduler::SchedulerJob, type: :job do
+  # Active Job for testing
   class SimpleSchedulerTestJob < ActiveJob::Base
     def perform(task_name, time)
     end
   end
 
+  # Sidekiq Worker for testing
   class SimpleSchedulerTestWorker
     include Sidekiq::Worker
+    def perform(task_name, time)
+    end
   end
 
   describe "successfully queues" do
@@ -41,22 +45,22 @@ describe SimpleScheduler::SchedulerJob, type: :job do
   end
 
   describe "scheduling an hourly task" do
-    it "queues jobs for six hours into the future by default" do
+    it "queues jobs for at least six hours into the future by default" do
       expect do
         described_class.perform_now("spec/simple_scheduler/config/hourly_task.yml")
-      end.to change(enqueued_jobs, :size).by(6)
+      end.to change(enqueued_jobs, :size).by(7)
     end
 
     it "respects the queue_ahead global option" do
       expect do
         described_class.perform_now("spec/simple_scheduler/config/queue_ahead_global.yml")
-      end.to change(enqueued_jobs, :size).by(2)
+      end.to change(enqueued_jobs, :size).by(3)
     end
 
     it "respects the queue_ahead option per task" do
       expect do
         described_class.perform_now("spec/simple_scheduler/config/queue_ahead_per_task.yml")
-      end.to change(enqueued_jobs, :size).by(3)
+      end.to change(enqueued_jobs, :size).by(4)
     end
   end
 end

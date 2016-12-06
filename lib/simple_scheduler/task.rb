@@ -18,13 +18,13 @@ module SimpleScheduler
     # @option params [ActiveSupport::TimeZone] :tz The time zone to use when parsing the `at` option
     def initialize(params)
       validate_params!(params)
-      @at             = params[:at]
-      @frequency      = parse_frequency(params[:every])
+      @at = params[:at]
+      @frequency = parse_frequency(params[:every])
       @job_class_name = params[:class]
-      @job_class      = @job_class_name.constantize
-      @name           = params[:name] || @job_class_name
-      @queue_ahead    = params[:queue_ahead] || DEFAULT_QUEUE_AHEAD_MINUTES
-      @time_zone      = params[:tz] || Time.zone
+      @job_class = @job_class_name.constantize
+      @queue_ahead = params[:queue_ahead] || DEFAULT_QUEUE_AHEAD_MINUTES
+      @name = params[:name] || @job_class_name
+      @time_zone = params[:tz] || Time.zone
     end
 
     # Returns an array of existing jobs matching the job class of the task.
@@ -45,16 +45,10 @@ module SimpleScheduler
     # @return [Time]
     def first_run_time
       first_run_time = first_run_day
-
-      # Determine the hour for the first run and set the specified minutes.
       change_hour = first_run_hour
-      change_hour += 1 if run_next_hour?
+      change_hour += 1 if at_match[2].nil? && first_run_hour == now.hour && first_run_min < now.min
       first_run_time = first_run_time.change(hour: change_hour, min: first_run_min)
-
-      # If the first run time is earlier in the day than the current time,
-      # the next run time will be next week if a specific day is given, or
-      # it will be tomorrow because a specific hour was given.
-      first_run_time += day? ? 1.week : 1.day if now > first_run_time
+      first_run_time += at_match[1] ? 1.week : 1.day if now > first_run_time
       first_run_time
     end
 
@@ -73,18 +67,6 @@ module SimpleScheduler
       end
 
       future_run_times
-    end
-
-    # Whether or not the task should be run on a specific day.
-    # @return [Boolean]
-    def day?
-      !at_match[1].nil?
-    end
-
-    # Whether or not the task should be run at a specific hour.
-    # @return [Boolean]
-    def hour?
-      !at_match[2].nil?
     end
 
     # Loads the scheduled jobs from Sidekiq once to avoid loading from
@@ -135,10 +117,6 @@ module SimpleScheduler
       frequency = split_duration[0].to_i
       frequency_units = split_duration[1]
       frequency.send(frequency_units)
-    end
-
-    def run_next_hour?
-      hour? && first_run_hour == now.hour && first_run_min < now.min
     end
 
     def validate_params!(params)
