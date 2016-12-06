@@ -4,24 +4,10 @@ rescue LoadError
   puts "You must `gem install bundler` and `bundle install` to run rake tasks"
 end
 
-require "rdoc/task"
-
-RDoc::Task.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = "rdoc"
-  rdoc.title    = "SimpleScheduler"
-  rdoc.options << "--line-numbers"
-  rdoc.rdoc_files.include("README.md")
-  rdoc.rdoc_files.include("lib/**/*.rb")
+begin
+  require "rspec/core/rake_task"
+  RSpec::Core::RakeTask.new(:spec)
+  task default: :spec
+rescue LoadError
+  puts "Could not load Rspec Rake task"
 end
-
-require "bundler/gem_tasks"
-require "rake/testtask"
-
-Rake::TestTask.new(:test) do |t|
-  t.libs << "lib"
-  t.libs << "test"
-  t.pattern = "test/**/*_test.rb"
-  t.verbose = false
-end
-
-task default: :test

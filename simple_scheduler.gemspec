@@ -18,10 +18,10 @@ Gem::Specification.new do |s|
                   DESCRIPTION
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails"
-  s.add_dependency "sidekiq"
+  s.add_dependency "rails", ">= 4.2"
+  s.add_dependency "sidekiq", "~> 4.2"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rubocop"
   s.add_development_dependency "simplecov"

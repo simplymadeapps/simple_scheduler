@@ -5,15 +5,13 @@ Sidekiq::Testing.fake!
 describe SimpleScheduler::SchedulerJob, type: :job do
   # Active Job for testing
   class SimpleSchedulerTestJob < ActiveJob::Base
-    def perform(task_name, time)
-    end
+    def perform(task_name, time); end
   end
 
   # Sidekiq Worker for testing
   class SimpleSchedulerTestWorker
     include Sidekiq::Worker
-    def perform(task_name, time)
-    end
+    def perform(task_name, time); end
   end
 
   describe "successfully queues" do

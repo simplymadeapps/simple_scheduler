@@ -3,8 +3,7 @@ require "rails_helper"
 describe SimpleScheduler::Task, type: :model do
   # Active Job for testing
   class SimpleSchedulerTestJob < ActiveJob::Base
-    def perform(task_name, time)
-    end
+    def perform(task_name, time); end
   end
 
   describe "initialize" do
