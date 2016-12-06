@@ -145,7 +145,7 @@ even if one of the two was executed during the 10 minute scheduler wait time.
 
 ### Server Downtime Example
 
-If you're using a gem like `clockwork`, there is no way for the clock process to
+If you're using a gem like [clockwork](https://github.com/Rykian/clockwork), there is no way for the clock process to
 know that the task was never run. If your task is scheduled for `12:00:00`, your
 clock process could possibly be restarted at `11:59:59` and your dyno might not
 be available until `12:00:20`.
