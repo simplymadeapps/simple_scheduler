@@ -193,7 +193,7 @@ app/models/user.rb:
 class User < ApplicationRecord
   # Returns the time the user's daily digest should be
   # delivered today based on the user's time zone.
-  # @return [DateTime]
+  # @return [Time]
   def digest_time
     "8:00 AM".in_time_zone(self.time_zone)
   end
