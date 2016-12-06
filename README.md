@@ -109,11 +109,15 @@ Sun 2:00
 Add the rake task to Heroku Scheduler and set it to run every 10 minutes:
 
 ```
-rake simple_scheduler -C config/simple_scheduler.yml
+rake simple_scheduler
 ```
 
 The file `config/simple_scheduler.yml` will be used by default, but it may be
 useful to point to another configuration file in non-production environments.
+
+```
+rake simple_scheduler["config/simple_scheduler.staging.yml"]
+```
 
 ## Writing Your Jobs
 

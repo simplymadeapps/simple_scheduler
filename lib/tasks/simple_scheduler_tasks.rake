@@ -1,4 +1,4 @@
 desc "Queue future jobs defined using Simple Scheduler"
-task :simple_scheduler do
-  SimpleScheduler::SchedulerJob.perform_later
+task :simple_scheduler, [:config_path] => [:environment] do |_, args|
+  SimpleScheduler::SchedulerJob.perform_now(args[:config_path])
 end
