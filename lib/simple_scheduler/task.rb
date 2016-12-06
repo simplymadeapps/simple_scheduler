@@ -31,7 +31,7 @@ module SimpleScheduler
     # @return [Array<Sidekiq::SortedEntry>]
     def existing_jobs
       @existing_jobs ||= SimpleScheduler::Task.scheduled_set.select do |job|
-        job.display_class == @job_class_name
+        job.display_class == @job_class_name && job.display_args[0] == @name
       end.to_a
     end
 

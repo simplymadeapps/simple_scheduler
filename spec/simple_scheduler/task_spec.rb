@@ -24,30 +24,69 @@ describe SimpleScheduler::Task, type: :model do
     let(:task) do
       described_class.new(
         class: "SimpleSchedulerTestJob",
-        every: "1.hour"
+        every: "1.hour",
+        name:  "test_task"
+      )
+    end
+
+    let(:sidekiq_entry_matching_class_and_name) do
+      Sidekiq::SortedEntry.new(
+        nil,
+        nil,
+        "wrapped" => "SimpleSchedulerTestJob",
+        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args"    => [{ "arguments" => ["test_task"] }]
+      )
+    end
+
+    let(:sidekiq_entry_matching_class_wrong_task_name) do
+      Sidekiq::SortedEntry.new(
+        nil,
+        nil,
+        "wrapped" => "SimpleSchedulerTestJob",
+        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args"    => [{ "arguments" => ["other_task"] }]
+      )
+    end
+
+    let(:sidekiq_entry_wrong_class) do
+      Sidekiq::SortedEntry.new(
+        nil,
+        nil,
+        "wrapped" => "SomeOtherJob",
+        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args"    => [{ "arguments" => ["other_task"] }]
       )
     end
 
     it "returns an array of Sidekiq entries for existing jobs" do
       expect(described_class).to receive(:scheduled_set).and_return([
-        Sidekiq::SortedEntry.new(nil, nil, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"),
-        Sidekiq::SortedEntry.new(nil, nil, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
+        sidekiq_entry_matching_class_and_name,
+        sidekiq_entry_matching_class_and_name
       ])
       expect(task.existing_jobs.length).to eq(2)
     end
 
     it "only returns Sidekiq entries for the task's job class" do
       expect(described_class).to receive(:scheduled_set).and_return([
-        Sidekiq::SortedEntry.new(nil, nil, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"),
-        Sidekiq::SortedEntry.new(nil, nil, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
+        sidekiq_entry_matching_class_and_name,
+        sidekiq_entry_wrong_class
+      ])
+      expect(task.existing_jobs.length).to eq(1)
+    end
+
+    it "only returns Sidekiq entries for the task's name (key used for the YAML block)" do
+      expect(described_class).to receive(:scheduled_set).and_return([
+        sidekiq_entry_matching_class_and_name,
+        sidekiq_entry_matching_class_wrong_task_name
       ])
       expect(task.existing_jobs.length).to eq(1)
     end
 
     it "returns an empty array if there are no existing jobs" do
       expect(described_class).to receive(:scheduled_set).and_return([
-        Sidekiq::SortedEntry.new(nil, nil, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"),
-        Sidekiq::SortedEntry.new(nil, nil, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
+        sidekiq_entry_wrong_class,
+        sidekiq_entry_wrong_class
       ])
       expect(task.existing_jobs.length).to eq(0)
     end
@@ -57,36 +96,42 @@ describe SimpleScheduler::Task, type: :model do
     let(:task) do
       described_class.new(
         class: "SimpleSchedulerTestJob",
-        every: "1.hour"
+        every: "1.hour",
+        name:  "test_task"
       )
     end
 
+    let(:future_time1) { (Time.now + 1.hour).beginning_of_minute }
+    let(:future_time2) { (Time.now + 2.hours).beginning_of_minute }
+
     it "returns an array of existing future run times for the task's job" do
-      future_time1 = (Time.now + 1.hour).beginning_of_minute
-      future_time2 = (Time.now + 2.hours).beginning_of_minute
       expect(described_class).to receive(:scheduled_set).and_return([
-        Sidekiq::SortedEntry.new(nil, future_time1.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"),
-        Sidekiq::SortedEntry.new(nil, future_time2.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
+        Sidekiq::SortedEntry.new(nil, future_time1.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper", "args" => [{ "arguments" => ["test_task"] }]),
+        Sidekiq::SortedEntry.new(nil, future_time2.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper", "args" => [{ "arguments" => ["test_task"] }])
       ])
       expect(task.existing_run_times).to eq([future_time1, future_time2])
     end
 
     it "only returns times for the task's job class" do
-      future_time1 = (Time.now + 1.hour).beginning_of_minute
-      future_time2 = (Time.now + 2.hours).beginning_of_minute
       expect(described_class).to receive(:scheduled_set).and_return([
-        Sidekiq::SortedEntry.new(nil, future_time1.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"),
-        Sidekiq::SortedEntry.new(nil, future_time2.to_i, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
+        Sidekiq::SortedEntry.new(nil, future_time1.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper", "args" => [{ "arguments" => ["test_task"] }]),
+        Sidekiq::SortedEntry.new(nil, future_time2.to_i, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper", "args" => [{ "arguments" => ["other_task"] }])
+      ])
+      expect(task.existing_run_times).to eq([future_time1])
+    end
+
+    it "only returns times for the task's job class and task name" do
+      expect(described_class).to receive(:scheduled_set).and_return([
+        Sidekiq::SortedEntry.new(nil, future_time1.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper", "args" => [{ "arguments" => ["test_task"] }]),
+        Sidekiq::SortedEntry.new(nil, future_time2.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper", "args" => [{ "arguments" => ["other_task"] }])
       ])
       expect(task.existing_run_times).to eq([future_time1])
     end
 
     it "returns an empty array if there are no times" do
-      future_time1 = (Time.now + 1.hour).beginning_of_minute
-      future_time2 = (Time.now + 2.hours).beginning_of_minute
       expect(described_class).to receive(:scheduled_set).and_return([
-        Sidekiq::SortedEntry.new(nil, future_time1.to_i, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"),
-        Sidekiq::SortedEntry.new(nil, future_time2.to_i, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
+        Sidekiq::SortedEntry.new(nil, future_time1.to_i, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper", "args" => [{ "arguments" => ["other_task"] }]),
+        Sidekiq::SortedEntry.new(nil, future_time2.to_i, "wrapped" => "SomeOtherJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper", "args" => [{ "arguments" => ["other_task"] }])
       ])
       expect(task.existing_run_times).to eq([])
     end

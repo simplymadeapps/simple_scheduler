@@ -51,7 +51,7 @@ module SimpleScheduler
     # @param run_times [Array<Time>]
     def queue_future_active_jobs(task, run_times)
       run_times.each do |time|
-        task.job_class.set(wait_until: time).perform_later(task_name: task.name, time: time.to_i)
+        task.job_class.set(wait_until: time).perform_later(task.name, time.to_i)
       end
     end
 
@@ -60,7 +60,7 @@ module SimpleScheduler
     # @param run_times [Array<Time>]
     def queue_future_sidekiq_workers(task, run_times)
       run_times.each do |time|
-        task.job_class.perform_at(time, task_name: task.name, time: time.to_i)
+        task.job_class.perform_at(time, task.name, time.to_i)
       end
     end
   end
