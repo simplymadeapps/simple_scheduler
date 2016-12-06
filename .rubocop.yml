@@ -1,3 +1,7 @@
+AllCops:
+  Exclude:
+    - "spec/dummy/**/*"
+
 Metrics/BlockLength:
   Exclude:
     - "spec/simple_scheduler/scheduler_job_spec.rb"
