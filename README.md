@@ -15,7 +15,7 @@ every hour, or every day.
 
 You must be using:
 
-- [ActiveJob](https://github.com/rails/rails/tree/master/activejob)
+- Rails 4.2+
 - [Sidekiq](http://sidekiq.org)
 - [Heroku Scheduler](https://elements.heroku.com/addons/scheduler)
 
