@@ -17,14 +17,6 @@ module SimpleScheduler
       end
     end
 
-    # Returns whether or not the job has expired based on the time
-    # between the scheduled run time and the current time.
-    # @return [Boolean]
-    def expired?
-      return false if @task.expires_after.blank?
-      expire_duration.from_now(@scheduled_time) < Time.now.in_time_zone(@task.time_zone)
-    end
-
     private
 
     # The duration between the scheduled run time and actual run time that
@@ -36,12 +28,18 @@ module SimpleScheduler
       duration.send(duration_units)
     end
 
+    # Returns whether or not the job has expired based on the time
+    # between the scheduled run time and the current time.
+    # @return [Boolean]
+    def expired?
+      return false if @task.expires_after.blank?
+      expire_duration.from_now(@scheduled_time) < Time.now.in_time_zone(@task.time_zone)
+    end
+
     # Queue the job for immediate execution using Active Job.
     def queue_active_job
-      puts "QUEUE ACTIVE JOB"
-      puts @task.job_class.instance_method(:perform).arity
       if @task.job_class.instance_method(:perform).arity > 0
-        @task.job_class.perform_later(@scheduled_time)
+        @task.job_class.perform_later(@scheduled_time.to_i)
       else
         @task.job_class.perform_later
       end
@@ -50,7 +48,7 @@ module SimpleScheduler
     # Queue the job for immediate execution using Sidekiq.
     def queue_sidekiq_worker
       if @task.job_class.instance_method(:perform).arity > 0
-        @task.job_class.perform_async(@scheduled_time)
+        @task.job_class.perform_async(@scheduled_time.to_i)
       else
         @task.job_class.perform_async
       end

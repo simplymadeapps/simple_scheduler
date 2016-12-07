@@ -1,19 +1,6 @@
 require "rails_helper"
-require "sidekiq/testing"
-Sidekiq::Testing.fake!
 
 describe SimpleScheduler::SchedulerJob, type: :job do
-  # Active Job for testing
-  class SimpleSchedulerTestJob < ActiveJob::Base
-    def perform(time); end
-  end
-
-  # Sidekiq Worker for testing
-  class SimpleSchedulerTestWorker
-    include Sidekiq::Worker
-    def perform(time); end
-  end
-
   describe "successfully queues" do
     subject(:job) { described_class.perform_later }
 

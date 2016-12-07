@@ -1,6 +1,16 @@
 module SimpleScheduler
   # Active Job class that queues jobs defined in the config file.
   class SchedulerJob < ActiveJob::Base
+    # Accepts a file path to read the scheduler configuration.
+    # @param config_path [String]
+    def perform(config_path = nil)
+      config_path ||= "config/simple_scheduler.yml"
+      load_config(config_path)
+      queue_future_jobs
+    end
+
+    private
+
     # Load the global scheduler config from the YAML file.
     # @param config_path [String]
     def load_config(config_path)
@@ -9,14 +19,6 @@ module SimpleScheduler
       @time_zone = @config["tz"] || Time.zone.tzinfo.name
       @config.delete("queue_ahead")
       @config.delete("tz")
-    end
-
-    # Accepts a file path to read the scheduler configuration.
-    # @param config_path [String]
-    def perform(config_path = nil)
-      config_path ||= "config/simple_scheduler.yml"
-      load_config(config_path)
-      queue_future_jobs
     end
 
     # Queue each of the future jobs into Sidekiq from the defined tasks.

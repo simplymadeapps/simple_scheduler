@@ -146,9 +146,9 @@ use the scheduled time to know when it was supposed to run vs the current time.
 
 ```ruby
 class ExampleJob < ActiveJob::Base
-  # @param scheduled_time [Time] The time the job was scheduled to be run
+  # @param scheduled_time [Integer] The epoch time for when the job was scheduled to be run
   def perform(scheduled_time)
-    puts scheduled_time.strftime("%a %F @ %I:%M:%S.%L %p")
+    puts Time.at(scheduled_time)
   end
 end
 ```
@@ -214,11 +214,11 @@ class DailyDigestEmailJob < ApplicationJob
 
   # Called by Simple Scheduler and is given the scheduled time so decisions can be made
   # based on when the job was scheduled to be run rather than when it was actually run.
-  # @param scheduled_time [Time] The time the job was scheduled to be run
+  # @param scheduled_time [Integer] The epoch time for when the job was scheduled to be run
   def perform(scheduled_time)
     # Don't do this! This will be way too slow!
     User.find_each do |user|
-      if user.digest_time == scheduled_time
+      if user.digest_time == Time.at(scheduled_time)
         DigestMailer.daily(user).deliver_later
       end
     end
