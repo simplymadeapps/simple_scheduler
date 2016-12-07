@@ -76,7 +76,7 @@ describe SimpleScheduler::FutureJob, type: :job do
 
     it "doesn't add the job to the queue" do
       expect do
-        described_class.perform_now(task_params, (Time.now - 30.minutes).to_i)
+        described_class.perform_now(task_params, (Time.now - 31.minutes).to_i)
       end.to change(enqueued_jobs, :size).by(0)
     end
   end
