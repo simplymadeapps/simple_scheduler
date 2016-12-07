@@ -13,7 +13,8 @@ module SimpleScheduler
 
     # Accepts a file path to read the scheduler configuration.
     # @param config_path [String]
-    def perform(config_path = "config/simple_scheduler.yml")
+    def perform(config_path = nil)
+      config_path ||= "config/simple_scheduler.yml"
       load_config(config_path)
       queue_future_jobs
     end
