@@ -1,0 +1,10 @@
+# Example file used by scheduler_job_spec.rb as the default config path.
+job_one:
+  class: "SimpleSchedulerTestJob"
+  every: "1.week"
+  at: "Sun 1:00"
+
+job_two:
+  class: "SimpleSchedulerTestJob"
+  every: "1.week"
+  at: "Sun 1:00"
