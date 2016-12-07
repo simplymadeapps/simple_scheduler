@@ -47,7 +47,7 @@ describe SimpleScheduler::FutureJob, type: :job do
     end
   end
 
-  describe "when the job is run past the expired time" do
+  describe "when the job is run within the allowed expiration time" do
     let(:task_params) do
       {
         class: "SimpleSchedulerTestJob",
@@ -57,9 +57,26 @@ describe SimpleScheduler::FutureJob, type: :job do
       }
     end
 
-    it "doesn't queue the job" do
+    it "adds the job to the queue" do
       expect do
-        described_class.perform_now(task_params, (Time.now - 31.minutes).to_i)
+        described_class.perform_now(task_params, (Time.now - 29.minutes).to_i)
+      end.to change(enqueued_jobs, :size).by(1)
+    end
+  end
+
+  describe "when the job is run past the allowed expiration time" do
+    let(:task_params) do
+      {
+        class: "SimpleSchedulerTestJob",
+        every:         "1.hour",
+        name:          "job_task",
+        expires_after: "30.minutes"
+      }
+    end
+
+    it "doesn't add the job to the queue" do
+      expect do
+        described_class.perform_now(task_params, (Time.now - 30.minutes).to_i)
       end.to change(enqueued_jobs, :size).by(0)
     end
   end
