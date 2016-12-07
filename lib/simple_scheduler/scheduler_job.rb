@@ -6,7 +6,7 @@ module SimpleScheduler
     def load_config(config_path)
       @config = YAML.load_file(config_path)
       @queue_ahead = @config["queue_ahead"] || Task::DEFAULT_QUEUE_AHEAD_MINUTES
-      @time_zone = @config["tz"] ? ActiveSupport::TimeZone.new(@config["tz"]) : Time.zone
+      @time_zone = @config["tz"] || Time.zone.tzinfo.name
       @config.delete("queue_ahead")
       @config.delete("tz")
     end
@@ -25,10 +25,9 @@ module SimpleScheduler
         new_run_times = task.future_run_times - task.existing_run_times
         next if new_run_times.empty?
 
-        if task.job_class.included_modules.include?(Sidekiq::Worker)
-          queue_future_sidekiq_workers(task, new_run_times)
-        else
-          queue_future_active_jobs(task, new_run_times)
+        # Schedule the new run times using the future job wrapper.
+        new_run_times.each do |time|
+          SimpleScheduler::FutureJob.set(wait_until: time).perform_later(task.params, time.to_i)
         end
       end
     end
@@ -42,26 +41,6 @@ module SimpleScheduler
         task_params[:name] = task_name
         task_params[:tz] ||= @time_zone
         Task.new(task_params)
-      end
-    end
-
-    private
-
-    # Queues jobs in the future using Active Job based on the task options.
-    # @param task [SimpleScheduler::Task]
-    # @param run_times [Array<Time>]
-    def queue_future_active_jobs(task, run_times)
-      run_times.each do |time|
-        task.job_class.set(wait_until: time).perform_later(task.name, time.to_i)
-      end
-    end
-
-    # Queues jobs in the future using Sidekiq based on the task options.
-    # @param task [SimpleScheduler::Task]
-    # @param run_times [Array<Time>]
-    def queue_future_sidekiq_workers(task, run_times)
-      run_times.each do |time|
-        task.job_class.perform_at(time, task.name, time.to_i)
       end
     end
   end

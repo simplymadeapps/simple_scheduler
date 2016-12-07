@@ -51,11 +51,13 @@ simple_task:
   class: "SomeActiveJob"
   every: "2.minutes"
 
-# Runs once every day at 4:00 AM
+# Runs once every day at 4:00 AM. The job will expire after 23 hours, which means the
+# job will not run if 23 hours passes (server downtime) before the job is actually run
 overnight_task:
   class: "SomeSidekiqWorker"
   every: "1.day"
   at: "4:00"
+  expires_after: "23.hours"
 
 # Runs once every hour at the half hour
 half_hour_task:
@@ -97,12 +99,12 @@ on the `perform` method.
 
 How frequently the task should be performed as an ActiveSupport duration definition.
 
-```ruby
-1.day
-5.days
-12.hours
-20.minutes
-1.week
+```yml
+"1.day"
+"5.days"
+"12.hours"
+"20.minutes"
+"1.week"
 ```
 
 #### :at (optional)
@@ -113,13 +115,27 @@ follow the `every` duration to determine future execution times.
 
 Valid string formats/examples:
 
+```yml
+"18:00"
+"3:30"
+"**:00"
+"*:30"
+"Sun 2:00"
+"[Sun|Mon|Tue|Wed|Thu|Fri|Sat] 00:00"
 ```
-18:00
- 3:30
-**:00
- *:30
-Sun 2:00
-[Sun|Mon|Tue|Wed|Thu|Fri|Sat] 00:00
+
+#### :expires_after (optional)
+
+If your worker process is down for an extended period of time, you may not want jobs
+to fire when the server comes back online. By specifying an `expires_after` value, your
+job will not fire if the time the job actually runs later, by the specified duration,
+than the scheduled run time.
+
+The string should be in the form of an ActiveSupport duration.
+
+```yml
+"59.minutes"
+"23.hours"
 ```
 
 ## Writing Your Jobs
@@ -130,11 +146,9 @@ use the scheduled time to know when it was supposed to run vs the current time.
 
 ```ruby
 class ExampleJob < ActiveJob::Base
-  # @param task_name [String] This is the key used in the YAML file to define the task
-  # @param time [Integer] The epoch time for when the job was scheduled to be run
-  def perform(task_name, time)
-    puts task_name
-    puts Time.at(time)
+  # @param scheduled_time [Time] The time the job was scheduled to be run
+  def perform(scheduled_time)
+    puts scheduled_time.strftime("%a %F @ %I:%M:%S.%L %p")
   end
 end
 ```
@@ -166,10 +180,10 @@ even if one of the two was executed during the 10 minute scheduler wait time.
 
 ### Server Downtime Example
 
-If you're using a gem like [clockwork](https://github.com/Rykian/clockwork), there is no way for the clock process to
-know that the task was never run. If your task is scheduled for `12:00:00`, your
-clock process could possibly be restarted at `11:59:59` and your dyno might not
-be available until `12:00:20`.
+If you're using a gem like [clockwork](https://github.com/Rykian/clockwork),
+there is no way for the clock process to know that the task was never run.
+If your task is scheduled for `12:00:00`, your clock process could possibly
+be restarted at `11:59:59` and your dyno might not be available until `12:00:20`.
 
 Simple Scheduler would have already enqueued the task hours before the task should actually
 run, so you still have to worry about the worker dyno restarting, but when the worker
@@ -189,6 +203,7 @@ daily_digest_task:
   class: "DailyDigestEmailJob"
   every: "15.minutes"
   at: "*:00"
+  expires_after: "23.hours"
 ```
 
 app/jobs/daily_digest_email_job.rb:
@@ -199,12 +214,11 @@ class DailyDigestEmailJob < ApplicationJob
 
   # Called by Simple Scheduler and is given the scheduled time so decisions can be made
   # based on when the job was scheduled to be run rather than when it was actually run.
-  # @param task_name [String] This is the key used in the YAML file to define the task
-  # @param time [Integer] The epoch time for when the job was scheduled to be run
-  def perform(task_name, time)
+  # @param scheduled_time [Time] The time the job was scheduled to be run
+  def perform(scheduled_time)
     # Don't do this! This will be way too slow!
     User.find_each do |user|
-      if user.digest_time == Time.at(time)
+      if user.digest_time == scheduled_time
         DigestMailer.daily(user).deliver_later
       end
     end

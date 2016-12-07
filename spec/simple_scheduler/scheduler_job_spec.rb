@@ -5,13 +5,13 @@ Sidekiq::Testing.fake!
 describe SimpleScheduler::SchedulerJob, type: :job do
   # Active Job for testing
   class SimpleSchedulerTestJob < ActiveJob::Base
-    def perform(task_name, time); end
+    def perform(time); end
   end
 
   # Sidekiq Worker for testing
   class SimpleSchedulerTestWorker
     include Sidekiq::Worker
-    def perform(task_name, time); end
+    def perform(time); end
   end
 
   describe "successfully queues" do
@@ -23,22 +23,6 @@ describe SimpleScheduler::SchedulerJob, type: :job do
 
     it "is in default queue" do
       expect(described_class.new.queue_name).to eq("default")
-    end
-  end
-
-  describe "scheduling tasks using an Active Job class" do
-    it "queues two future jobs for the single weekly task" do
-      expect do
-        described_class.perform_now("spec/simple_scheduler/config/active_job.yml")
-      end.to change(enqueued_jobs, :size).by(2)
-    end
-  end
-
-  describe "scheduling tasks using a Sidekiq::Worker class" do
-    it "queues two future jobs for the single weekly task" do
-      expect do
-        described_class.perform_now("spec/simple_scheduler/config/sidekiq_worker.yml")
-      end.to change(SimpleSchedulerTestWorker.jobs, :size).by(2)
     end
   end
 
@@ -67,6 +51,14 @@ describe SimpleScheduler::SchedulerJob, type: :job do
       expect do
         described_class.perform_now("spec/simple_scheduler/config/queue_ahead_per_task.yml")
       end.to change(enqueued_jobs, :size).by(4)
+    end
+  end
+
+  describe "scheduling a weekly task" do
+    it "always queues two future jobs" do
+      expect do
+        described_class.perform_now("spec/simple_scheduler/config/active_job.yml")
+      end.to change(enqueued_jobs, :size).by(2)
     end
   end
 end
