@@ -127,7 +127,7 @@ module SimpleScheduler
     end
 
     def first_run_hour?
-      !at_match[2].nil?
+      at_match[2].present?
     end
 
     def first_run_min
@@ -139,7 +139,7 @@ module SimpleScheduler
     end
 
     def first_run_wday?
-      !at_match[1].nil?
+      at_match[1].present?
     end
 
     def now
