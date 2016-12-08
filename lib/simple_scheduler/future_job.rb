@@ -23,12 +23,7 @@ module SimpleScheduler
       @task = Task.new(task_params)
       @scheduled_time = Time.at(scheduled_time).in_time_zone(@task.time_zone)
       raise Expired if expired?
-
-      if @task.job_class.included_modules.include?(Sidekiq::Worker)
-        queue_sidekiq_worker
-      else
-        queue_active_job
-      end
+      queue_task
     end
 
     private
@@ -62,21 +57,22 @@ module SimpleScheduler
       end
     end
 
-    # Queue the job for immediate execution using Active Job.
-    def queue_active_job
-      if @task.job_class.instance_method(:perform).arity > 0
-        @task.job_class.perform_later(@scheduled_time.to_i)
+    # The name of the method used to queue the task's job or worker.
+    # @return [Symbol]
+    def perform_method
+      if @task.job_class.included_modules.include?(Sidekiq::Worker)
+        :perform_async
       else
-        @task.job_class.perform_later
+        :perform_later
       end
     end
 
-    # Queue the job for immediate execution using Sidekiq.
-    def queue_sidekiq_worker
+    # Queue the task with the scheduled time if the job allows.
+    def queue_task
       if @task.job_class.instance_method(:perform).arity > 0
-        @task.job_class.perform_async(@scheduled_time.to_i)
+        @task.job_class.send(perform_method, @scheduled_time.to_i)
       else
-        @task.job_class.perform_async
+        @task.job_class.send(perform_method)
       end
     end
   end
