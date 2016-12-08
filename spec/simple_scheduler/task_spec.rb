@@ -350,7 +350,7 @@ describe SimpleScheduler::Task, type: :model do
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
         travel_to Time.parse("2016-12-01 20:00:00 CST") do
-          task.queue_ahead = 50_400 # 5 weeks
+          task.instance_variable_set(:@queue_ahead, 50_400) # 5 weeks
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-02 0:00:00 CST"),
             Time.parse("2016-12-09 0:00:00 CST"),
@@ -385,7 +385,7 @@ describe SimpleScheduler::Task, type: :model do
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
         travel_to Time.parse("2016-12-01 20:00:00 CST") do
-          task.queue_ahead = 10_080 # 1 week
+          task.instance_variable_set(:@queue_ahead, 10_080) # 1 week
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-02 0:30:00 CST"),
             Time.parse("2016-12-03 0:30:00 CST"),
@@ -422,7 +422,7 @@ describe SimpleScheduler::Task, type: :model do
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
         travel_to Time.parse("2016-12-01 20:00:00 CST") do
-          task.queue_ahead = 360 # 6 hours
+          task.instance_variable_set(:@queue_ahead, 360) # 6 hours
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-01 20:00:00 CST"),
             Time.parse("2016-12-01 21:00:00 CST"),
@@ -458,7 +458,7 @@ describe SimpleScheduler::Task, type: :model do
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
         travel_to Time.parse("2016-12-01 20:00:00 CST") do
-          task.queue_ahead = 60 # minutes
+          task.instance_variable_set(:@queue_ahead, 60) # minutes
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-01 20:00:00 CST"),
             Time.parse("2016-12-01 20:15:00 CST"),
