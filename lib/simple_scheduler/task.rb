@@ -73,7 +73,7 @@ module SimpleScheduler
       change_hour = first_run_hour
       change_hour += 1 if run_next_hour?
       first_run_time = first_run_time.change(hour: change_hour, min: first_run_min)
-      first_run_time += first_run_day? ? 1.week : 1.day if now > first_run_time
+      first_run_time += first_run_wday? ? 1.week : 1.day if now > first_run_time
       first_run_time
     end
 
@@ -122,10 +122,6 @@ module SimpleScheduler
       @first_run_day += add_days.days
     end
 
-    def first_run_day?
-      !at_match[1].nil?
-    end
-
     def first_run_hour
       @first_run_hour ||= (at_match[2] || now.hour).to_i
     end
@@ -140,6 +136,10 @@ module SimpleScheduler
 
     def first_run_wday
       @first_run_wday ||= DAYS.index(at_match[1])
+    end
+
+    def first_run_wday?
+      !at_match[1].nil?
     end
 
     def now
