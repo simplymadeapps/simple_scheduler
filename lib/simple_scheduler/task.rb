@@ -56,7 +56,7 @@ module SimpleScheduler
       @existing_jobs ||= SimpleScheduler::Task.scheduled_set.select do |job|
         next unless job.display_class == "SimpleScheduler::FutureJob"
         task_params = job.display_args[0]
-        task_params[:class] == @job_class_name && task_params[:name] == @name
+        task_params["class"] == job_class_name && task_params["name"] == name
       end.to_a
     end
 
@@ -83,9 +83,9 @@ module SimpleScheduler
     def future_run_times
       future_run_times = existing_run_times.dup
       last_run_time = future_run_times.last || first_run_time - frequency
-      last_run_time = last_run_time.in_time_zone(@time_zone)
+      last_run_time = last_run_time.in_time_zone(time_zone)
 
-      while future_run_times.length < 2 || ((last_run_time - now) / 1.minute) < @queue_ahead
+      while future_run_times.length < 2 || ((last_run_time - now) / 1.minute) < queue_ahead
         last_run_time = frequency.from_now(last_run_time)
         last_run_time = last_run_time.change(hour: first_run_hour, min: first_run_min) if at_match[2]
         future_run_times << last_run_time
