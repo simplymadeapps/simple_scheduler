@@ -127,9 +127,9 @@ Valid string formats/examples:
 #### :expires_after (optional)
 
 If your worker process is down for an extended period of time, you may not want jobs
-to fire when the server comes back online. By specifying an `expires_after` value, your
-job will not fire if the time the job actually runs later, by the specified duration,
-than the scheduled run time.
+to execute when the server comes back online. By specifying an `expires_after` value,
+your job will not fire if the time the job actually runs later, by the specified
+duration, than the scheduled run time.
 
 The string should be in the form of an ActiveSupport duration.
 
@@ -140,9 +140,10 @@ The string should be in the form of an ActiveSupport duration.
 
 ## Writing Your Jobs
 
-Your Active Job or Sidekiq Worker must accept the task name and time stamp
-as arguments. This is so they can be queued properly and so your job can
-use the scheduled time to know when it was supposed to run vs the current time.
+There is no guarantee that the job will run at the exact time given in the
+configuration, so the time the job was scheduled to run will be passed to
+the job. This allows you to handle situations where the current time doesn't
+match the time it was expected to run. The `scheduled_time` argument is optional.
 
 ```ruby
 class ExampleJob < ActiveJob::Base
@@ -152,20 +153,6 @@ class ExampleJob < ActiveJob::Base
   end
 end
 ```
-
-When writing your jobs, you need to account for any possible server downtime.
-The most common downtime would be caused by Heroku's required daily restart.
-
-To ensure that your tasks always run, the jobs are queued in advance and it's
-possible the jobs may not be executed at the exact time that you configured
-them to run. If there is extended downtime, your jobs may back up and there
-is no guarantee of the order they will be executed when your worker process
-comes back online.
-
-Because there is no guarantee that the job is run at the exact time given in
-the configuration, the time the job was expected to run will be passed to
-the job so you can handle situations where the time it was run doesn't match
-the time it was expected to run.
 
 ### How It Works
 
