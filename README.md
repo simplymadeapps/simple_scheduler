@@ -162,7 +162,9 @@ a job wasn't run because it expires. Add this block to an initializer file:
 ```ruby
 # config/initializers/simple_scheduler.rb
 
+# Block for handling an expired task from Simple Scheduler
 # @param exception [SimpleScheduler::FutureJob::Expired]
+# @see http://www.rubydoc.info/github/simplymadeapps/simple_scheduler/master/SimpleScheduler/FutureJob/Expired
 SimpleScheduler.expired_task do |exception|
   ExceptionNotifier.notify_exception(
     exception,

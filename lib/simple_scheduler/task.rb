@@ -2,23 +2,23 @@ module SimpleScheduler
   # Class for parsing each task in the scheduler config YAML file and returning
   # the values needed to schedule the task in the future.
   #
-  # @!attribute at
+  # @!attribute [r] at
   #   @return [String] The starting time for the interval
-  # @!attribute expires_after
+  # @!attribute [r] expires_after
   #   @return [String] The time between the scheduled and actual run time that should cause the job not to run
-  # @!attribute frequency
+  # @!attribute [r] frequency
   #   @return [ActiveSupport::Duration] How often the job will be run
   # @!attribute [r] job_class
   #   @return [Class] The class of the job or worker
   # @!attribute [r] job_class_name
   #   @return [String] The class name of the job or worker
-  # @!attribute name
+  # @!attribute [r] name
   #   @return [String] The name of the task as defined in the YAML config
   # @!attribute [r] params
   #   @return [Hash] The params used to create the task
-  # @!attribute queue_ahead
+  # @!attribute [r] queue_ahead
   #   @return [String] The name of the task as defined in the YAML config
-  # @!attribute time_zone
+  # @!attribute [r] time_zone
   #   @return [ActiveSupport::TimeZone] The time zone to use when parsing the `at` option
   class Task
     attr_reader :at, :expires_after, :frequency, :job_class, :job_class_name
