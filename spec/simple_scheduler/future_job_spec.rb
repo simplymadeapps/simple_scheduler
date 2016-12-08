@@ -121,5 +121,24 @@ describe SimpleScheduler::FutureJob, type: :job do
         described_class.perform_now(task_params, (Time.now - 31.minutes).to_i)
       end.to change(enqueued_jobs, :size).by(0)
     end
+
+    it "calls all blocks defined to handle the expired task exception" do
+      travel_to Time.parse("2016-12-01 1:00:00 CST") do
+        run_time = Time.now
+        scheduled_time = run_time - 31.minutes
+        yielded_exception = nil
+
+        SimpleScheduler.expired_task do |exception|
+          yielded_exception = exception
+        end
+
+        described_class.perform_now(task_params, scheduled_time.to_i)
+
+        expect(yielded_exception).to be_a(SimpleScheduler::FutureJob::Expired)
+        expect(yielded_exception.run_time).to eq(run_time)
+        expect(yielded_exception.scheduled_time).to eq(scheduled_time)
+        expect(yielded_exception.task).to be_a(SimpleScheduler::Task)
+      end
+    end
   end
 end

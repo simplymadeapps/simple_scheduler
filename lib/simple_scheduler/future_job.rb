@@ -2,13 +2,31 @@ module SimpleScheduler
   # Active Job class that wraps the scheduled job and determines if the job
   # should still be run based on the scheduled time and when the job expires.
   class FutureJob < ActiveJob::Base
+    # An error class that is raised if a job does not run because the run time is
+    # too late when compared to the scheduled run time.
+    class Expired < StandardError
+      # @!attribute run_time
+      #   @return [Time] The actual run time
+      attr_accessor :run_time
+
+      # @!attribute scheduled_time
+      #   @return [Time] The scheduled run time
+      attr_accessor :scheduled_time
+
+      # @!attribute task
+      #   @return [SimpleScheduler::Task] The expired task
+      attr_accessor :task
+    end
+
+    rescue_from Expired, with: :handle_expired_task
+
     # Perform the future job as defined by the task.
     # @param task_params [Hash] The params from the scheduled task
     # @param scheduled_time [Integer] The epoch time for when the job was scheduled to be run
     def perform(task_params, scheduled_time)
       @task = Task.new(task_params)
       @scheduled_time = Time.at(scheduled_time).in_time_zone(@task.time_zone)
-      return if expired?
+      raise Expired if expired?
 
       if @task.job_class.included_modules.include?(Sidekiq::Worker)
         queue_sidekiq_worker
@@ -34,6 +52,18 @@ module SimpleScheduler
     def expired?
       return false if @task.expires_after.blank?
       expire_duration.from_now(@scheduled_time) < Time.now.in_time_zone(@task.time_zone)
+    end
+
+    # Handle the expired task by passing the task and run time information
+    # to a block that can be creating in a Rails initializer file.
+    def handle_expired_task(exception)
+      exception.run_time = Time.now.in_time_zone(@task.time_zone)
+      exception.scheduled_time = @scheduled_time
+      exception.task = @task
+
+      SimpleScheduler.expired_task_blocks.each do |block|
+        block.call(exception)
+      end
     end
 
     # Queue the job for immediate execution using Active Job.

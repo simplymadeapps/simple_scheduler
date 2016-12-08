@@ -154,7 +154,28 @@ class ExampleJob < ActiveJob::Base
 end
 ```
 
-### How It Works
+## Handling Expired Jobs
+
+If you assign the `expires_after` option to your task, you may want to know if
+a job wasn't run because it expires. Add this block to an initializer file:
+
+```ruby
+# config/initializers/simple_scheduler.rb
+
+# @param exception [SimpleScheduler::FutureJob::Expired]
+SimpleScheduler.expired_task do |exception|
+  ExceptionNotifier.notify_exception(
+    exception,
+    data: {
+      task:      exception.task.name,
+      scheduled: exception.scheduled_time,
+      actual:    exception.run_time
+    }
+  )
+end
+```
+
+## How It Works
 
 Once the rake task is added to Heroku Scheduler, the Simple Scheduler library
 will load the configuration file every 10 minutes, and ensure that each task
