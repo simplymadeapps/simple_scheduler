@@ -1,6 +1,4 @@
 require "rails_helper"
-require "sidekiq/testing"
-Sidekiq::Testing.fake!
 
 describe SimpleScheduler::FutureJob, type: :job do
   describe "successfully queues" do
