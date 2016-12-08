@@ -1,9 +1,28 @@
 module SimpleScheduler
   # Class for parsing each task in the scheduler config YAML file and returning
   # the values needed to schedule the task in the future.
+  #
+  # @!attribute [r] at
+  #   @return [String] The starting time for the interval
+  # @!attribute [r] expires_after
+  #   @return [String] The time between the scheduled and actual run time that should cause the job not to run
+  # @!attribute [r] frequency
+  #   @return [ActiveSupport::Duration] How often the job will be run
+  # @!attribute [r] job_class
+  #   @return [Class] The class of the job or worker
+  # @!attribute [r] job_class_name
+  #   @return [String] The class name of the job or worker
+  # @!attribute [r] name
+  #   @return [String] The name of the task as defined in the YAML config
+  # @!attribute [r] queue_ahead
+  #   @return [String] The name of the task as defined in the YAML config
+  # @!attribute [r] time_zone
+  #   @return [ActiveSupport::TimeZone] The time zone to use when parsing the `at` option
+  # @!attribute [r] params
+  #   @return [Hash] The params used to create the task
   class Task
-    attr_accessor :at, :expires_after, :frequency, :job_class, :job_class_name, :name, :queue_ahead, :time_zone
-    attr_reader :params
+    attr_reader :at, :expires_after, :frequency, :job_class, :job_class_name
+    attr_reader :name, :params, :queue_ahead, :time_zone
 
     AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|(\d{1,2})):(\d{1,2})/
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze

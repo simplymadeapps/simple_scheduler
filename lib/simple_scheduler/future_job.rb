@@ -4,18 +4,14 @@ module SimpleScheduler
   class FutureJob < ActiveJob::Base
     # An error class that is raised if a job does not run because the run time is
     # too late when compared to the scheduled run time.
+    # @!attribute run_time
+    #   @return [Time] The actual run time
+    # @!attribute scheduled_time
+    #   @return [Time] The scheduled run time
+    # @!attribute task
+    #   @return [SimpleScheduler::Task] The expired task
     class Expired < StandardError
-      # @!attribute run_time
-      #   @return [Time] The actual run time
-      attr_accessor :run_time
-
-      # @!attribute scheduled_time
-      #   @return [Time] The scheduled run time
-      attr_accessor :scheduled_time
-
-      # @!attribute task
-      #   @return [SimpleScheduler::Task] The expired task
-      attr_accessor :task
+      attr_accessor :run_time, :scheduled_time, :task
     end
 
     rescue_from Expired, with: :handle_expired_task
