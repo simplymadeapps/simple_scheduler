@@ -71,9 +71,9 @@ module SimpleScheduler
     def first_run_time
       first_run_time = first_run_day
       change_hour = first_run_hour
-      change_hour += 1 if at_match[2].nil? && first_run_hour == now.hour && first_run_min < now.min
+      change_hour += 1 if run_next_hour?
       first_run_time = first_run_time.change(hour: change_hour, min: first_run_min)
-      first_run_time += at_match[1] ? 1.week : 1.day if now > first_run_time
+      first_run_time += first_run_day? ? 1.week : 1.day if now > first_run_time
       first_run_time
     end
 
@@ -85,9 +85,10 @@ module SimpleScheduler
       last_run_time = future_run_times.last || first_run_time - frequency
       last_run_time = last_run_time.in_time_zone(time_zone)
 
+      # Ensure there are at least two future jobs scheduled and that the queue ahead time is filled
       while future_run_times.length < 2 || ((last_run_time - now) / 1.minute) < queue_ahead
         last_run_time = frequency.from_now(last_run_time)
-        last_run_time = last_run_time.change(hour: first_run_hour, min: first_run_min) if at_match[2]
+        last_run_time = last_run_time.change(hour: first_run_hour, min: first_run_min) if first_run_hour?
         future_run_times << last_run_time
       end
 
@@ -121,8 +122,16 @@ module SimpleScheduler
       @first_run_day += add_days.days
     end
 
+    def first_run_day?
+      !at_match[1].nil?
+    end
+
     def first_run_hour
       @first_run_hour ||= (at_match[2] || now.hour).to_i
+    end
+
+    def first_run_hour?
+      !at_match[2].nil?
     end
 
     def first_run_min
@@ -142,6 +151,10 @@ module SimpleScheduler
       frequency = split_duration[0].to_i
       frequency_units = split_duration[1]
       frequency.send(frequency_units)
+    end
+
+    def run_next_hour?
+      !first_run_hour? && first_run_hour == now.hour && first_run_min < now.min
     end
 
     def validate_params!(params)
