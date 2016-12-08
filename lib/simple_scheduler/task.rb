@@ -1,8 +1,28 @@
 module SimpleScheduler
   # Class for parsing each task in the scheduler config YAML file and returning
   # the values needed to schedule the task in the future.
+  #
+  # @!attribute at
+  #   @return [String] The starting time for the interval
+  # @!attribute expires_after
+  #   @return [String] The time between the scheduled and actual run time that should cause the job not to run
+  # @!attribute frequency
+  #   @return [ActiveSupport::Duration] How often the job will be run
+  # @!attribute [r] job_class
+  #   @return [Class] The class of the job or worker
+  # @!attribute [r] job_class_name
+  #   @return [String] The class name of the job or worker
+  # @!attribute name
+  #   @return [String] The name of the task as defined in the YAML config
+  # @!attribute [r] params
+  #   @return [Hash] The params used to create the task
+  # @!attribute queue_ahead
+  #   @return [String] The name of the task as defined in the YAML config
+  # @!attribute time_zone
+  #   @return [ActiveSupport::TimeZone] The time zone to use when parsing the `at` option
   class Task
-    attr_accessor :at, :frequency, :job_class, :job_class_name, :name, :queue_ahead, :time_zone
+    attr_reader :at, :expires_after, :frequency, :job_class, :job_class_name
+    attr_reader :name, :params, :queue_ahead, :time_zone
 
     AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|(\d{1,2})):(\d{1,2})/
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
@@ -13,25 +33,30 @@ module SimpleScheduler
     # @option params [String] :class The class of the Active Job or Sidekiq Worker
     # @option params [String] :every How frequently the job will be performed
     # @option params [String] :at The starting time for the interval
+    # @option params [String] :expires_after The time between the scheduled and actual run time that should cause the job not to run
     # @option params [Integer] :queue_ahead The number of minutes that jobs should be queued in the future
     # @option params [String] :task_name The name of the task as defined in the YAML config
-    # @option params [ActiveSupport::TimeZone] :tz The time zone to use when parsing the `at` option
+    # @option params [String] :tz The time zone to use when parsing the `at` option
     def initialize(params)
       validate_params!(params)
-      @at = params[:at]
-      @frequency = parse_frequency(params[:every])
+      @at             = params[:at]
+      @expires_after  = params[:expires_after]
+      @frequency      = parse_frequency(params[:every])
       @job_class_name = params[:class]
-      @job_class = @job_class_name.constantize
-      @queue_ahead = params[:queue_ahead] || DEFAULT_QUEUE_AHEAD_MINUTES
-      @name = params[:name] || @job_class_name
-      @time_zone = params[:tz] || Time.zone
+      @job_class      = @job_class_name.constantize
+      @queue_ahead    = params[:queue_ahead] || DEFAULT_QUEUE_AHEAD_MINUTES
+      @name           = params[:name]
+      @params         = params
+      @time_zone      = params[:tz] ? ActiveSupport::TimeZone.new(params[:tz]) : Time.zone
     end
 
     # Returns an array of existing jobs matching the job class of the task.
     # @return [Array<Sidekiq::SortedEntry>]
     def existing_jobs
       @existing_jobs ||= SimpleScheduler::Task.scheduled_set.select do |job|
-        job.display_class == @job_class_name && job.display_args[0] == @name
+        next unless job.display_class == "SimpleScheduler::FutureJob"
+        task_params = job.display_args[0]
+        task_params[:class] == @job_class_name && task_params[:name] == @name
       end.to_a
     end
 
@@ -120,6 +145,7 @@ module SimpleScheduler
     end
 
     def validate_params!(params)
+      params[:name] ||= params[:class]
       raise ArgumentError, "Missing param `class` specifying the class of the job to run." unless params.key?(:class)
       raise ArgumentError, "Missing param `every` specifying how often the job should run." unless params.key?(:every)
     end
