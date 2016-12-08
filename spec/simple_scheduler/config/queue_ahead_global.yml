@@ -1,6 +1,6 @@
 queue_ahead: 120
 
 hourly_task:
-  class: "SimpleSchedulerTestJob"
+  class: "TestJob"
   every: "1.hour"
   at: "*:00"

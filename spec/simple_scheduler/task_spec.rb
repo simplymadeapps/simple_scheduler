@@ -1,11 +1,6 @@
 require "rails_helper"
 
 describe SimpleScheduler::Task, type: :model do
-  # Active Job for testing
-  class SimpleSchedulerTestJob < ActiveJob::Base
-    def perform(time); end
-  end
-
   describe "initialize" do
     it "requires the `class` param" do
       expect do
@@ -15,7 +10,7 @@ describe SimpleScheduler::Task, type: :model do
 
     it "requires the `every` param" do
       expect do
-        described_class.new(class: "SimpleSchedulerTestJob")
+        described_class.new(class: "TestJob")
       end.to raise_error(ArgumentError, "Missing param `every` specifying how often the job should run.")
     end
   end
@@ -23,7 +18,7 @@ describe SimpleScheduler::Task, type: :model do
   describe "existing_jobs" do
     let(:task) do
       described_class.new(
-        class: "SimpleSchedulerTestJob",
+        class: "TestJob",
         every: "1.hour",
         name:  "test_task"
       )
@@ -35,7 +30,7 @@ describe SimpleScheduler::Task, type: :model do
         nil,
         "wrapped" => "SimpleScheduler::FutureJob",
         "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-        "args"    => [{ "arguments" => [{ class: "SimpleSchedulerTestJob", name: "test_task" }] }]
+        "args"    => [{ "arguments" => [{ class: "TestJob", name: "test_task" }] }]
       )
     end
 
@@ -45,7 +40,7 @@ describe SimpleScheduler::Task, type: :model do
         nil,
         "wrapped" => "SimpleScheduler::FutureJob",
         "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-        "args"    => [{ "arguments" => [{ class: "SimpleSchedulerTestJob", name: "wrong_task" }] }]
+        "args"    => [{ "arguments" => [{ class: "TestJob", name: "wrong_task" }] }]
       )
     end
 
@@ -95,7 +90,7 @@ describe SimpleScheduler::Task, type: :model do
   describe "existing_run_times" do
     let(:task) do
       described_class.new(
-        class: "SimpleSchedulerTestJob",
+        class: "TestJob",
         every: "1.hour",
         name:  "test_task"
       )
@@ -111,14 +106,14 @@ describe SimpleScheduler::Task, type: :model do
           future_time1.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
           "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ class: "SimpleSchedulerTestJob", name: "test_task" }] }]
+          "args"    => [{ "arguments" => [{ class: "TestJob", name: "test_task" }] }]
         ),
         Sidekiq::SortedEntry.new(
           nil,
           future_time2.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
           "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ class: "SimpleSchedulerTestJob", name: "test_task" }] }]
+          "args"    => [{ "arguments" => [{ class: "TestJob", name: "test_task" }] }]
         )
       ])
       expect(task.existing_run_times).to eq([future_time1, future_time2])
@@ -131,7 +126,7 @@ describe SimpleScheduler::Task, type: :model do
           future_time1.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
           "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ class: "SimpleSchedulerTestJob", name: "test_task" }] }]
+          "args"    => [{ "arguments" => [{ class: "TestJob", name: "test_task" }] }]
         ),
         Sidekiq::SortedEntry.new(
           nil,
@@ -151,14 +146,14 @@ describe SimpleScheduler::Task, type: :model do
           future_time1.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
           "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ class: "SimpleSchedulerTestJob", name: "test_task" }] }]
+          "args"    => [{ "arguments" => [{ class: "TestJob", name: "test_task" }] }]
         ),
         Sidekiq::SortedEntry.new(
           nil,
           future_time2.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
           "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ class: "SimpleSchedulerTestJob", name: "wrong_task" }] }]
+          "args"    => [{ "arguments" => [{ class: "TestJob", name: "wrong_task" }] }]
         )
       ])
       expect(task.existing_run_times).to eq([future_time1])
@@ -189,7 +184,7 @@ describe SimpleScheduler::Task, type: :model do
     context "when the run :at time includes a specific hour" do
       let(:task) do
         described_class.new(
-          class: "SimpleSchedulerTestJob",
+          class: "TestJob",
           every: "1.day",
           at:    "2:30",
           tz:    "America/Chicago"
@@ -198,7 +193,7 @@ describe SimpleScheduler::Task, type: :model do
 
       context "when the :at hour is after the current time's hour" do
         it "returns the :at hour:minutes on the current day" do
-          Timecop.freeze(Time.parse("2016-12-02 1:23:45 CST")) do
+          travel_to Time.parse("2016-12-02 1:23:45 CST") do
             expect(task.first_run_time).to eq(Time.parse("2016-12-02 2:30:00 CST"))
           end
         end
@@ -206,7 +201,7 @@ describe SimpleScheduler::Task, type: :model do
 
       context "when the :at hour is before the current time's hour" do
         it "returns the :at hour:minutes on the next day" do
-          Timecop.freeze(Time.parse("2016-12-02 3:45:12 CST")) do
+          travel_to Time.parse("2016-12-02 3:45:12 CST") do
             expect(task.first_run_time).to eq(Time.parse("2016-12-03 2:30:00 CST"))
           end
         end
@@ -214,19 +209,19 @@ describe SimpleScheduler::Task, type: :model do
 
       context "when the :at hour is the same as the current time's hour" do
         it "returns the :at hour:minutes on the next day if the :at minute < current time's min" do
-          Timecop.freeze(Time.parse("2016-12-02 2:34:56 CST")) do
+          travel_to Time.parse("2016-12-02 2:34:56 CST") do
             expect(task.first_run_time).to eq(Time.parse("2016-12-03 2:30:00 CST"))
           end
         end
 
         it "returns the :at hour:minutes on the current day if the :at minute > current time's min" do
-          Timecop.freeze(Time.parse("2016-12-02 2:20:00 CST")) do
+          travel_to Time.parse("2016-12-02 2:20:00 CST") do
             expect(task.first_run_time).to eq(Time.parse("2016-12-02 2:30:00 CST"))
           end
         end
 
         it "returns the :at hour:minutes without seconds on the current day if the :at minute == current time's min" do
-          Timecop.freeze(Time.parse("2016-12-02 2:30:30 CST")) do
+          travel_to Time.parse("2016-12-02 2:30:30 CST") do
             expect(task.first_run_time).to eq(Time.parse("2016-12-02 2:30:00 CST"))
           end
         end
@@ -235,7 +230,7 @@ describe SimpleScheduler::Task, type: :model do
       context "when a specific day of the week is given" do
         let(:task) do
           described_class.new(
-            class: "SimpleSchedulerTestJob",
+            class: "TestJob",
             every: "1.week",
             at:    "Fri 23:45",
             tz:    "America/Chicago"
@@ -244,7 +239,7 @@ describe SimpleScheduler::Task, type: :model do
 
         context "if the current day is earlier in the week than the :at day" do
           it "returns the next day the :at day occurs" do
-            Timecop.freeze(Time.parse("2016-12-01 1:23:45 CST")) do # Dec 1 is Thursday
+            travel_to Time.parse("2016-12-01 1:23:45 CST") do # Dec 1 is Thursday
               expect(task.first_run_time).to eq(Time.parse("2016-12-02 23:45:00 CST"))
             end
           end
@@ -252,7 +247,7 @@ describe SimpleScheduler::Task, type: :model do
 
         context "if the current day is later in the week than the :at day" do
           it "returns the next day the :at day occurs, which will be next week" do
-            Timecop.freeze(Time.parse("2016-12-03 1:23:45 CST")) do # Dec 3 is Saturday
+            travel_to Time.parse("2016-12-03 1:23:45 CST") do # Dec 3 is Saturday
               expect(task.first_run_time).to eq(Time.parse("2016-12-09 23:45:00 CST"))
             end
           end
@@ -260,19 +255,19 @@ describe SimpleScheduler::Task, type: :model do
 
         context "if the current day is the same as the :at day" do
           it "returns the current day if :at time is later than the current time" do
-            Timecop.freeze(Time.parse("2016-12-02 23:20:00 CST")) do # Dec 2 is Friday
+            travel_to Time.parse("2016-12-02 23:20:00 CST") do # Dec 2 is Friday
               expect(task.first_run_time).to eq(Time.parse("2016-12-02 23:45:00 CST"))
             end
           end
 
           it "returns next week's day if :at time is earlier than the current time" do
-            Timecop.freeze(Time.parse("2016-12-02 23:50:00 CST")) do # Dec 2 is Friday
+            travel_to Time.parse("2016-12-02 23:50:00 CST") do # Dec 2 is Friday
               expect(task.first_run_time).to eq(Time.parse("2016-12-09 23:45:00 CST"))
             end
           end
 
           it "returns the current time without seconds if :at time matches the current time" do
-            Timecop.freeze(Time.parse("2016-12-02 23:45:45 CST")) do # Dec 2 is Friday
+            travel_to Time.parse("2016-12-02 23:45:45 CST") do # Dec 2 is Friday
               expect(task.first_run_time).to eq(Time.parse("2016-12-02 23:45:00 CST"))
             end
           end
@@ -283,7 +278,7 @@ describe SimpleScheduler::Task, type: :model do
     context "when the run :at time allows any hour" do
       let(:task) do
         described_class.new(
-          class: "SimpleSchedulerTestJob",
+          class: "TestJob",
           every: "1.hour",
           at:    "*:30",
           tz:    "America/New_York"
@@ -292,7 +287,7 @@ describe SimpleScheduler::Task, type: :model do
 
       context "when the :at minute < current time's min" do
         it "returns the next hour with the :at minutes on the current day" do
-          Timecop.freeze(Time.parse("2016-12-02 2:45:00 EST")) do
+          travel_to Time.parse("2016-12-02 2:45:00 EST") do
             expect(task.first_run_time).to eq(Time.parse("2016-12-02 3:30:00 EST"))
           end
         end
@@ -300,7 +295,7 @@ describe SimpleScheduler::Task, type: :model do
 
       context "when the :at minute > current time's min" do
         it "returns the current hour with the :at minutes on the current day" do
-          Timecop.freeze(Time.parse("2016-12-02 2:25:25 EST")) do
+          travel_to Time.parse("2016-12-02 2:25:25 EST") do
             expect(task.first_run_time).to eq(Time.parse("2016-12-02 2:30:00 EST"))
           end
         end
@@ -308,7 +303,7 @@ describe SimpleScheduler::Task, type: :model do
 
       context "when the :at minute == current time's min" do
         it "returns the current time without seconds" do
-          Timecop.freeze(Time.parse("2016-12-02 2:30:25 EST")) do
+          travel_to Time.parse("2016-12-02 2:30:25 EST") do
             expect(task.first_run_time).to eq(Time.parse("2016-12-02 2:30:00 EST"))
           end
         end
@@ -318,14 +313,14 @@ describe SimpleScheduler::Task, type: :model do
     context "when the run :at time isn't given" do
       let(:task) do
         described_class.new(
-          class: "SimpleSchedulerTestJob",
+          class: "TestJob",
           every: "1.hour",
           tz:    "America/Los_Angeles"
         )
       end
 
       it "returns the current time, but drops the seconds" do
-        Timecop.freeze(Time.parse("2016-12-02 1:23:45 PST")) do
+        travel_to Time.parse("2016-12-02 1:23:45 PST") do
           expect(task.first_run_time).to eq(Time.parse("2016-12-02 1:23:00 PST"))
         end
       end
@@ -336,7 +331,7 @@ describe SimpleScheduler::Task, type: :model do
     context "when creating a weekly task" do
       let(:task) do
         described_class.new(
-          class:       "SimpleSchedulerTestJob",
+          class:       "TestJob",
           every:       "1.week",
           at:          "0:00",
           queue_ahead: 10,
@@ -345,7 +340,7 @@ describe SimpleScheduler::Task, type: :model do
       end
 
       it "returns at least the next two future times the job should be run" do
-        Timecop.freeze(Time.parse("2016-12-01 1:00:00 CST")) do
+        travel_to Time.parse("2016-12-01 1:00:00 CST") do
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-02 0:00:00 CST"),
             Time.parse("2016-12-09 0:00:00 CST")
@@ -354,7 +349,7 @@ describe SimpleScheduler::Task, type: :model do
       end
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
-        Timecop.freeze(Time.parse("2016-12-01 20:00:00 CST")) do
+        travel_to Time.parse("2016-12-01 20:00:00 CST") do
           task.queue_ahead = 50_400 # 5 weeks
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-02 0:00:00 CST"),
@@ -371,7 +366,7 @@ describe SimpleScheduler::Task, type: :model do
     context "when creating a daily task" do
       let(:task) do
         described_class.new(
-          class:       "SimpleSchedulerTestJob",
+          class:       "TestJob",
           every:       "1.day",
           at:          "00:30",
           queue_ahead: 10,
@@ -380,7 +375,7 @@ describe SimpleScheduler::Task, type: :model do
       end
 
       it "returns at least the next two future times the job should be run" do
-        Timecop.freeze(Time.parse("2016-12-01 1:00:00 CST")) do
+        travel_to Time.parse("2016-12-01 1:00:00 CST") do
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-02 0:30:00 CST"),
             Time.parse("2016-12-03 0:30:00 CST")
@@ -389,7 +384,7 @@ describe SimpleScheduler::Task, type: :model do
       end
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
-        Timecop.freeze(Time.parse("2016-12-01 20:00:00 CST")) do
+        travel_to Time.parse("2016-12-01 20:00:00 CST") do
           task.queue_ahead = 10_080 # 1 week
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-02 0:30:00 CST"),
@@ -408,7 +403,7 @@ describe SimpleScheduler::Task, type: :model do
     context "when creating an hourly task" do
       let(:task) do
         described_class.new(
-          class:       "SimpleSchedulerTestJob",
+          class:       "TestJob",
           every:       "1.hour",
           at:          "*:00",
           queue_ahead: 10,
@@ -417,7 +412,7 @@ describe SimpleScheduler::Task, type: :model do
       end
 
       it "returns at least the next two future times the job should be run" do
-        Timecop.freeze(Time.parse("2016-12-01 1:00:00 CST")) do
+        travel_to Time.parse("2016-12-01 1:00:00 CST") do
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-01 1:00:00 CST"),
             Time.parse("2016-12-01 2:00:00 CST")
@@ -426,7 +421,7 @@ describe SimpleScheduler::Task, type: :model do
       end
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
-        Timecop.freeze(Time.parse("2016-12-01 20:00:00 CST")) do
+        travel_to Time.parse("2016-12-01 20:00:00 CST") do
           task.queue_ahead = 360 # 6 hours
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-01 20:00:00 CST"),
@@ -444,7 +439,7 @@ describe SimpleScheduler::Task, type: :model do
     context "when creating a frequent task" do
       let(:task) do
         described_class.new(
-          class:       "SimpleSchedulerTestJob",
+          class:       "TestJob",
           every:       "15.minutes",
           at:          "*:00",
           queue_ahead: 5,
@@ -453,7 +448,7 @@ describe SimpleScheduler::Task, type: :model do
       end
 
       it "returns at least the next two future times the job should be run" do
-        Timecop.freeze(Time.parse("2016-12-01 1:00:00 CST")) do
+        travel_to Time.parse("2016-12-01 1:00:00 CST") do
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-01 1:00:00 CST"),
             Time.parse("2016-12-01 1:15:00 CST")
@@ -462,7 +457,7 @@ describe SimpleScheduler::Task, type: :model do
       end
 
       it "uses queue_ahead to ensure jobs are queued into the future" do
-        Timecop.freeze(Time.parse("2016-12-01 20:00:00 CST")) do
+        travel_to Time.parse("2016-12-01 20:00:00 CST") do
           task.queue_ahead = 60 # minutes
           expect(task.future_run_times).to eq([
             Time.parse("2016-12-01 20:00:00 CST"),
@@ -479,7 +474,7 @@ describe SimpleScheduler::Task, type: :model do
       context "if the :at hour is given" do
         let(:task) do
           described_class.new(
-            class: "SimpleSchedulerTestJob",
+            class: "TestJob",
             every: "1.day",
             at:    "01:30",
             tz:    "America/Chicago"
@@ -487,16 +482,16 @@ describe SimpleScheduler::Task, type: :model do
         end
 
         it "will be scheduled to run at the given time" do
-          Timecop.freeze(Time.parse("2016-11-06 00:00:00 CDT")) do
+          travel_to Time.parse("2016-11-06 00:00:00 CDT") do
             expect(task.future_run_times).to include(Time.parse("2016-11-06 01:30:00 CDT"))
           end
         end
 
         it "won't be rescheduled when the time falls back if the job was previously executed" do
-          Timecop.freeze(Time.parse("2016-11-06 01:00:00 CST")) do
+          travel_to Time.parse("2016-11-06 01:00:00 CST") do
             tomorrows_run_time = Time.parse("2016-11-07 01:30:00 CST")
             expect(task).to receive(:existing_jobs).and_return([
-              Sidekiq::SortedEntry.new(nil, tomorrows_run_time.to_i, "wrapped" => "SimpleSchedulerTestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
+              Sidekiq::SortedEntry.new(nil, tomorrows_run_time.to_i, "wrapped" => "TestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
             ])
             expect(task.future_run_times).to eq([
               Time.parse("2016-11-07 01:30:00 CST"),
@@ -509,7 +504,7 @@ describe SimpleScheduler::Task, type: :model do
       context "if the :at hour isn't given" do
         let(:task) do
           described_class.new(
-            class:       "SimpleSchedulerTestJob",
+            class:       "TestJob",
             every:       "1.hour",
             at:          "*:30",
             queue_ahead: 360,
@@ -518,7 +513,7 @@ describe SimpleScheduler::Task, type: :model do
         end
 
         it "will be scheduled to run every time based on the given frequency, including running twice at the 'same' hour" do
-          Timecop.freeze(Time.parse("2016-11-06 00:00:00 CDT")) do
+          travel_to Time.parse("2016-11-06 00:00:00 CDT") do
             expect(task.future_run_times).to eq([
               Time.parse("2016-11-06 00:30:00 CDT"),
               Time.parse("2016-11-06 01:30:00 CDT"),
@@ -537,7 +532,7 @@ describe SimpleScheduler::Task, type: :model do
       context "if the :at hour is given" do
         let(:task) do
           described_class.new(
-            class: "SimpleSchedulerTestJob",
+            class: "TestJob",
             every: "1.day",
             at:    "02:30",
             tz:    "America/Chicago"
@@ -545,13 +540,13 @@ describe SimpleScheduler::Task, type: :model do
         end
 
         it "will always run, even if the time doesn't exist on the day" do
-          Timecop.freeze(Time.parse("2016-03-13 01:00:00 CST")) do
+          travel_to Time.parse("2016-03-13 01:00:00 CST") do
             expect(task.future_run_times).to include(Time.parse("2016-03-13 02:30:00 CST"))
           end
         end
 
         it "won't throw off the hour it is run next time after running late" do
-          Timecop.freeze(Time.parse("2016-03-13 01:00:00 CST")) do
+          travel_to Time.parse("2016-03-13 01:00:00 CST") do
             expect(task.future_run_times).to eq([
               Time.parse("2016-03-13 03:30:00 CDT"),
               Time.parse("2016-03-14 02:30:00 CDT")
@@ -563,7 +558,7 @@ describe SimpleScheduler::Task, type: :model do
       context "if the :at hour isn't given" do
         let(:task) do
           described_class.new(
-            class:       "SimpleSchedulerTestJob",
+            class:       "TestJob",
             every:       "1.hour",
             at:          "*:30",
             queue_ahead: 360,
@@ -572,13 +567,13 @@ describe SimpleScheduler::Task, type: :model do
         end
 
         it "will always run, even if the time doesn't exist on the day" do
-          Timecop.freeze(Time.parse("2016-03-13 01:50:00 CST")) do
+          travel_to Time.parse("2016-03-13 01:50:00 CST") do
             expect(task.future_run_times).to include(Time.parse("2016-03-13 02:30:00 CST"))
           end
         end
 
         it "won't run twice or throw off the hour it is run next time" do
-          Timecop.freeze(Time.parse("2016-03-13 00:50:00 CST")) do
+          travel_to Time.parse("2016-03-13 00:50:00 CST") do
             expect(task.future_run_times).to eq([
               Time.parse("2016-03-13 01:30:00 CST"),
               Time.parse("2016-03-13 03:30:00 CDT"),

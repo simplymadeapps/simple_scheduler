@@ -1,4 +1,4 @@
 weekly_task:
-  class: "SimpleSchedulerTestJob"
+  class: "TestJob"
   every: "1.week"
   at: "Sun 1:00"

@@ -1,5 +1,5 @@
 # Sidekiq Worker for testing
-class SimpleSchedulerTestWorker
+class TestWorker
   include Sidekiq::Worker
-  def perform(time); end
+  def perform(scheduled_time); end
 end
