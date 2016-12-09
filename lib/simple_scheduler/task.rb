@@ -7,7 +7,7 @@ module SimpleScheduler
   # @!attribute [r] params
   #   @return [Hash] The params used to create the task
   class Task
-    attr_reader :params
+    attr_reader :job_class, :params
 
     DEFAULT_QUEUE_AHEAD_MINUTES = 360
 
