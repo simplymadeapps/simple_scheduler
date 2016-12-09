@@ -1,7 +1,7 @@
 PATH
   remote: ../
   specs:
-    simple_scheduler (0.2.1)
+    simple_scheduler (0.2.2)
       rails (>= 4.2)
       sidekiq (~> 4.2)
 
@@ -52,6 +52,8 @@ GEM
     arel (7.1.4)
     ast (2.3.0)
     builder (3.2.2)
+    codeclimate-test-reporter (1.0.3)
+      simplecov
     concurrent-ruby (1.0.2)
     connection_pool (2.2.1)
     diff-lcs (1.2.5)
@@ -165,6 +167,7 @@ PLATFORMS
 
 DEPENDENCIES
   appraisal
+  codeclimate-test-reporter
   rails (~> 5.0)
   rspec-rails
   rubocop
