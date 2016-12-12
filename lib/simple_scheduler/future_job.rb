@@ -30,6 +30,7 @@ module SimpleScheduler
 
     # The duration between the scheduled run time and actual run time that
     # will cause the job to expire. Expired jobs will not be executed.
+    # @return [ActiveSupport::Duration]
     def expire_duration
       split_duration = @task.expires_after.split(".")
       duration = split_duration[0].to_i

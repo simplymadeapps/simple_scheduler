@@ -7,7 +7,7 @@ module SimpleScheduler
   #   SimpleScheduler::At.new("1:00")
   #   # => 2016-12-10 01:00:00 -0600
   #   SimpleScheduler::At.new("Sun 0:00")
-  #   # => 2016-12-11 01:00:00 -0600
+  #   # => 2016-12-11 00:00:00 -0600
   class At < Time
     AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|(\d{1,2})):(\d{1,2})/
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
@@ -29,7 +29,8 @@ module SimpleScheduler
             parsed_time.hour, parsed_time.min, parsed_time.sec, parsed_time.utc_offset)
     end
 
-    # Always returns the specified hour.
+    # Always returns the specified hour if the hour was given, otherwise
+    # it returns the hour calculated based on other specified options.
     # @return [Integer]
     def hour
       hour? ? at_hour : super
@@ -64,7 +65,7 @@ module SimpleScheduler
     end
 
     def next_hour?
-      !hour? && at_hour == now.hour && at_min < now.min
+      !hour? && at_min < now.min
     end
 
     def now
@@ -90,8 +91,14 @@ module SimpleScheduler
 
       @parsed_time = parsed_day
       change_hour = at_hour
+
+      # Add an additional hour if a specific hour wasn't given, if the minutes
+      # given are less than the current time's minutes.
       change_hour += 1 if next_hour?
       @parsed_time = @parsed_time.change(hour: change_hour, min: at_min)
+
+      # If the parsed time is still before the current time, add an additional day if
+      # the week day wasn't specified or add an additional week to get the correct time.
       @parsed_time += at_wday? ? 1.week : 1.day if now > @parsed_time
       @parsed_time
     end

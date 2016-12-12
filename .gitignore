@@ -1,6 +1,7 @@
 .DS_Store
 .bundle/
 coverage
+gemfiles/*.lock
 log/*.log
 pkg/
 spec/dummy/db/*.sqlite3

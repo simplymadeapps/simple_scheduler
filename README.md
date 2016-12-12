@@ -82,6 +82,8 @@ Add the rake task to Heroku Scheduler and set it to run every 10 minutes:
 rake simple_scheduler
 ```
 
+![Heroku Scheduler](https://cloud.githubusercontent.com/assets/124570/21104523/6d733d1a-c04c-11e6-89af-590e7d234cdf.gif)
+
 It may be useful to point to a specific configuration file in non-production environments:
 
 ```
@@ -127,10 +129,13 @@ Valid string formats/examples:
 
 #### :expires_after (optional)
 
-If your worker process is down for an extended period of time, you may not want jobs
-to execute when the server comes back online. By specifying an `expires_after` value,
-your job will not fire if the time the job actually runs later, by the specified
-duration, than the scheduled run time.
+If your worker process is down for an extended period of time, you may not want certain jobs
+to execute when the server comes back online. The `expires_after` value will be used
+to determine if it's too late to run the job at the actual run time.
+
+All jobs are scheduled in the future using the `SimpleScheculder::FutureJob`. This
+wrapper job does the work of evaluating the current time and determining if the
+scheduled job should run. See [Handling Expired Jobs](#handling-expired-jobs).
 
 The string should be in the form of an ActiveSupport duration.
 
@@ -180,9 +185,9 @@ end
 
 ## How It Works
 
-Once the rake task is added to Heroku Scheduler, the Simple Scheduler library
-will load the configuration file every 10 minutes, and ensure that each task
-has jobs scheduled in the future be checking the `Sidekiq::ScheduledSet`.
+The Heroku Scheduler must be set up to run `rake simple_scheduler` every 10 minutes.
+The rake task will load the configuration file each time and ensure that each task has
+jobs scheduled for the future. This is done by checking the `Sidekiq::ScheduledSet`.
 
 A minimum of two jobs is always added to the scheduled set. By default all
 jobs for the next six hours are queued in advance. This ensures that there is
