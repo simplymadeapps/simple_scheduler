@@ -4,8 +4,7 @@ AllCops:
 
 Metrics/BlockLength:
   Exclude:
-    - "spec/simple_scheduler/scheduler_job_spec.rb"
-    - "spec/simple_scheduler/task_spec.rb"
+    - "spec/**/*"
 
 Metrics/LineLength:
   Max: 120

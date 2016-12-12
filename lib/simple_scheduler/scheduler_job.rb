@@ -24,10 +24,8 @@ module SimpleScheduler
     # Queue each of the future jobs into Sidekiq from the defined tasks.
     def queue_future_jobs
       tasks.each do |task|
-        new_run_times = task.future_run_times - task.existing_run_times
-        next if new_run_times.empty?
-
         # Schedule the new run times using the future job wrapper.
+        new_run_times = task.future_run_times - task.existing_run_times
         new_run_times.each do |time|
           SimpleScheduler::FutureJob.set(wait_until: time).perform_later(task.params, time.to_i)
         end
@@ -35,7 +33,7 @@ module SimpleScheduler
     end
 
     # The array of tasks loaded from the config YAML.
-    # @return [Array<SimpleScheduler::SchedulerJob]
+    # @return [Array<SimpleScheduler::Task]
     def tasks
       @config.map do |task_name, options|
         task_params = options.symbolize_keys

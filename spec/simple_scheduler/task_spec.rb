@@ -323,7 +323,7 @@ describe SimpleScheduler::Task, type: :model do
       end
     end
 
-    context "when daylight savings time falls back" do
+    context "when daylight saving time falls back" do
       context "if the :at hour is given" do
         let(:task) do
           described_class.new(
@@ -381,7 +381,7 @@ describe SimpleScheduler::Task, type: :model do
       end
     end
 
-    context "when daylight savings time springs forward" do
+    context "when daylight saving time springs forward" do
       context "if the :at hour is given" do
         let(:task) do
           described_class.new(

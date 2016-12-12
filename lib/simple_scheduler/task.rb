@@ -42,8 +42,8 @@ module SimpleScheduler
     def existing_jobs
       @existing_jobs ||= SimpleScheduler::Task.scheduled_set.select do |job|
         next unless job.display_class == "SimpleScheduler::FutureJob"
-        task_params = job.display_args[0]
-        task_params["class"] == job_class_name && task_params["name"] == name
+        task_params = job.display_args[0].symbolize_keys
+        task_params[:class] == job_class_name && task_params[:name] == name
       end.to_a
     end
 
@@ -68,8 +68,10 @@ module SimpleScheduler
       last_run_time = last_run_time.in_time_zone(time_zone)
 
       # Ensure there are at least two future jobs scheduled and that the queue ahead time is filled
-      while future_run_times.length < 2 || ((last_run_time - Time.now) / 1.minute) < queue_ahead
+      while future_run_times.length < 2 || minutes_queued_ahead(last_run_time) < queue_ahead
         last_run_time = frequency.from_now(last_run_time)
+        # The hour may not match because of a shift caused by DST in previous run times,
+        # so we need to ensure that the hour matches the specified hour if given.
         last_run_time = last_run_time.change(hour: at.hour, min: at.min) if at.hour?
         future_run_times << last_run_time
       end
@@ -109,6 +111,10 @@ module SimpleScheduler
     end
 
     private
+
+    def minutes_queued_ahead(last_run_time)
+      (last_run_time - Time.now) / 1.minute
+    end
 
     def parse_frequency(every_string)
       split_duration = every_string.split(".")
