@@ -84,7 +84,6 @@ rake simple_scheduler
 
 ![Heroku Scheduler](https://cloud.githubusercontent.com/assets/124570/21104523/6d733d1a-c04c-11e6-89af-590e7d234cdf.gif)
 
-
 It may be useful to point to a specific configuration file in non-production environments:
 
 ```
