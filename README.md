@@ -133,7 +133,7 @@ If your worker process is down for an extended period of time, you may not want 
 to execute when the server comes back online. The `expires_after` value will be used
 to determine if it's too late to run the job at the actual run time.
 
-All jobs are scheduled in the future using the `SimpleScheculder::FutureJob`. This
+All jobs are scheduled in the future using the `SimpleScheduler::FutureJob`. This
 wrapper job does the work of evaluating the current time and determining if the
 scheduled job should run. See [Handling Expired Jobs](#handling-expired-jobs).
 
