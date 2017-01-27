@@ -12,6 +12,11 @@ gives you the ability to **schedule tasks at any interval** without adding
 a clock process. Heroku Scheduler only allows you to schedule tasks every 10 minutes,
 every hour, or every day.
 
+## Production Ready?
+
+**Yes.** We are using Simple Scheduler in production for scheduling hourly,
+nightly, and weekly tasks in [Simple In/Out](https://www.simpleinout.com).
+
 ## Requirements
 
 You must be using:
