@@ -26,6 +26,13 @@ module SimpleScheduler
       queue_task
     end
 
+    # Delete all future jobs created by Simple Scheduler from the `Sidekiq::ScheduledSet`.
+    def self.delete_all
+      Task.scheduled_set.each do |job|
+        job.delete if job.display_class == "SimpleScheduler::FutureJob"
+      end
+    end
+
     private
 
     # The duration between the scheduled run time and actual run time that

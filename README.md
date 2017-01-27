@@ -183,6 +183,31 @@ SimpleScheduler.expired_task do |exception|
 end
 ```
 
+## Making Changes to Configuration File
+
+Any changes made to the YAML configuration file will be picked up by Simple Scheduler
+the next time `rake simple_scheduler` is run. Depending on the changes, you may need
+to reset the current job queue.
+
+Reasons you may need to reset the job queue:
+
+- Renaming a job's class
+- Deleting a scheduled task
+- Changing the task's run time interval
+- Changing the day of the week the job is run
+
+A rake task exists to delete all existing scheduled jobs and queue them back up from scratch:
+
+```
+rake simple_scheduler:reset
+```
+
+If you're using a custom configuration file:
+
+```
+rake simple_scheduler:reset["config/simple_scheduler.staging.yml"]
+```
+
 ## How It Works
 
 The Heroku Scheduler must be set up to run `rake simple_scheduler` every 10 minutes.

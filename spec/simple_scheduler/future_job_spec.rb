@@ -141,4 +141,50 @@ describe SimpleScheduler::FutureJob, type: :job do
       end
     end
   end
+
+  describe ".delete_all" do
+    let(:application_job) do
+      Sidekiq::SortedEntry.new(
+        nil,
+        nil,
+        "wrapped" => "SomeApplicationJob",
+        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"
+      )
+    end
+
+    let(:simple_scheduler_job1) do
+      Sidekiq::SortedEntry.new(
+        nil,
+        nil,
+        "wrapped" => "SimpleScheduler::FutureJob",
+        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
+      )
+    end
+
+    let(:simple_scheduler_job2) do
+      Sidekiq::SortedEntry.new(
+        nil,
+        nil,
+        "wrapped" => "SimpleScheduler::FutureJob",
+        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args"    => [{ "arguments" => [{ "class" => "AnotherJob", "name" => "another_task" }] }]
+      )
+    end
+
+    before do
+      expect(SimpleScheduler::Task).to receive(:scheduled_set).and_return([
+        application_job,
+        simple_scheduler_job1,
+        simple_scheduler_job2
+      ])
+    end
+
+    it "deletes future jobs scheduled by Simple Scheduler from the Sidekiq::ScheduledSet" do
+      expect(simple_scheduler_job1).to receive(:delete).once
+      expect(simple_scheduler_job2).to receive(:delete).once
+      expect(application_job).not_to receive(:delete)
+      SimpleScheduler::FutureJob.delete_all
+    end
+  end
 end

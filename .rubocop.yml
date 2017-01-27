@@ -12,8 +12,7 @@ Metrics/LineLength:
     - "spec/simple_scheduler/task_spec.rb"
 
 Style/IndentArray:
-  Exclude:
-    - "spec/simple_scheduler/task_spec.rb"
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
