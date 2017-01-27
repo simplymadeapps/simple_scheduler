@@ -17,9 +17,11 @@ describe SimpleScheduler::SchedulerJob, type: :job do
 
   describe "scheduling tasks without specifying a config path" do
     it "queues the jobs loaded from config/simple_scheduler.yml" do
-      expect do
-        described_class.perform_now
-      end.to change(enqueued_jobs, :size).by(4)
+      travel_to(now) do
+        expect do
+          described_class.perform_now
+        end.to change(enqueued_jobs, :size).by(4)
+      end
     end
   end
 
