@@ -17,21 +17,11 @@ every hour, or every day.
 **Yes.** We are using Simple Scheduler in production for scheduling hourly,
 nightly, and weekly tasks in [Simple In/Out](https://www.simpleinout.com).
 
-## Why?
+### Why did we need to create yet another job scheduler?
 
-Why did we need to create yet another job scheduler when
-[there](https://github.com/Rykian/clockwork)
-[are](https://elements.heroku.com/addons/scheduler)
-[plenty](https://github.com/jmettraux/rufus-scheduler)
-[of](https://github.com/ondrejbartas/sidekiq-cron)
-[options](https://github.com/mperham/sidekiq/wiki/Ent-Periodic-Jobs)
-[available](https://github.com/moove-it/sidekiq-scheduler)?
+Every option we evaluated seems to have the same flaw: **If your server is down, your job won't run.**
 
-We evaluated every possible option we could find, and every solution seemed to have the same flaw:
-
-**What happens if your server is down when your job is supposed to run?**
-
-TL;DR: Your job won't run. [Check out this blog post to learn more](http://www.simplymadeapps.com/blog/).
+[Check out this blog post to learn more](http://www.simplymadeapps.com/blog/).
 
 ## Requirements
 
