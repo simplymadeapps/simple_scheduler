@@ -65,7 +65,7 @@ overnight_task:
   at: "4:00"
   expires_after: "23.hours"
 
-# Runs once every hour at the half hour
+# Runs once every half hour, starting on the 30 min mark
 half_hour_task:
   class: "HalfHourTask"
   every: "30.minutes"
