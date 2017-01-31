@@ -17,6 +17,22 @@ every hour, or every day.
 **Yes.** We are using Simple Scheduler in production for scheduling hourly,
 nightly, and weekly tasks in [Simple In/Out](https://www.simpleinout.com).
 
+## Why?
+
+Why did we need to create yet another job scheduler when
+[there](https://github.com/Rykian/clockwork)
+[are](https://elements.heroku.com/addons/scheduler)
+[plenty](https://github.com/jmettraux/rufus-scheduler)
+[of](https://github.com/ondrejbartas/sidekiq-cron)
+[options](https://github.com/mperham/sidekiq/wiki/Ent-Periodic-Jobs)
+[available](https://github.com/moove-it/sidekiq-scheduler)?
+
+We evaluated every possible option we could find, and every solution seemed to have the same flaw:
+
+**What happens if your server is down when your job is supposed to run?**
+
+TL;DR: Your job won't run. [Check out this blog post to learn more](http://www.simplymadeapps.com/blog/).
+
 ## Requirements
 
 You must be using:
@@ -211,78 +227,6 @@ If you're using a custom configuration file:
 
 ```
 rake simple_scheduler:reset["config/simple_scheduler.staging.yml"]
-```
-
-## How It Works
-
-The Heroku Scheduler must be set up to run `rake simple_scheduler` every 10 minutes.
-The rake task will load the configuration file each time and ensure that each task has
-jobs scheduled for the future. This is done by checking the `Sidekiq::ScheduledSet`.
-
-A minimum of two jobs is always added to the scheduled set. By default all
-jobs for the next six hours are queued in advance. This ensures that there is
-always one job in the queue that can be used to determine the next run time,
-even if one of the two was executed during the 10 minute scheduler wait time.
-
-### Server Downtime Example
-
-If you're using a gem like [clockwork](https://github.com/Rykian/clockwork),
-there is no way for the clock process to know that the task was never run.
-If your task is scheduled for `12:00:00`, your clock process could possibly
-be restarted at `11:59:59` and your dyno might not be available until `12:00:20`.
-
-Simple Scheduler would have already enqueued the task hours before the task should actually
-run, so you still have to worry about the worker dyno restarting, but when the worker
-dyno becomes available, the enqueued task will be there and will be executed immediately.
-
-### Daily Digest Email Example
-
-Here's an example of a daily digest email that needs to go out at 8:00 AM for
-users in their local time zone. We need to run this every 15 minutes to handle
-all time zone offsets.
-
-config/simple_scheduler.yml:
-
-```yml
-# Runs every hour starting at the top of the hour + every 15 minutes
-daily_digest_task:
-  class: "DailyDigestEmailJob"
-  every: "15.minutes"
-  at: "*:00"
-  expires_after: "23.hours"
-```
-
-app/jobs/daily_digest_email_job.rb:
-
-```ruby
-class DailyDigestEmailJob < ApplicationJob
-  queue_as :default
-
-  # Called by Simple Scheduler and is given the scheduled time so decisions can be made
-  # based on when the job was scheduled to be run rather than when it was actually run.
-  # @param scheduled_time [Integer] The epoch time for when the job was scheduled to be run
-  def perform(scheduled_time)
-    # Don't do this! This will be way too slow!
-    User.find_each do |user|
-      if user.digest_time == Time.at(scheduled_time)
-        DigestMailer.daily(user).deliver_later
-      end
-    end
-  end
-end
-```
-
-app/models/user.rb:
-
-```ruby
-class User < ApplicationRecord
-  # Returns the time the user's daily digest should be
-  # delivered today based on the user's time zone.
-  # @return [Time]
-  def digest_time
-    "8:00 AM".in_time_zone(self.time_zone)
-  end
-end
 ```
 
 ## Contributing
