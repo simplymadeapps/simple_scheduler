@@ -21,7 +21,7 @@ nightly, and weekly tasks in [Simple In/Out](https://www.simpleinout.com).
 
 Every option we evaluated seems to have the same flaw: **If your server is down, your job won't run.**
 
-[Check out our intro blog post to learn more](http://www.simplymadeapps.com/blog/).
+[Check out our intro blog post to learn more](http://www.simplymadeapps.com/blog/2017/01/simple-scheduler-schedule-recurring-tasks-to-run-at-any-interval/).
 
 ## Requirements
 
