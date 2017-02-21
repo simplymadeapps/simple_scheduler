@@ -54,9 +54,9 @@ $ bundle
 Create the file `config/simple_scheduler.yml` in your Rails project:
 
 ```yml
-# Global configuration options and their defaults. These can also be set on each task.
+# Global configuration options. These can also be set on each task.
 queue_ahead: 360 # Number of minutes to queue jobs into the future
-tz: nil # The application time zone will be used by default
+tz: "America/Chicago" # The application time zone will be used by default if not set
 
 # Runs once every 2 minutes
 simple_task:
@@ -82,7 +82,7 @@ weekly_task:
   class: "WeeklyJob"
   every: "1.week"
   at: "Sat 0:00"
-  tz: "America/Chicago"
+  tz: "America/New_York"
 ```
 
 ### Set up Heroku Scheduler
