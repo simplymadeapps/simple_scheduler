@@ -69,7 +69,7 @@ module SimpleScheduler
     end
 
     def now
-      @now ||= @time_zone.now.beginning_of_minute
+      @now ||= @time_zone ? @time_zone.now.beginning_of_minute : Time.now.beginning_of_minute
     end
 
     def parsed_day
