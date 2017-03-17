@@ -12,6 +12,7 @@ module SimpleScheduler
     AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|((?:\b[0-1]?[0-9]|2[0-3]))):([0-5]\d)/
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
 
+    # Error class raised when an invalid string is given for the time.
     class InvalidAtTime < StandardError; end
 
     # Accepts a time string to determine when a task should be run for the first time.
