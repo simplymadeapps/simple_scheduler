@@ -12,6 +12,8 @@ module SimpleScheduler
     AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|((?:\b[0-1]?[0-9]|2[0-3]))):([0-5]\d)/
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
 
+    class InvalidAtTime < StandardError; end
+
     # Accepts a time string to determine when a task should be run for the first time.
     # Valid formats:
     #   "18:00"
@@ -45,7 +47,11 @@ module SimpleScheduler
     private
 
     def at_match
-      @at_match ||= AT_PATTERN.match(@at) || []
+      @at_match ||= begin
+        match = @at.nil? ? [] : AT_PATTERN.match(@at)
+        raise InvalidAtTime, "The `at` option '#{@at}' is invalid." if match.nil?
+        match
+      end
     end
 
     def at_hour

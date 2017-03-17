@@ -148,4 +148,12 @@ describe SimpleScheduler::At, type: :model do
       end
     end
   end
+
+  describe "when the run :at time is invalid" do
+    it "raises an InvalidAtTime error" do
+      expect do
+        described_class.new("24:00", ActiveSupport::TimeZone.new("America/New_York"))
+      end.to raise_error(SimpleScheduler::At::InvalidAtTime, "The `at` option '24:00' is invalid.")
+    end
+  end
 end
