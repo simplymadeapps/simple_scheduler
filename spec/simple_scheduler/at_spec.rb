@@ -25,6 +25,7 @@ describe SimpleScheduler::At, type: :model do
     it "doesn't match invalid times" do
       expect(pattern.match("99:99")).to eq(nil)
       expect(pattern.match("0:60")).to eq(nil)
+      expect(pattern.match("12:0")).to eq(nil)
       expect(pattern.match("24:00")).to eq(nil)
       expect(pattern.match("*:60")).to eq(nil)
       expect(pattern.match("Sun 00:60")).to eq(nil)
