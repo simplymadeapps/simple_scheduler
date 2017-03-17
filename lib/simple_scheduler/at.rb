@@ -13,7 +13,7 @@ module SimpleScheduler
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
 
     # Error class raised when an invalid string is given for the time.
-    class InvalidAtTime < StandardError; end
+    class InvalidTime < StandardError; end
 
     # Accepts a time string to determine when a task should be run for the first time.
     # Valid formats:
@@ -50,7 +50,7 @@ module SimpleScheduler
     def at_match
       @at_match ||= begin
         match = @at.nil? ? [] : AT_PATTERN.match(@at)
-        raise InvalidAtTime, "The `at` option '#{@at}' is invalid." if match.nil?
+        raise InvalidTime, "The `at` option '#{@at}' is invalid." if match.nil?
         match
       end
     end
