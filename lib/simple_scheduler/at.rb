@@ -9,8 +9,11 @@ module SimpleScheduler
   #   SimpleScheduler::At.new("Sun 0:00")
   #   # => 2016-12-11 00:00:00 -0600
   class At < Time
-    AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|(\d{1,2})):(\d{1,2})/
+    AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|((?:\b[0-1]?[0-9]|2[0-3]))):([0-5]\d)/
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
+
+    # Error class raised when an invalid string is given for the time.
+    class InvalidTime < StandardError; end
 
     # Accepts a time string to determine when a task should be run for the first time.
     # Valid formats:
@@ -45,7 +48,11 @@ module SimpleScheduler
     private
 
     def at_match
-      @at_match ||= AT_PATTERN.match(@at) || []
+      @at_match ||= begin
+        match = @at.nil? ? [] : AT_PATTERN.match(@at)
+        raise InvalidTime, "The `at` option '#{@at}' is invalid." if match.nil?
+        match
+      end
     end
 
     def at_hour
