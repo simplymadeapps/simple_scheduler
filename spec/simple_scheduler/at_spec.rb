@@ -1,6 +1,36 @@
 require "rails_helper"
 
 describe SimpleScheduler::At, type: :model do
+  describe "AT_PATTERN" do
+    let(:pattern) { SimpleScheduler::At::AT_PATTERN }
+
+    it "matches valid times" do
+      match = pattern.match("0:00")
+      expect(match[2]).to eq("0")
+      expect(match[3]).to eq("00")
+
+      match = pattern.match("9:30")
+      expect(match[2]).to eq("9")
+      expect(match[3]).to eq("30")
+
+      match = pattern.match("Sat 23:59")
+      expect(match[2]).to eq("23")
+      expect(match[3]).to eq("59")
+
+      match = pattern.match("Sun 00:00")
+      expect(match[2]).to eq("00")
+      expect(match[3]).to eq("00")
+    end
+
+    it "doesn't match invalid times" do
+      expect(pattern.match("99:99")).to eq(nil)
+      expect(pattern.match("0:60")).to eq(nil)
+      expect(pattern.match("24:00")).to eq(nil)
+      expect(pattern.match("*:60")).to eq(nil)
+      expect(pattern.match("Sun 00:60")).to eq(nil)
+    end
+  end
+
   describe "when the run :at time includes a specific hour" do
     let(:at) { described_class.new("2:30", ActiveSupport::TimeZone.new("America/Chicago")) }
 

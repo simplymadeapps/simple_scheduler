@@ -9,7 +9,7 @@ module SimpleScheduler
   #   SimpleScheduler::At.new("Sun 0:00")
   #   # => 2016-12-11 00:00:00 -0600
   class At < Time
-    AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|(\d{1,2})):(\d{1,2})/
+    AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|((?:\b0?[0-9]|[0-1][0-9]|2[0-3]))):([0-5]\d)/
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
 
     # Accepts a time string to determine when a task should be run for the first time.
