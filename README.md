@@ -14,7 +14,7 @@ every hour, or every day.
 
 ## Production Ready?
 
-**Yes.** We are using Simple Scheduler in production for scheduling task that run
+**Yes.** We are using Simple Scheduler in production for scheduling tasks that run
 hourly, nightly, weekly, and every 10 minutes in [Simple In/Out](https://www.simpleinout.com).
 
 ### Why did we need to create yet another job scheduler?
