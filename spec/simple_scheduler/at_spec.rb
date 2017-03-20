@@ -121,6 +121,12 @@ describe SimpleScheduler::At, type: :model do
           expect(at).to eq(Time.parse("2016-12-02 3:30:00 EST"))
         end
       end
+
+      it "returns the first hour of the next day with the :at minutes if it's the last hour of the day" do
+        travel_to Time.parse("2016-12-02 23:45:00 EST") do
+          expect(at).to eq(Time.parse("2016-12-03 0:30:00 EST"))
+        end
+      end
     end
 
     context "when the :at minute > current time's min" do
