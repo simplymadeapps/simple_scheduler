@@ -71,6 +71,16 @@ module SimpleScheduler
       at_match[1].present?
     end
 
+    def next_hour
+      @next_hour ||= begin
+        next_hour = at_hour
+        # Add an additional hour if a specific hour wasn't given, if the minutes
+        # given are less than the current time's minutes.
+        next_hour += 1 if next_hour?
+        next_hour
+      end
+    end
+
     def next_hour?
       !hour? && at_min < now.min
     end
@@ -97,11 +107,14 @@ module SimpleScheduler
       return @parsed_time if @parsed_time
 
       @parsed_time = parsed_day
-      change_hour = at_hour
+      change_hour = next_hour
 
-      # Add an additional hour if a specific hour wasn't given, if the minutes
-      # given are less than the current time's minutes.
-      change_hour += 1 if next_hour?
+      # There is no hour 24, so we need to move to the next day
+      if change_hour == 24
+        @parsed_time = 1.day.from_now(@parsed_time)
+        change_hour = 0
+      end
+
       @parsed_time = @parsed_time.change(hour: change_hour, min: at_min)
 
       # If the parsed time is still before the current time, add an additional day if
