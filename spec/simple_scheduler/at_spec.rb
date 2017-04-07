@@ -29,6 +29,7 @@ describe SimpleScheduler::At, type: :model do
       expect(pattern.match("24:00")).to eq(nil)
       expect(pattern.match("*:60")).to eq(nil)
       expect(pattern.match("Sun 00:60")).to eq(nil)
+      expect(pattern.match("[Mon|Tue|Wed|Thu|Fri] 00:00")).to eq(nil)
     end
   end
 

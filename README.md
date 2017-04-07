@@ -134,8 +134,7 @@ Valid string formats/examples:
 "3:30"
 "**:00"
 "*:30"
-"Sun 2:00"
-"[Sun|Mon|Tue|Wed|Thu|Fri|Sat] 00:00"
+"Sun 2:00" # [Sun|Mon|Tue|Wed|Thu|Fri|Sat]
 ```
 
 #### :expires_after (optional)

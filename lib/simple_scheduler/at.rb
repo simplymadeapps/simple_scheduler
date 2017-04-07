@@ -9,7 +9,7 @@ module SimpleScheduler
   #   SimpleScheduler::At.new("Sun 0:00")
   #   # => 2016-12-11 00:00:00 -0600
   class At < Time
-    AT_PATTERN = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|((?:\b[0-1]?[0-9]|2[0-3]))):([0-5]\d)/
+    AT_PATTERN = /\A(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|((?:\b[0-1]?[0-9]|2[0-3]))):([0-5]\d)\z/
     DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
 
     # Error class raised when an invalid string is given for the time.
