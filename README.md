@@ -123,9 +123,9 @@ How frequently the task should be performed as an ActiveSupport duration definit
 
 #### :at (optional)
 
-This is the starting point for the `every` duration. If not given, the job will
+This is the starting point for the `:every` duration. If not given, the job will
 run immediately when the configuration file is loaded for the first time and will
-follow the `every` duration to determine future execution times.
+follow the `:every` duration to determine future execution times.
 
 Valid string formats/examples:
 
@@ -141,7 +141,7 @@ Valid string formats/examples:
 #### :expires_after (optional)
 
 If your worker process is down for an extended period of time, you may not want certain jobs
-to execute when the server comes back online. The `expires_after` value will be used
+to execute when the server comes back online. The `:expires_after` value will be used
 to determine if it's too late to run the job at the actual run time.
 
 All jobs are scheduled in the future using the `SimpleScheduler::FutureJob`. This
@@ -154,6 +154,27 @@ The string should be in the form of an ActiveSupport duration.
 "59.minutes"
 "23.hours"
 ```
+
+#### :queue_ahead (optional)
+
+The `:queue_ahead` is the number of minutes that the job should be scheduled into the future.
+The default value is `360`, so Simple Scheduler will make sure you have scheduled jobs for
+the next 6 hours. This allows for a major outage without losing track of jobs that were
+supposed to run during that time.
+
+**There are always a minimum of 2 scheduled jobs for each scheduled task.** This ensures there
+is always one job in the queue that can be used to determine the next run time, even if one of
+the two was executed during the 10 minute Heroku Scheduler wait time.
+
+The `:queue_ahead` can be set as a global configuration option or for each individual task.
+
+#### :tz (optional)
+
+Use `:tz` to specify the time zone of your `:at` time. If no time zone is specified, the Time.zone
+default in your Rails app will be used when parsing the `:at` time. A list of all the available
+timezone identifiers can be obtained using `TZInfo::Timezone.all_identifiers`.
+
+The `:tz` can be set as a global configuration option or for each individual task.
 
 ## Writing Your Jobs
 
@@ -173,7 +194,7 @@ end
 
 ## Handling Expired Jobs
 
-If you assign the `expires_after` option to your task, you may want to know if
+If you assign the `:expires_after` option to your task, you may want to know if
 a job wasn't run because it expires. Add this block to an initializer file:
 
 ```ruby
