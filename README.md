@@ -123,7 +123,7 @@ How frequently the task should be performed as an ActiveSupport duration definit
 
 #### :at (optional)
 
-This is the starting point for the `:every` duration. If not given, the job will
+This is the starting point\* for the `:every` duration. If not given, the job will
 run immediately when the configuration file is loaded for the first time and will
 follow the `:every` duration to determine future execution times.
 
@@ -136,6 +136,11 @@ Valid string formats/examples:
 "*:30"
 "Sun 2:00" # [Sun|Mon|Tue|Wed|Thu|Fri|Sat]
 ```
+
+\* If you specify the hour of the day the job should run, it will only run in that hour,
+so if you specify an `:every` duration of less than `1.day`, the job will only run
+when the run time hour matches the `:at` time's hour.
+See [#17](https://github.com/simplymadeapps/simple_scheduler/issues/17) for more info.
 
 #### :expires_after (optional)
 
@@ -187,6 +192,54 @@ class ExampleJob < ActiveJob::Base
   # @param scheduled_time [Integer] The epoch time for when the job was scheduled to be run
   def perform(scheduled_time)
     puts Time.at(scheduled_time)
+  end
+end
+```
+
+#### Determine if the Job Should Run
+
+Simple Scheduler doesn't support specifying multiple days of the week or a specific day of the month.
+You can use the `scheduled_time` with a guard clause to ensure the job only runs on specific days.
+
+Set up the jobs to run every day, even though we don't actually want them to run every day:
+
+```yml
+# config/simple_scheduler.yml
+payroll:
+  class: "PayrollJob"
+  every: "1.day"
+  at: "0:00"
+
+weekday_reports:
+  class: "WeekdayReportsJob"
+  every: "1.day"
+  at: "18:00"
+```
+
+Use a guard clause in each of our jobs to exit the job if it shouldn't run that day:
+
+```ruby
+# A job that runs only on the 1st and 15th of the month.
+class PayrollJob < ActiveJob::Base
+  # @param scheduled_time [Integer] The epoch time for when the job was scheduled to be run
+  def perform(scheduled_time)
+    # Exit the job unless it's the 1st or 15th day of the month
+    day_of_the_month = Time.at(scheduled_time).day
+    return unless day_of_the_month == 1 || day_of_the_month == 15
+
+    # Perform the job...
+  end
+end
+
+# A job that runs only on weekdays, Monday - Friday.
+class WeekdayReportsJob < ActiveJob::Base
+  # @param scheduled_time [Integer] The epoch time for when the job was scheduled to be run
+  def perform(scheduled_time)
+    # Exit the job unless it's Monday (1), Tuesday (2), Wednesday (3), Thursday (4), or Friday (5)
+    day_of_the_week = Time.at(scheduled_time).wday
+    return unless (1..5).include?(day_of_the_week)
+
+    # Perform the job...
   end
 end
 ```
