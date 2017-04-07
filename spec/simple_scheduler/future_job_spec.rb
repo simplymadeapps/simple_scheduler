@@ -89,6 +89,28 @@ describe SimpleScheduler::FutureJob, type: :job do
     end
   end
 
+  describe "when a job or worker accepts optional arguments" do
+    it "executes an Active Job without exception" do
+      expect do
+        task_params = { class: "TestOptionalArgsJob", every: "1.hour" }
+        perform_enqueued_jobs do
+          described_class.perform_now(task_params, Time.now.to_i)
+        end
+      end.not_to raise_error
+    end
+
+    it "executes an Sidekiq Worker without exception" do
+      expect do
+        task_params = { class: "TestOptionalArgsWorker", every: "1.hour" }
+        perform_enqueued_jobs do
+          Sidekiq::Testing.inline! do
+            described_class.perform_now(task_params, Time.now.to_i)
+          end
+        end
+      end.not_to raise_error
+    end
+  end
+
   describe "when the job is run within the allowed expiration time" do
     let(:task_params) do
       {
