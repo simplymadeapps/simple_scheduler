@@ -77,10 +77,10 @@ module SimpleScheduler
 
     # Queue the task with the scheduled time if the job allows.
     def queue_task
-      if @task.job_class.instance_method(:perform).arity > 0
-        @task.job_class.send(perform_method, @scheduled_time.to_i)
-      else
+      if @task.job_class.instance_method(:perform).arity.zero?
         @task.job_class.send(perform_method)
+      else
+        @task.job_class.send(perform_method, @scheduled_time.to_i)
       end
     end
   end
