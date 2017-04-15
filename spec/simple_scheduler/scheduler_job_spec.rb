@@ -25,6 +25,16 @@ describe SimpleScheduler::SchedulerJob, type: :job do
     end
   end
 
+  describe "loading a YML file with ERB tags" do
+    it 'parses the file and queues the jobs' do
+      travel_to(now) do
+        expect do
+          described_class.perform_now("spec/simple_scheduler/config/erb_test.yml")
+        end.to change(enqueued_jobs, :size).by(2)
+      end
+    end
+  end
+
   describe "scheduling an hourly task" do
     it "queues jobs for at least six hours into the future by default" do
       travel_to(now) do

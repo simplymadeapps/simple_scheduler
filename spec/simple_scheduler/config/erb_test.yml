@@ -1,0 +1,1 @@
+<%= "test_job:\n  class: TestJob\n  every: 1.day\n  at: \"*:00\"" %>
