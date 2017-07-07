@@ -113,7 +113,7 @@ module SimpleScheduler
     private
 
     def minutes_queued_ahead(last_run_time)
-      (last_run_time - Time.now) / 1.minute
+      (last_run_time - Time.now) / 60
     end
 
     def parse_frequency(every_string)
