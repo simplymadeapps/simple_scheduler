@@ -26,7 +26,7 @@ describe SimpleScheduler::SchedulerJob, type: :job do
   end
 
   describe "loading a YML file with ERB tags" do
-    it 'parses the file and queues the jobs' do
+    it "parses the file and queues the jobs" do
       travel_to(now) do
         expect do
           described_class.perform_now("spec/simple_scheduler/config/erb_test.yml")
