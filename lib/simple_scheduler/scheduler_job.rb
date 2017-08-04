@@ -14,7 +14,7 @@ module SimpleScheduler
     # Load the global scheduler config from the YAML file.
     # @param config_path [String]
     def load_config(config_path)
-      @config = YAML.load_file(config_path)
+      @config = YAML.load(ERB.new(File.read(config_path)).result)
       @queue_ahead = @config["queue_ahead"] || Task::DEFAULT_QUEUE_AHEAD_MINUTES
       @time_zone = @config["tz"] || Time.zone.tzinfo.name
       @config.delete("queue_ahead")
