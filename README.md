@@ -28,6 +28,7 @@ Every option we evaluated seems to have the same flaw: **If your server is down,
 You must be using:
 
 - Rails 4.2+
+- ActiveJob
 - [Sidekiq](http://sidekiq.org)
 - [Heroku Scheduler](https://elements.heroku.com/addons/scheduler)
 
