@@ -1,23 +1,27 @@
 module SimpleScheduler
   # Active Job class that queues jobs defined in the config file.
   class SchedulerJob < ActiveJob::Base
-    # Accepts a file path to read the scheduler configuration.
-    # @param config_path [String]
-    def perform(config_path = nil)
-      config_path ||= "config/simple_scheduler.yml"
-      load_config(config_path)
+    def perform
+      load_config
       queue_future_jobs
     end
 
     private
 
+    # Returns the path of the Simple Scheduler configuration file.
+    # @return [String]
+    def config_path
+      ENV["SIMPLE_SCHEDULER_CONFIG"] || "config/simple_scheduler.yml"
+    end
+
     # Load the global scheduler config from the YAML file.
-    # @param config_path [String]
-    def load_config(config_path)
-      @config = YAML.load(ERB.new(File.read(config_path)).result)
+    def load_config
+      @config = YAML.safe_load(ERB.new(File.read(config_path)).result)
       @queue_ahead = @config["queue_ahead"] || Task::DEFAULT_QUEUE_AHEAD_MINUTES
+      @queue_name = @config["queue_name"] || "default"
       @time_zone = @config["tz"] || Time.zone.tzinfo.name
       @config.delete("queue_ahead")
+      @config.delete("queue_name")
       @config.delete("tz")
     end
 
@@ -27,7 +31,8 @@ module SimpleScheduler
         # Schedule the new run times using the future job wrapper.
         new_run_times = task.future_run_times - task.existing_run_times
         new_run_times.each do |time|
-          SimpleScheduler::FutureJob.set(wait_until: time).perform_later(task.params, time.to_i)
+          SimpleScheduler::FutureJob.set(queue: @queue_name, wait_until: time)
+                                    .perform_later(task.params, time.to_i)
         end
       end
     end

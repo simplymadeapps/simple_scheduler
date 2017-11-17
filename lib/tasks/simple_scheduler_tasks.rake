@@ -1,12 +1,12 @@
 desc "Queue future jobs defined using Simple Scheduler"
-task :simple_scheduler, [:config_path] => [:environment] do |_, args|
-  SimpleScheduler::SchedulerJob.perform_now(args[:config_path])
+task simple_scheduler: :environment do
+  SimpleScheduler::SchedulerJob.perform_now
 end
 
 namespace :simple_scheduler do
   desc "Delete existing scheduled jobs and queue them from scratch"
-  task :reset, [:config_path] => [:environment] do |_, args|
+  task reset: :environment do
     SimpleScheduler::FutureJob.delete_all
-    SimpleScheduler::SchedulerJob.perform_now(args[:config_path])
+    SimpleScheduler::SchedulerJob.perform_now
   end
 end

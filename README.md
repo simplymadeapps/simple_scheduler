@@ -57,6 +57,7 @@ Create the file `config/simple_scheduler.yml` in your Rails project:
 ```yml
 # Global configuration options. These can also be set on each task.
 queue_ahead: 360 # Number of minutes to queue jobs into the future
+queue_name: "default" # The Sidekiq queue name used by SimpleScheduler::FutureJob
 tz: "America/Chicago" # The application time zone will be used by default if not set
 
 # Runs once every 2 minutes
@@ -96,10 +97,11 @@ rake simple_scheduler
 
 ![Heroku Scheduler](https://cloud.githubusercontent.com/assets/124570/21104523/6d733d1a-c04c-11e6-89af-590e7d234cdf.gif)
 
-It may be useful to point to a specific configuration file in non-production environments:
+It may be useful to point to a specific configuration file in non-production environments.
+Use a custom configuration file by setting the `SIMPLE_SCHEDULER_CONFIG` environment variable.
 
 ```
-rake simple_scheduler["config/simple_scheduler.staging.yml"]
+SIMPLE_SCHEDULER_CONFIG=config/simple_scheduler.staging.yml
 ```
 
 ### Task Options
@@ -285,12 +287,6 @@ A rake task exists to delete all existing scheduled jobs and queue them back up 
 
 ```
 rake simple_scheduler:reset
-```
-
-If you're using a custom configuration file:
-
-```
-rake simple_scheduler:reset["config/simple_scheduler.staging.yml"]
 ```
 
 ## Contributing
