@@ -282,6 +282,7 @@ Reasons you may need to reset the job queue:
 - Deleting a scheduled task
 - Changing the task's run time interval
 - Changing the day of the week the job is run
+- Changing the `queue_name` in the config file
 
 A rake task exists to delete all existing scheduled jobs and queue them back up from scratch:
 
