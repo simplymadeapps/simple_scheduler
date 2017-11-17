@@ -30,9 +30,11 @@ You must be using:
 - Rails 4.2+
 - ActiveJob
 - [Sidekiq](http://sidekiq.org)
-- [Heroku Scheduler](https://elements.heroku.com/addons/scheduler)
+- [Heroku Scheduler](https://elements.heroku.com/addons/scheduler)*
 
 Both Active Job and Sidekiq::Worker classes can be queued by the scheduler.
+
+*\* Not actually required, but you're on your own for scheduling the `rake simple_scheduler` task to run every 10 minutes.*
 
 ## Installation
 
@@ -55,8 +57,9 @@ $ bundle
 Create the file `config/simple_scheduler.yml` in your Rails project:
 
 ```yml
-# Global configuration options. These can also be set on each task.
+# Global configuration options. The `queue_ahead` and `tz` options can also be set on each task.
 queue_ahead: 360 # Number of minutes to queue jobs into the future
+queue_name: "default" # The Sidekiq queue name used by SimpleScheduler::FutureJob
 tz: "America/Chicago" # The application time zone will be used by default if not set
 
 # Runs once every 2 minutes
@@ -96,10 +99,11 @@ rake simple_scheduler
 
 ![Heroku Scheduler](https://cloud.githubusercontent.com/assets/124570/21104523/6d733d1a-c04c-11e6-89af-590e7d234cdf.gif)
 
-It may be useful to point to a specific configuration file in non-production environments:
+It may be useful to point to a specific configuration file in non-production environments.
+Use a custom configuration file by setting the `SIMPLE_SCHEDULER_CONFIG` environment variable.
 
 ```
-rake simple_scheduler["config/simple_scheduler.staging.yml"]
+SIMPLE_SCHEDULER_CONFIG=config/simple_scheduler.staging.yml
 ```
 
 ### Task Options
@@ -260,9 +264,9 @@ SimpleScheduler.expired_task do |exception|
   ExceptionNotifier.notify_exception(
     exception,
     data: {
-      task:      exception.task.name,
+      task: exception.task.name,
       scheduled: exception.scheduled_time,
-      actual:    exception.run_time
+      actual: exception.run_time
     }
   )
 end
@@ -280,17 +284,12 @@ Reasons you may need to reset the job queue:
 - Deleting a scheduled task
 - Changing the task's run time interval
 - Changing the day of the week the job is run
+- Changing the `queue_name` in the config file
 
 A rake task exists to delete all existing scheduled jobs and queue them back up from scratch:
 
 ```
 rake simple_scheduler:reset
-```
-
-If you're using a custom configuration file:
-
-```
-rake simple_scheduler:reset["config/simple_scheduler.staging.yml"]
 ```
 
 ## Contributing
