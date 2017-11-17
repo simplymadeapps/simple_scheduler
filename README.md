@@ -55,7 +55,7 @@ $ bundle
 Create the file `config/simple_scheduler.yml` in your Rails project:
 
 ```yml
-# Global configuration options. These can also be set on each task.
+# Global configuration options. The `queue_ahead` and `tz` options can also be set on each task.
 queue_ahead: 360 # Number of minutes to queue jobs into the future
 queue_name: "default" # The Sidekiq queue name used by SimpleScheduler::FutureJob
 tz: "America/Chicago" # The application time zone will be used by default if not set
