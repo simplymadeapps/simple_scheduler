@@ -262,9 +262,9 @@ SimpleScheduler.expired_task do |exception|
   ExceptionNotifier.notify_exception(
     exception,
     data: {
-      task:      exception.task.name,
+      task: exception.task.name,
       scheduled: exception.scheduled_time,
-      actual:    exception.run_time
+      actual: exception.run_time
     }
   )
 end
