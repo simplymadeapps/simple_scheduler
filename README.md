@@ -30,9 +30,11 @@ You must be using:
 - Rails 4.2+
 - ActiveJob
 - [Sidekiq](http://sidekiq.org)
-- [Heroku Scheduler](https://elements.heroku.com/addons/scheduler)
+- [Heroku Scheduler](https://elements.heroku.com/addons/scheduler)*
 
 Both Active Job and Sidekiq::Worker classes can be queued by the scheduler.
+
+*\* Not actually required, but you're on your own for scheduling the `rake simple_scheduler` task to run every 10 minutes.*
 
 ## Installation
 
