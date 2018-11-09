@@ -80,7 +80,7 @@ module SimpleScheduler
       if @task.job_class.instance_method(:perform).arity.zero?
         @task.job_class.send(perform_method)
       else
-        @task.job_class.send(perform_method, @scheduled_time.to_i)
+        @task.job_class.send(perform_method, @scheduled_time.to_i, *@task.job_arguments)
       end
     end
   end

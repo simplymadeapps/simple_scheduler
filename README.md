@@ -87,6 +87,15 @@ weekly_task:
   every: "1.week"
   at: "Sat 0:00"
   tz: "America/New_York"
+
+# Runs once every week on Saturdays at 12:00 AM and passes 'my_arg' as the second arg to the job
+arg_task:
+  class: "ArgJob"
+  every: "1.week"
+  at: "Sat 0:00"
+  tz: "America/New_York"
+  arguments:
+    - "my_arg"
 ```
 
 ### Set up Heroku Scheduler
@@ -184,6 +193,20 @@ default in your Rails app will be used when parsing the `:at` time. A list of al
 timezone identifiers can be obtained using `TZInfo::Timezone.all_identifiers`.
 
 The `:tz` can be set as a global configuration option or for each individual task.
+
+#### :arguments (optional)
+
+User `:arguments` to specify an array of string arguments to pass to your job. This allows you to
+have one class handle multiple variations by passing in fixed arguments in the config. Your job must
+accept the first scheduled_time argument and these defined arguments will follow that.
+
+```ruby
+class ExampleJob < ActiveJob::Base
+  def perform(scheduled_time, custom_arg = nil)
+    # custom_arg will receive the first extra argument  
+  end
+end
+```
 
 ## Writing Your Jobs
 

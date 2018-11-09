@@ -1,0 +1,6 @@
+with_args:
+  class: "TestOptionalArgsJob"
+  every: "1.week"
+  at: "Sun 1:00"
+  arguments:
+    - "one"

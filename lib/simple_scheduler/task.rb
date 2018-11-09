@@ -85,6 +85,12 @@ module SimpleScheduler
       @params[:class]
     end
 
+    # The extra job arguments (string only)
+    # @return [Array[String]]
+    def job_arguments
+      @params[:arguments] || []
+    end
+
     # The name of the task as defined in the YAML config.
     # @return [String]
     def name

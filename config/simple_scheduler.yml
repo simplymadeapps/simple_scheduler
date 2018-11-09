@@ -8,3 +8,10 @@ job_two:
   class: "TestJob"
   every: "1.week"
   at: "Sun 1:00"
+
+job_three:
+  class: "TestOptionalArgsJob"
+  every: "1.week"
+  at: "Sun 1:00"
+  arguments:
+    - "one"

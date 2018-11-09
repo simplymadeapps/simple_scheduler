@@ -26,7 +26,7 @@ describe SimpleScheduler::SchedulerJob, type: :job do
       travel_to(now) do
         expect do
           described_class.perform_now
-        end.to change(enqueued_jobs, :size).by(4)
+        end.to change(enqueued_jobs, :size).by(6)
       end
     end
   end
@@ -56,6 +56,27 @@ describe SimpleScheduler::SchedulerJob, type: :job do
           described_class.perform_now
         end.to change(enqueued_jobs, :size).by(2)
       end
+    end
+  end
+
+  describe 'scheduling a job with arguments' do
+    it 'queues the required jobs' do
+      config_path("spec/simple_scheduler/config/with_arguments.yml")
+      travel_to(now) do
+        expect do
+          described_class.perform_now
+        end.to change(enqueued_jobs, :size).by(2)
+      end
+    end
+
+    it 'queues the job with the arguments' do
+      config_path("spec/simple_scheduler/config/with_arguments.yml")
+      travel_to(now) do
+        described_class.perform_now
+      end
+
+      expect(enqueued_jobs.first[:args].first).to include('arguments' => ['one'])
+      puts enqueued_jobs
     end
   end
 
