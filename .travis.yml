@@ -10,20 +10,13 @@ gemfile:
   - gemfiles/rails_4.gemfile
   - gemfiles/rails_5.gemfile
 
-jobs:
-  include:
-    - stage: RSpec
-      script: bundle exec rspec
-    - stage: RuboCop
-      script: bundle exec rubocop
-
 language: ruby
 
 rvm:
-  - 2.2.9
-  - 2.3.6
-  - 2.4.3
-  - 2.5.0
+  - 2.2.10
+  - 2.3.8
+  - 2.4.5
+  - 2.5.3
 
 services:
   - redis-server
