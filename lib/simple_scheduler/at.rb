@@ -9,8 +9,8 @@ module SimpleScheduler
   #   SimpleScheduler::At.new("Sun 0:00")
   #   # => 2016-12-11 00:00:00 -0600
   class At < Time
-    AT_PATTERN = /\A(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|((?:\b[0-1]?[0-9]|2[0-3]))):([0-5]\d)\z/
-    DAYS = %w(Sun Mon Tue Wed Thu Fri Sat).freeze
+    AT_PATTERN = /\A(Sun|Mon|Tue|Wed|Thu|Fri|Sat)?\s?(?:\*{1,2}|((?:\b[0-1]?[0-9]|2[0-3]))):([0-5]\d)\z/.freeze
+    DAYS = %w[Sun Mon Tue Wed Thu Fri Sat].freeze
 
     # Error class raised when an invalid string is given for the time.
     class InvalidTime < StandardError; end
@@ -25,12 +25,14 @@ module SimpleScheduler
     #   "[Sun|Mon|Tue|Wed|Thu|Fri|Sat] 00:00"
     # @param at [String] The formatted string for a task's run time
     # @param time_zone [ActiveSupport::TimeZone] The time zone to parse the at time in
+    # rubocop:disable Metrics/AbcSize
     def initialize(at, time_zone = nil)
       @at = at
       @time_zone = time_zone || Time.zone
       super(parsed_time.year, parsed_time.month, parsed_time.day,
             parsed_time.hour, parsed_time.min, parsed_time.sec, parsed_time.utc_offset)
     end
+    # rubocop:enable Metrics/AbcSize
 
     # Always returns the specified hour if the hour was given, otherwise
     # it returns the hour calculated based on other specified options.
@@ -51,6 +53,7 @@ module SimpleScheduler
       @at_match ||= begin
         match = @at.nil? ? [] : AT_PATTERN.match(@at)
         raise InvalidTime, "The `at` option '#{@at}' is invalid." if match.nil?
+
         match
       end
     end
@@ -64,7 +67,7 @@ module SimpleScheduler
     end
 
     def at_wday
-      @wday ||= DAYS.index(at_match[1])
+      @at_wday ||= DAYS.index(at_match[1])
     end
 
     def at_wday?

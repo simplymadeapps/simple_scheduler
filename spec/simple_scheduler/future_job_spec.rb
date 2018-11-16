@@ -18,7 +18,7 @@ describe SimpleScheduler::FutureJob, type: :job do
       {
         class: "TestJob",
         every: "1.hour",
-        name:  "job_task"
+        name: "job_task"
       }
     end
 
@@ -34,7 +34,7 @@ describe SimpleScheduler::FutureJob, type: :job do
       {
         class: "TestWorker",
         every: "1.hour",
-        name:  "worker_task"
+        name: "worker_task"
       }
     end
 
@@ -114,9 +114,9 @@ describe SimpleScheduler::FutureJob, type: :job do
   describe "when the job is run within the allowed expiration time" do
     let(:task_params) do
       {
-        class:         "TestJob",
-        every:         "1.hour",
-        name:          "job_task",
+        class: "TestJob",
+        every: "1.hour",
+        name: "job_task",
         expires_after: "30.minutes"
       }
     end
@@ -131,9 +131,9 @@ describe SimpleScheduler::FutureJob, type: :job do
   describe "when the job is run past the allowed expiration time" do
     let(:task_params) do
       {
-        class:         "TestJob",
-        every:         "1.hour",
-        name:          "job_task",
+        class: "TestJob",
+        every: "1.hour",
+        name: "job_task",
         expires_after: "30.minutes"
       }
     end
@@ -170,7 +170,7 @@ describe SimpleScheduler::FutureJob, type: :job do
         nil,
         nil,
         "wrapped" => "SomeApplicationJob",
-        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"
+        "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"
       )
     end
 
@@ -179,8 +179,8 @@ describe SimpleScheduler::FutureJob, type: :job do
         nil,
         nil,
         "wrapped" => "SimpleScheduler::FutureJob",
-        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-        "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
+        "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
       )
     end
 
@@ -189,8 +189,8 @@ describe SimpleScheduler::FutureJob, type: :job do
         nil,
         nil,
         "wrapped" => "SimpleScheduler::FutureJob",
-        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-        "args"    => [{ "arguments" => [{ "class" => "AnotherJob", "name" => "another_task" }] }]
+        "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args" => [{ "arguments" => [{ "class" => "AnotherJob", "name" => "another_task" }] }]
       )
     end
 
