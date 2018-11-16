@@ -1,9 +1,14 @@
-addons:
-  code_climate:
-    repo_token: 46fe7f79f112a6e86be905944c6384365ad67172ae27b84141b93b2c8d5f4ea0
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
-after_success:
-  - bundle exec codeclimate-test-reporter
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=46fe7f79f112a6e86be905944c6384365ad67172ae27b84141b93b2c8d5f4ea0
 
 gemfile:
   - gemfiles/latest.gemfile
