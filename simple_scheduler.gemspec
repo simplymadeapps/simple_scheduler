@@ -1,4 +1,4 @@
-$LOAD_PATH.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
 require "simple_scheduler/version"
@@ -15,18 +15,17 @@ Gem::Specification.new do |s|
                   Simple Scheduler adds the ability to enhance Heroku Scheduler by using Sidekiq to queue
                   jobs in the future. This allows for defining specific run times (Ex: Every Sunday at 4 AM)
                   and running tasks more often than Heroku Scheduler's 10 minute limit.
-                  DESCRIPTION
-  s.license     = "MIT"
+  DESCRIPTION
+  s.license = "MIT"
 
   s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", ">= 4.2"
   s.add_dependency "sidekiq", ">= 4.2"
   s.add_development_dependency "appraisal"
-  s.add_development_dependency "codeclimate-test-reporter"
-  s.add_development_dependency "rainbow", "~> 2.1.0"
+  s.add_development_dependency "rainbow"
   s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "rubocop"
+  s.add_development_dependency "rubocop", "~> 0.60.0"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "simplecov-rcov"
 end

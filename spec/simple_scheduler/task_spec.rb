@@ -20,7 +20,7 @@ describe SimpleScheduler::Task, type: :model do
       described_class.new(
         class: "TestJob",
         every: "1.hour",
-        name:  "test_task"
+        name: "test_task"
       )
     end
 
@@ -29,8 +29,8 @@ describe SimpleScheduler::Task, type: :model do
         nil,
         nil,
         "wrapped" => "SimpleScheduler::FutureJob",
-        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-        "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
+        "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
       )
     end
 
@@ -39,8 +39,8 @@ describe SimpleScheduler::Task, type: :model do
         nil,
         nil,
         "wrapped" => "SimpleScheduler::FutureJob",
-        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-        "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "wrong_task" }] }]
+        "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "wrong_task" }] }]
       )
     end
 
@@ -49,8 +49,8 @@ describe SimpleScheduler::Task, type: :model do
         nil,
         nil,
         "wrapped" => "SimpleScheduler::FutureJob",
-        "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-        "args"    => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
+        "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+        "args" => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
       )
     end
 
@@ -92,7 +92,7 @@ describe SimpleScheduler::Task, type: :model do
       described_class.new(
         class: "TestJob",
         every: "1.hour",
-        name:  "test_task"
+        name: "test_task"
       )
     end
 
@@ -105,15 +105,15 @@ describe SimpleScheduler::Task, type: :model do
           nil,
           future_time1.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
-          "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
+          "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+          "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
         ),
         Sidekiq::SortedEntry.new(
           nil,
           future_time2.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
-          "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
+          "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+          "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
         )
       ])
       expect(task.existing_run_times).to eq([future_time1, future_time2])
@@ -125,15 +125,15 @@ describe SimpleScheduler::Task, type: :model do
           nil,
           future_time1.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
-          "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
+          "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+          "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
         ),
         Sidekiq::SortedEntry.new(
           nil,
           future_time2.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
-          "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
+          "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+          "args" => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
         )
       ])
       expect(task.existing_run_times).to eq([future_time1])
@@ -145,15 +145,15 @@ describe SimpleScheduler::Task, type: :model do
           nil,
           future_time1.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
-          "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
+          "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+          "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
         ),
         Sidekiq::SortedEntry.new(
           nil,
           future_time2.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
-          "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ "class" => "TestJob", "name" => "wrong_task" }] }]
+          "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+          "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "wrong_task" }] }]
         )
       ])
       expect(task.existing_run_times).to eq([future_time1])
@@ -165,15 +165,15 @@ describe SimpleScheduler::Task, type: :model do
           nil,
           future_time1.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
-          "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
+          "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+          "args" => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
         ),
         Sidekiq::SortedEntry.new(
           nil,
           future_time2.to_i,
           "wrapped" => "SimpleScheduler::FutureJob",
-          "class"   => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-          "args"    => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
+          "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+          "args" => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
         )
       ])
       expect(task.existing_run_times).to eq([])
@@ -184,11 +184,11 @@ describe SimpleScheduler::Task, type: :model do
     context "when creating a weekly task" do
       let(:task) do
         described_class.new(
-          class:       "TestJob",
-          every:       "1.week",
-          at:          "0:00",
+          class: "TestJob",
+          every: "1.week",
+          at: "0:00",
           queue_ahead: 10,
-          tz:          "America/Chicago"
+          tz: "America/Chicago"
         )
       end
 
@@ -219,11 +219,11 @@ describe SimpleScheduler::Task, type: :model do
     context "when creating a daily task" do
       let(:task) do
         described_class.new(
-          class:       "TestJob",
-          every:       "1.day",
-          at:          "00:30",
+          class: "TestJob",
+          every: "1.day",
+          at: "00:30",
           queue_ahead: 10,
-          tz:          "America/Chicago"
+          tz: "America/Chicago"
         )
       end
 
@@ -256,11 +256,11 @@ describe SimpleScheduler::Task, type: :model do
     context "when creating an hourly task" do
       let(:task) do
         described_class.new(
-          class:       "TestJob",
-          every:       "1.hour",
-          at:          "*:00",
+          class: "TestJob",
+          every: "1.hour",
+          at: "*:00",
           queue_ahead: 10,
-          tz:          "America/Chicago"
+          tz: "America/Chicago"
         )
       end
 
@@ -292,11 +292,11 @@ describe SimpleScheduler::Task, type: :model do
     context "when creating a frequent task" do
       let(:task) do
         described_class.new(
-          class:       "TestJob",
-          every:       "15.minutes",
-          at:          "*:00",
+          class: "TestJob",
+          every: "15.minutes",
+          at: "*:00",
           queue_ahead: 5,
-          tz:          "America/Chicago"
+          tz: "America/Chicago"
         )
       end
 
@@ -329,8 +329,8 @@ describe SimpleScheduler::Task, type: :model do
           described_class.new(
             class: "TestJob",
             every: "1.day",
-            at:    "01:30",
-            tz:    "America/Chicago"
+            at: "01:30",
+            tz: "America/Chicago"
           )
         end
 
@@ -357,11 +357,11 @@ describe SimpleScheduler::Task, type: :model do
       context "if the :at hour isn't given" do
         let(:task) do
           described_class.new(
-            class:       "TestJob",
-            every:       "1.hour",
-            at:          "*:30",
+            class: "TestJob",
+            every: "1.hour",
+            at: "*:30",
             queue_ahead: 360,
-            tz:          "America/Chicago"
+            tz: "America/Chicago"
           )
         end
 
@@ -387,8 +387,8 @@ describe SimpleScheduler::Task, type: :model do
           described_class.new(
             class: "TestJob",
             every: "1.day",
-            at:    "02:30",
-            tz:    "America/Chicago"
+            at: "02:30",
+            tz: "America/Chicago"
           )
         end
 
@@ -411,11 +411,11 @@ describe SimpleScheduler::Task, type: :model do
       context "if the :at hour isn't given" do
         let(:task) do
           described_class.new(
-            class:       "TestJob",
-            every:       "1.hour",
-            at:          "*:30",
+            class: "TestJob",
+            every: "1.hour",
+            at: "*:30",
             queue_ahead: 360,
-            tz:          "America/Chicago"
+            tz: "America/Chicago"
           )
         end
 

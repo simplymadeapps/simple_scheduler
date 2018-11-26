@@ -16,7 +16,7 @@ module SimpleScheduler
     # @option params [String] :class The class of the Active Job or Sidekiq Worker
     # @option params [String] :every How frequently the job will be performed
     # @option params [String] :at The starting time for the interval
-    # @option params [String] :expires_after The time between the scheduled and actual run time that should cause the job not to run
+    # @option params [String] :expires_after The interval used to determine how late the job is allowed to run
     # @option params [Integer] :queue_ahead The number of minutes that jobs should be queued in the future
     # @option params [String] :task_name The name of the task as defined in the YAML config
     # @option params [String] :tz The time zone to use when parsing the `at` option
@@ -42,6 +42,7 @@ module SimpleScheduler
     def existing_jobs
       @existing_jobs ||= SimpleScheduler::Task.scheduled_set.select do |job|
         next unless job.display_class == "SimpleScheduler::FutureJob"
+
         task_params = job.display_args[0].symbolize_keys
         task_params[:class] == job_class_name && task_params[:name] == name
       end.to_a
@@ -62,6 +63,7 @@ module SimpleScheduler
     # Returns an array Time objects for future run times based on
     # the current time and the given minutes to look ahead.
     # @return [Array<Time>]
+    # rubocop:disable Metrics/AbcSize
     def future_run_times
       future_run_times = existing_run_times.dup
       last_run_time = future_run_times.last || at - frequency
@@ -78,6 +80,7 @@ module SimpleScheduler
 
       future_run_times
     end
+    # rubocop:enable Metrics/AbcSize
 
     # The class name of the job or worker.
     # @return [String]
@@ -126,6 +129,7 @@ module SimpleScheduler
     def validate_params!(params)
       raise ArgumentError, "Missing param `class` specifying the class of the job to run." unless params.key?(:class)
       raise ArgumentError, "Missing param `every` specifying how often the job should run." unless params.key?(:every)
+
       @job_class = params[:class].constantize
       params[:name] ||= params[:class]
     end

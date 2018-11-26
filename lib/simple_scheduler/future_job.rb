@@ -23,6 +23,7 @@ module SimpleScheduler
       @task = Task.new(task_params)
       @scheduled_time = Time.at(scheduled_time).in_time_zone(@task.time_zone)
       raise Expired if expired?
+
       queue_task
     end
 
@@ -50,6 +51,7 @@ module SimpleScheduler
     # @return [Boolean]
     def expired?
       return false if @task.expires_after.blank?
+
       expire_duration.from_now(@scheduled_time) < Time.now.in_time_zone(@task.time_zone)
     end
 
