@@ -65,17 +65,17 @@ module SimpleScheduler
     # @return [Array<Time>]
     # rubocop:disable Metrics/AbcSize
     def future_run_times
-      future_run_times = existing_run_times.dup
-      last_run_time = future_run_times.last || at - frequency
+      last_run_time = at - frequency
       last_run_time = last_run_time.in_time_zone(time_zone)
+      future_run_times = []
 
       # Ensure there are at least two future jobs scheduled and that the queue ahead time is filled
-      while future_run_times.length < 2 || minutes_queued_ahead(last_run_time) < queue_ahead
+      while (future_run_times + existing_run_times).length < 2 || minutes_queued_ahead(last_run_time) < queue_ahead
         last_run_time = frequency.from_now(last_run_time)
         # The hour may not match because of a shift caused by DST in previous run times,
         # so we need to ensure that the hour matches the specified hour if given.
         last_run_time = last_run_time.change(hour: at.hour, min: at.min) if at.hour?
-        future_run_times << last_run_time
+        future_run_times << last_run_time unless existing_run_times.include?(last_run_time)
       end
 
       future_run_times

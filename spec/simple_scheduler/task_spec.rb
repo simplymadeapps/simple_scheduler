@@ -342,12 +342,10 @@ describe SimpleScheduler::Task, type: :model do
 
         it "won't be rescheduled when the time falls back if the job was previously executed" do
           travel_to Time.parse("2016-11-06 01:00:00 CST") do
-            tomorrows_run_time = Time.parse("2016-11-07 01:30:00 CST")
-            expect(task).to receive(:existing_jobs).and_return([
-              Sidekiq::SortedEntry.new(nil, tomorrows_run_time.to_i, "wrapped" => "TestJob", "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
+            expect(task).to receive(:existing_run_times).at_least(:once).and_return([
+              Time.parse("2016-11-07 01:30:00 CST")
             ])
             expect(task.future_run_times).to eq([
-              Time.parse("2016-11-07 01:30:00 CST"),
               Time.parse("2016-11-08 01:30:00 CST")
             ])
           end
@@ -437,6 +435,61 @@ describe SimpleScheduler::Task, type: :model do
               Time.parse("2016-03-13 08:30:00 CDT")
             ])
           end
+        end
+      end
+    end
+
+    context "when there are existing run times" do
+      let(:task) do
+        described_class.new(
+          class: "TestJob",
+          every: "15.minutes",
+          at: "*:00",
+          queue_ahead: 5,
+          tz: "America/Chicago"
+        )
+      end
+
+      it "only returns the run times that need to be added to the queue" do
+        travel_to Time.parse("2016-12-01 20:00:00 CST") do
+          task.instance_variable_set(:@queue_ahead, 60) # minutes
+          expect(task).to receive(:existing_run_times).at_least(:once).and_return([
+            Time.parse("2016-12-01 20:00:00 CST"),
+            Time.parse("2016-12-01 20:15:00 CST"),
+            Time.parse("2016-12-01 20:30:00 CST")
+          ])
+          expect(task.future_run_times).to eq([
+            Time.parse("2016-12-01 20:45:00 CST"),
+            Time.parse("2016-12-01 21:00:00 CST")
+          ])
+        end
+      end
+    end
+
+    context "when an existing run time is deleted" do
+      let(:task) do
+        described_class.new(
+          class: "TestJob",
+          every: "15.minutes",
+          at: "*:00",
+          queue_ahead: 5,
+          tz: "America/Chicago"
+        )
+      end
+
+      it "includes in the missing run time" do
+        travel_to Time.parse("2016-12-01 20:00:00 CST") do
+          task.instance_variable_set(:@queue_ahead, 60) # minutes
+          expect(task).to receive(:existing_run_times).at_least(:once).and_return([
+            Time.parse("2016-12-01 20:00:00 CST"),
+            # Time.parse("2016-12-01 20:15:00 CST"), <-- The missing run time
+            Time.parse("2016-12-01 20:30:00 CST")
+          ])
+          expect(task.future_run_times).to eq([
+            Time.parse("2016-12-01 20:15:00 CST"), # <-- The missing run time
+            Time.parse("2016-12-01 20:45:00 CST"),
+            Time.parse("2016-12-01 21:00:00 CST")
+          ])
         end
       end
     end
