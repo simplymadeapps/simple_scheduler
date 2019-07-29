@@ -445,14 +445,13 @@ describe SimpleScheduler::Task, type: :model do
           class: "TestJob",
           every: "15.minutes",
           at: "*:00",
-          queue_ahead: 5,
+          queue_ahead: 60, # minutes
           tz: "America/Chicago"
         )
       end
 
       it "only returns the run times that need to be added to the queue" do
         travel_to Time.parse("2016-12-01 20:00:00 CST") do
-          task.instance_variable_set(:@queue_ahead, 60) # minutes
           expect(task).to receive(:existing_run_times).at_least(:once).and_return([
             Time.parse("2016-12-01 20:00:00 CST"),
             Time.parse("2016-12-01 20:15:00 CST"),
@@ -472,14 +471,13 @@ describe SimpleScheduler::Task, type: :model do
           class: "TestJob",
           every: "15.minutes",
           at: "*:00",
-          queue_ahead: 5,
+          queue_ahead: 60, # minutes
           tz: "America/Chicago"
         )
       end
 
       it "includes in the missing run time" do
         travel_to Time.parse("2016-12-01 20:00:00 CST") do
-          task.instance_variable_set(:@queue_ahead, 60) # minutes
           expect(task).to receive(:existing_run_times).at_least(:once).and_return([
             Time.parse("2016-12-01 20:00:00 CST"),
             # Time.parse("2016-12-01 20:15:00 CST"), <-- The missing run time
