@@ -51,7 +51,8 @@ module SimpleScheduler
 
     def at_match
       @at_match ||= begin
-        match = @at.nil? ? [] : AT_PATTERN.match(@at)
+        match = AT_PATTERN.match(@at)
+        raise InvalidTime, "The `at` option is required." if @at.nil?
         raise InvalidTime, "The `at` option '#{@at}' is invalid." if match.nil?
 
         match

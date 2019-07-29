@@ -29,8 +29,7 @@ module SimpleScheduler
     def queue_future_jobs
       tasks.each do |task|
         # Schedule the new run times using the future job wrapper.
-        new_run_times = task.future_run_times - task.existing_run_times
-        new_run_times.each do |time|
+        task.future_run_times.each do |time|
           SimpleScheduler::FutureJob.set(queue: @queue_name, wait_until: time)
                                     .perform_later(task.params, time.to_i)
         end
