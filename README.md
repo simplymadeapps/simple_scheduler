@@ -62,11 +62,10 @@ queue_ahead: 360 # Number of minutes to queue jobs into the future
 queue_name: "default" # The Sidekiq queue name used by SimpleScheduler::FutureJob
 tz: "America/Chicago" # The application time zone will be used by default if not set
 
-# Runs once every 2 minutes starting at the top of the hour
+# Runs once every 2 minutes
 simple_task:
   class: "SomeActiveJob"
   every: "2.minutes"
-  at: "*:00"
 
 # Runs once every day at 4:00 AM. The job will expire after 23 hours, which means the
 # job will not run if 23 hours passes (server downtime) before the job is actually run
@@ -127,10 +126,11 @@ How frequently the task should be performed as an ActiveSupport duration definit
 "1.week"
 ```
 
-#### :at
+#### :at (optional)
 
-This is the starting point\* for the `:every` duration. This must be set so the expected
-run times in the future can be determined without duplicating jobs already in the queue.
+This is the starting point\* for the `:every` duration. If not given, the job will
+run immediately when the configuration file is loaded for the first time and will
+follow the `:every` duration to determine future execution times.
 
 Valid string formats/examples:
 

@@ -148,10 +148,12 @@ describe SimpleScheduler::At, type: :model do
   end
 
   describe "when the run :at time isn't given" do
-    it "raises an InvalidAtTime error" do
-      expect do
-        described_class.new(nil, ActiveSupport::TimeZone.new("America/New_York"))
-      end.to raise_error(SimpleScheduler::At::InvalidTime, "The `at` option is required.")
+    let(:at) { described_class.new(nil, ActiveSupport::TimeZone.new("America/New_York")) }
+
+    it "returns the current time, but drops the seconds" do
+      travel_to Time.parse("2016-12-02 1:23:45 PST") do
+        expect(at).to eq(Time.parse("2016-12-02 1:23:00 PST"))
+      end
     end
   end
 
