@@ -28,7 +28,14 @@ module SimpleScheduler
     # The task's first run time as a Time-like object.
     # @return [SimpleScheduler::At]
     def at
-      @at ||= At.new(@params[:at], time_zone)
+      @at ||= begin
+        at = At.new(@params[:at], time_zone)
+        if at < Time.now.in_time_zone(time_zone)
+          at + frequency
+        else
+          at
+        end
+      end
     end
 
     # The time between the scheduled and actual run time that should cause the job not to run.
