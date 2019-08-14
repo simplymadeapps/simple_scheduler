@@ -214,6 +214,27 @@ describe SimpleScheduler::Task, type: :model do
           ])
         end
       end
+
+      context "when the 'at' time doesn't match up with the current time" do
+        let(:task) do
+          described_class.new(
+            class: "TestJob",
+            every: "1.week",
+            at: "19:05",
+            queue_ahead: 10,
+            tz: "America/Chicago"
+          )
+        end
+
+         it "doesn't try to schedule the job in the past" do
+          travel_to Time.parse("2016-12-01 19:13:00 CST") do
+            expect(task.future_run_times).to eq([
+              Time.parse("2016-12-02 19:05:00 CST"),
+              Time.parse("2016-12-09 19:05:00 CST")
+            ])
+          end
+         end
+      end
     end
 
     context "when creating a daily task" do
@@ -251,6 +272,27 @@ describe SimpleScheduler::Task, type: :model do
           ])
         end
       end
+
+      context "when the 'at' time doesn't match up with the current time" do
+        let(:task) do
+          described_class.new(
+            class: "TestJob",
+            every: "1.day",
+            at: "19:05",
+            queue_ahead: 10,
+            tz: "America/Chicago"
+          )
+        end
+
+         it "doesn't try to schedule the job in the past" do
+          travel_to Time.parse("2016-12-01 19:13:00 CST") do
+            expect(task.future_run_times).to eq([
+              Time.parse("2016-12-02 19:05:00 CST"),
+              Time.parse("2016-12-03 19:05:00 CST")
+            ])
+          end
+         end
+      end
     end
 
     context "when creating an hourly task" do
@@ -287,6 +329,27 @@ describe SimpleScheduler::Task, type: :model do
           ])
         end
       end
+
+      context "when the 'at' time doesn't match up with the current time" do
+        let(:task) do
+          described_class.new(
+            class: "TestJob",
+            every: "1.hour",
+            at: "*:05",
+            queue_ahead: 10,
+            tz: "America/Chicago"
+          )
+        end
+
+         it "doesn't try to schedule the job in the past" do
+          travel_to Time.parse("2016-12-01 19:13:00 CST") do
+            expect(task.future_run_times).to eq([
+              Time.parse("2016-12-01 20:05:00 CST"),
+              Time.parse("2016-12-01 21:05:00 CST")
+            ])
+          end
+         end
+      end
     end
 
     context "when creating a frequent task" do
@@ -320,6 +383,27 @@ describe SimpleScheduler::Task, type: :model do
             Time.parse("2016-12-01 21:00:00 CST")
           ])
         end
+      end
+
+      context "when the 'at' time doesn't match up with the current time" do
+        let(:task) do
+          described_class.new(
+            class: "TestJob",
+            every: "15.minutes",
+            at: "*:05",
+            queue_ahead: 5,
+            tz: "America/Chicago"
+          )
+        end
+
+         it "doesn't try to schedule the job in the past" do
+          travel_to Time.parse("2016-12-01 19:13:00 CST") do
+            expect(task.future_run_times).to eq([
+              Time.parse("2016-12-01 20:05:00 CST"),
+              Time.parse("2016-12-01 20:20:00 CST")
+            ])
+          end
+         end
       end
     end
 
