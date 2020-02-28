@@ -1,6 +1,6 @@
 appraise "rails-5" do
-  gem "rails", "~> 5.2"
-  gem "sidekiq", "~> 5.2"
+  gem "rails", "~> 5.0"
+  gem "sidekiq", "~> 5.0"
 end
 
 appraise "rails-6" do
