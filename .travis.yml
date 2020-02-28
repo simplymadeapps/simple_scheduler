@@ -16,8 +16,8 @@ env:
 
 gemfile:
   - gemfiles/latest.gemfile
-  - gemfiles/rails_4.gemfile
   - gemfiles/rails_5.gemfile
+  - gemfiles/rails_6.gemfile
 
 language: ruby
 
