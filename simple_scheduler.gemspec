@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rainbow"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rubocop", "~> 0.66.0"
-  s.add_development_dependency "simplecov"
+  s.add_development_dependency "simplecov", "< 0.18" # https://github.com/codeclimate/test-reporter/issues/413
   s.add_development_dependency "simplecov-rcov"
 end
