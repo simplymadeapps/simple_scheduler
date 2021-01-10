@@ -10,6 +10,7 @@ require "sidekiq/testing"
 
 RSpec.configure do |config|
   config.include ActiveJob::TestHelper
+  config.include ActiveSupport::Testing::Assertions
   config.include ActiveSupport::Testing::TimeHelpers
   config.filter_rails_from_backtrace!
 end
