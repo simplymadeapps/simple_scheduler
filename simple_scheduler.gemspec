@@ -20,12 +20,15 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", ">= 5.0"
+  s.add_dependency "activejob", ">= 5.0"
   s.add_dependency "sidekiq", ">= 5.0"
+  s.add_development_dependency "actionmailer"
+  s.add_development_dependency "actionpack"
   s.add_development_dependency "appraisal"
   s.add_development_dependency "rainbow"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rubocop", "~> 0.66.0"
   s.add_development_dependency "simplecov", "< 0.18" # https://github.com/codeclimate/test-reporter/issues/413
   s.add_development_dependency "simplecov-rcov"
+  s.add_development_dependency "sprockets-rails"
 end
