@@ -16,6 +16,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
       - run: gem install bundler -v "< 2"
+      - run: gem update --system 3.2.3
       - run: bundle install
       - name: Install Code Climate
         run: |
