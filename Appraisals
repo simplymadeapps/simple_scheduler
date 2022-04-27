@@ -11,4 +11,5 @@ end
 appraise "latest" do
   gem "rails"
   gem "sidekiq"
+  gem "sprockets-rails"
 end
