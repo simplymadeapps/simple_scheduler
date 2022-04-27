@@ -15,6 +15,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+      - uses: supercharge/redis-github-action@1.4.0
       - run: gem install bundler -v "< 2"
       - run: gem update --system 3.2.3
       - run: bundle install
