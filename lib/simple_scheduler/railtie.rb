@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SimpleScheduler
   # Load the rake task into the Rails app
   class Railtie < Rails::Railtie

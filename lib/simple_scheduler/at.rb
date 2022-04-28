@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SimpleScheduler
   # A Time class for parsing the :at option on a task into the first time it should run.
   #   Time.now
@@ -25,14 +27,12 @@ module SimpleScheduler
     #   "[Sun|Mon|Tue|Wed|Thu|Fri|Sat] 00:00"
     # @param at [String] The formatted string for a task's run time
     # @param time_zone [ActiveSupport::TimeZone] The time zone to parse the at time in
-    # rubocop:disable Metrics/AbcSize
     def initialize(at, time_zone = nil)
       @at = at
       @time_zone = time_zone || Time.zone
       super(parsed_time.year, parsed_time.month, parsed_time.day,
             parsed_time.hour, parsed_time.min, parsed_time.sec, parsed_time.utc_offset)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # Always returns the specified hour if the hour was given, otherwise
     # it returns the hour calculated based on other specified options.

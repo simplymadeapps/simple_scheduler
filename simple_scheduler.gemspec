@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
@@ -18,6 +20,8 @@ Gem::Specification.new do |s|
   DESCRIPTION
   s.license = "MIT"
 
+  s.required_ruby_version = ">= 2.7.0"
+
   s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", ">= 5.0"
@@ -28,4 +32,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rubocop", "~> 1.28"
   s.add_development_dependency "simplecov", "< 0.18" # https://github.com/codeclimate/test-reporter/issues/413
   s.add_development_dependency "simplecov-rcov"
+  s.metadata["rubygems_mfa_required"] = "true"
 end
