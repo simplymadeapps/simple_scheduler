@@ -8,6 +8,7 @@ end
 appraise "rails-7" do
   gem "rails", "~> 7.0"
   gem "sidekiq", "~> 6.0"
+  gem "sprockets-rails"
 end
 
 appraise "latest" do
