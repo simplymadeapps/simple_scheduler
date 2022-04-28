@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - "spec/dummy/**/*"
+    - "vendor/bundle/**/*"
 
 Layout/IndentArray:
   Enabled: false
