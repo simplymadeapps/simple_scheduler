@@ -4,5 +4,6 @@ source "https://rubygems.org"
 
 gem "rails", "~> 6.0"
 gem "sidekiq", "~> 6.0"
+gem "net-smtp"
 
 gemspec path: "../"

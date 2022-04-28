@@ -3,6 +3,7 @@
 appraise "rails-6" do
   gem "rails", "~> 6.0"
   gem "sidekiq", "~> 6.0"
+  gem "net-smtp"
 end
 
 appraise "rails-7" do
