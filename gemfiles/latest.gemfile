@@ -4,5 +4,6 @@ source "https://rubygems.org"
 
 gem "rails"
 gem "sidekiq"
+gem "sprockets-rails"
 
 gemspec path: "../"
