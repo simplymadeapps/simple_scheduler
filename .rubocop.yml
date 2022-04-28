@@ -2,18 +2,19 @@ AllCops:
   Exclude:
     - "spec/dummy/**/*"
     - "vendor/bundle/**/*"
+  NewCops: enable
 
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   Enabled: false
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - "spec/simple_scheduler/task_spec.rb"
 
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
-
-Metrics/LineLength:
-  Max: 120
-  Exclude:
-    - "spec/simple_scheduler/task_spec.rb"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
