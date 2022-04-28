@@ -1,8 +1,6 @@
 AllCops:
   Exclude:
     - "spec/dummy/**/*"
-    - "vendor/bundle/**/*"
-    - "gemfiles/**/*"
   NewCops: enable
 
 Layout/FirstArrayElementIndentation:
