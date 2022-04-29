@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   DESCRIPTION
   s.license = "MIT"
 
+  s.metadata["rubygems_mfa_required"] = "true" 
   s.required_ruby_version = ">= 2.7.0"
 
   s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
@@ -32,5 +33,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rubocop", "~> 1.28"
   s.add_development_dependency "simplecov", "< 0.18" # https://github.com/codeclimate/test-reporter/issues/413
   s.add_development_dependency "simplecov-rcov"
-  s.metadata["rubygems_mfa_required"] = "true"
 end
