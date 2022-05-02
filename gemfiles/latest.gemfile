@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "rails"
+gem "activejob"
 gem "sidekiq"
 
 gemspec path: "../"

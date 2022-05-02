@@ -20,13 +20,13 @@ Gem::Specification.new do |s|
   DESCRIPTION
   s.license = "MIT"
 
-  s.metadata["rubygems_mfa_required"] = "true" 
+  s.metadata["rubygems_mfa_required"] = "true"
   s.required_ruby_version = ">= 2.7.0"
 
   s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", ">= 5.0"
-  s.add_dependency "sidekiq", ">= 5.0"
+  s.add_dependency "activejob", ">= 6.0"
+  s.add_dependency "sidekiq", ">= 6.0"
   s.add_development_dependency "appraisal"
   s.add_development_dependency "rainbow"
   s.add_development_dependency "rspec-rails"
