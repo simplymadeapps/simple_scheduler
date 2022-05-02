@@ -13,7 +13,7 @@ module SimpleScheduler
     # Returns the path of the Simple Scheduler configuration file.
     # @return [String]
     def config_path
-      ENV.fetch("SIMPLE_SCHEDULER_CONFIG", nil) || "config/simple_scheduler.yml"
+      ENV.fetch("SIMPLE_SCHEDULER_CONFIG", "config/simple_scheduler.yml")
     end
 
     # Load the global scheduler config from the YAML file.
