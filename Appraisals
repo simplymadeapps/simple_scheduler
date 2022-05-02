@@ -1,14 +1,16 @@
-appraise "rails-5" do
-  gem "rails", "~> 5.0"
-  gem "sidekiq", "~> 5.0"
-end
+# frozen_string_literal: true
 
 appraise "rails-6" do
-  gem "rails", "~> 6.0"
+  gem "activejob", "~> 6.0"
+  gem "sidekiq", "~> 6.0"
+end
+
+appraise "rails-7" do
+  gem "activejob", "~> 7.0"
   gem "sidekiq", "~> 6.0"
 end
 
 appraise "latest" do
-  gem "rails"
+  gem "activejob"
   gem "sidekiq"
 end

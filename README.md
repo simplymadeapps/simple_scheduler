@@ -1,6 +1,6 @@
 # Simple Scheduler
 
-[![Build Status](https://travis-ci.org/simplymadeapps/simple_scheduler.svg?branch=master)](https://travis-ci.org/simplymadeapps/simple_scheduler)
+[![tests](https://github.com/simplymadeapps/simple_scheduler/actions/workflows/tests.yml/badge.svg)](https://github.com/simplymadeapps/simple_scheduler/actions/workflows/tests.yml)
 [![Code Climate](https://codeclimate.com/github/simplymadeapps/simple_scheduler/badges/gpa.svg)](https://codeclimate.com/github/simplymadeapps/simple_scheduler)
 [![Test Coverage](https://codeclimate.com/github/simplymadeapps/simple_scheduler/badges/coverage.svg)](https://codeclimate.com/github/simplymadeapps/simple_scheduler/coverage)
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/simplymadeapps/simple_scheduler/)

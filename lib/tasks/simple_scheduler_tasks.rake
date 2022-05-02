@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc "Queue future jobs defined using Simple Scheduler"
 task simple_scheduler: :environment do
   SimpleScheduler::SchedulerJob.perform_now

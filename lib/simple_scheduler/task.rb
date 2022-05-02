@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SimpleScheduler
   # Class for parsing each task in the scheduler config YAML file and returning
   # the values needed to schedule the task in the future.
@@ -66,7 +68,7 @@ module SimpleScheduler
     # rubocop:disable Metrics/AbcSize
     def future_run_times
       future_run_times = existing_run_times.dup
-      last_run_time = future_run_times.last || at - frequency
+      last_run_time = future_run_times.last || (at - frequency)
       last_run_time = last_run_time.in_time_zone(time_zone)
 
       # Ensure there are at least two future jobs scheduled and that the queue ahead time is filled

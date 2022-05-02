@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_job"
 require "sidekiq/api"
 require_relative "./simple_scheduler/at"

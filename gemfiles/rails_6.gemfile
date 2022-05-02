@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "rails", "~> 6.0"
+gem "activejob", "~> 6.0"
 gem "sidekiq", "~> 6.0"
 
 gemspec path: "../"

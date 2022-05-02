@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SimpleScheduler
   # Active Job class that queues jobs defined in the config file.
   class SchedulerJob < ActiveJob::Base
@@ -11,7 +13,7 @@ module SimpleScheduler
     # Returns the path of the Simple Scheduler configuration file.
     # @return [String]
     def config_path
-      ENV["SIMPLE_SCHEDULER_CONFIG"] || "config/simple_scheduler.yml"
+      ENV.fetch("SIMPLE_SCHEDULER_CONFIG", "config/simple_scheduler.yml")
     end
 
     # Load the global scheduler config from the YAML file.

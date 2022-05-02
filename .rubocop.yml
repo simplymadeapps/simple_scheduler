@@ -1,18 +1,22 @@
 AllCops:
   Exclude:
     - "spec/dummy/**/*"
+    - "vendor/bundle/**/*"
+    - "gemfiles/**/*"
+  NewCops: enable
+  TargetRubyVersion: 2.7
 
-Metrics/BlockLength:
-  Exclude:
-    - "spec/**/*"
+Layout/FirstArrayElementIndentation:
+  Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   Exclude:
     - "spec/simple_scheduler/task_spec.rb"
 
-Style/IndentArray:
-  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

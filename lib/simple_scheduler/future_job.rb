@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SimpleScheduler
   # Active Job class that wraps the scheduled job and determines if the job
   # should still be run based on the scheduled time and when the job expires.

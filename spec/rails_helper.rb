@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
 require "coverage_helper"
@@ -13,4 +15,6 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::Assertions
   config.include ActiveSupport::Testing::TimeHelpers
   config.filter_rails_from_backtrace!
+
+  ActiveJob::Base.logger = Rails.logger
 end
