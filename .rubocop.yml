@@ -4,6 +4,7 @@ AllCops:
     - "vendor/bundle/**/*"
     - "gemfiles/**/*"
   NewCops: enable
+  TargetRubyVersion: 2.7
 
 Layout/FirstArrayElementIndentation:
   Enabled: false
