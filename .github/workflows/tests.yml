@@ -10,17 +10,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: [2.7.6, 3.0.4, 3.1.2]
+        ruby: [3.2.9, 3.3.10, 3.4.7]
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       RAILS_ENV: test
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - uses: supercharge/redis-github-action@1.4.0
+
+      - uses: supercharge/redis-github-action@1.8.0
+
       - name: Install Code Climate
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
