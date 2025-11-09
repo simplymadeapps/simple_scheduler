@@ -170,7 +170,7 @@ describe SimpleScheduler::FutureJob, type: :job do
     let(:application_job) do
       Sidekiq::SortedEntry.new(
         nil,
-        nil,
+        1,
         "wrapped" => "SomeApplicationJob",
         "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"
       )
@@ -179,7 +179,7 @@ describe SimpleScheduler::FutureJob, type: :job do
     let(:simple_scheduler_job1) do
       Sidekiq::SortedEntry.new(
         nil,
-        nil,
+        1,
         "wrapped" => "SimpleScheduler::FutureJob",
         "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
         "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
@@ -189,7 +189,7 @@ describe SimpleScheduler::FutureJob, type: :job do
     let(:simple_scheduler_job2) do
       Sidekiq::SortedEntry.new(
         nil,
-        nil,
+        1,
         "wrapped" => "SimpleScheduler::FutureJob",
         "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
         "args" => [{ "arguments" => [{ "class" => "AnotherJob", "name" => "another_task" }] }]

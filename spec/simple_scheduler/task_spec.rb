@@ -29,7 +29,7 @@ describe SimpleScheduler::Task, type: :model do
     let(:sidekiq_entry_matching_class_and_name) do
       Sidekiq::SortedEntry.new(
         nil,
-        nil,
+        1,
         "wrapped" => "SimpleScheduler::FutureJob",
         "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
         "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "test_task" }] }]
@@ -39,7 +39,7 @@ describe SimpleScheduler::Task, type: :model do
     let(:sidekiq_entry_matching_class_wrong_task_name) do
       Sidekiq::SortedEntry.new(
         nil,
-        nil,
+        1,
         "wrapped" => "SimpleScheduler::FutureJob",
         "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
         "args" => [{ "arguments" => [{ "class" => "TestJob", "name" => "wrong_task" }] }]
@@ -49,7 +49,7 @@ describe SimpleScheduler::Task, type: :model do
     let(:sidekiq_entry_wrong_class) do
       Sidekiq::SortedEntry.new(
         nil,
-        nil,
+        1,
         "wrapped" => "SimpleScheduler::FutureJob",
         "class" => "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
         "args" => [{ "arguments" => [{ "class" => "SomeOtherJob", "name" => "test_task" }] }]
