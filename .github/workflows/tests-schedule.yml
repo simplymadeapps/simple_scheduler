@@ -1,0 +1,12 @@
+name: tests schedule
+on:
+  schedule:
+    # Run at 06:20 UTC every Monday (weekly)
+    - cron: "20 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    if: ${{ github.repository == 'simplymadeapps/simple-scheduler' }}
+    uses: ./.github/workflows/tests.yml
+    secrets: inherit

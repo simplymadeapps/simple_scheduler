@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+  workflow_call:
+
 jobs:
   tests:
     runs-on: ubuntu-latest
