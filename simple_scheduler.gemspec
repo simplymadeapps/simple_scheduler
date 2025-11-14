@@ -21,16 +21,17 @@ Gem::Specification.new do |s|
   s.license = "MIT"
 
   s.metadata["rubygems_mfa_required"] = "true"
-  s.required_ruby_version = ">= 2.7.0"
+  s.required_ruby_version = ">= 3.2.0"
 
   s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "activejob", ">= 6.0"
-  s.add_dependency "sidekiq", ">= 6.0"
+  s.add_dependency "activejob", ">= 7.2"
+  s.add_dependency "sidekiq", ">= 7.0"
+
   s.add_development_dependency "appraisal"
   s.add_development_dependency "rainbow"
-  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "rspec-rails", "~> 8"
   s.add_development_dependency "rubocop", "~> 1.28"
-  s.add_development_dependency "simplecov", "< 0.18" # https://github.com/codeclimate/test-reporter/issues/413
+  s.add_development_dependency "simplecov"
   s.add_development_dependency "simplecov-rcov"
 end

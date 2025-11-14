@@ -1,8 +1,6 @@
 # Simple Scheduler
 
 [![tests](https://github.com/simplymadeapps/simple_scheduler/actions/workflows/tests.yml/badge.svg)](https://github.com/simplymadeapps/simple_scheduler/actions/workflows/tests.yml)
-[![Code Climate](https://codeclimate.com/github/simplymadeapps/simple_scheduler/badges/gpa.svg)](https://codeclimate.com/github/simplymadeapps/simple_scheduler)
-[![Test Coverage](https://codeclimate.com/github/simplymadeapps/simple_scheduler/badges/coverage.svg)](https://codeclimate.com/github/simplymadeapps/simple_scheduler/coverage)
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/simplymadeapps/simple_scheduler/)
 
 Simple Scheduler is a scheduling add-on that is designed to be used with
@@ -27,7 +25,7 @@ Every option we evaluated seems to have the same flaw: **If your server is down,
 
 You must be using:
 
-- Rails 5.0+
+- Rails 7.2+
 - ActiveJob
 - [Sidekiq](http://sidekiq.org)
 - [Heroku Scheduler](https://elements.heroku.com/addons/scheduler)*
